@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/* Immersive media surface — Netflix / Disney+ energy */
+.media-shell {
+  --media-bg: #0a0a0a;
+  --media-elevated: #141414;
+  --media-card: #1a1a1a;
+  color: #f5f5f5;
+  background: var(--media-bg);
+  min-height: 100dvh;
+}
+
+.media-shell ::selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.media-fade-bottom {
+  background: linear-gradient(
+    to top,
+    var(--media-bg) 0%,
+    rgba(10, 10, 10, 0.85) 40%,
+    transparent 100%
+  );
+}
+
+.media-fade-left {
+  background: linear-gradient(
+    to right,
+    var(--media-bg) 0%,
+    rgba(10, 10, 10, 0.7) 45%,
+    transparent 100%
+  );
+}
+
+.media-row-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.media-row-scroll::-webkit-scrollbar {
+  display: none;
+}

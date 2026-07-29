@@ -1,0 +1,252 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Anybody", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-brutal: "Anton", "Impact", "Haettenschweiler", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-lime: var(--lime);
+  --color-lime-foreground: var(--lime-foreground);
+  --color-mute: var(--mute);
+
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+}
+
+:root {
+  --ink: #000000;
+  --paper: #ffffff;
+  --lime: #c8f500;
+  --lime-foreground: #000000;
+  --mute: #e8e8e8;
+
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #000000;
+  --primary-foreground: #c8f500;
+  --secondary: #e8e8e8;
+  --secondary-foreground: #000000;
+  --muted: #e8e8e8;
+  --muted-foreground: #525252;
+  --accent: #c8f500;
+  --accent-foreground: #000000;
+  --destructive: #dc2626;
+  --border: #000000;
+  --input: #000000;
+  --ring: #c8f500;
+  --radius: 0;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+  }
+
+  ::selection {
+    background: var(--lime);
+    color: var(--ink);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Ultra-wide display — Anybody ExtraExpanded Black (Wrapped Party energy) */
+  .type-display {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 175%;
+    font-variation-settings: "wdth" 175, "wght" 900;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+
+  /* Compressed brutal grotesk — Anton (Impact / Druk-adjacent) */
+  .type-brutal {
+    font-family: var(--font-brutal);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 0.85;
+    text-transform: uppercase;
+  }
+
+  /* Hollow stroke letters for fill/outline splits */
+  .text-outline-ink {
+    color: transparent;
+    -webkit-text-stroke: 0.045em var(--ink);
+    paint-order: stroke fill;
+  }
+
+  .offset-shadow-ink {
+    box-shadow: 5px 5px 0 0 var(--ink);
+  }
+
+  .offset-shadow-lime {
+    box-shadow: 5px 5px 0 0 var(--lime);
+  }
+
+  /* White offset slab with black stroke around the shadow */
+  .offset-shadow-paper {
+    box-shadow:
+      5px 5px 0 0 var(--paper),
+      5px 5px 0 2px var(--ink);
+  }
+
+  .verse-marquee {
+    animation: verse-marquee-scroll 140s linear infinite;
+  }
+
+  @keyframes verse-marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .verse-marquee {
+      animation: none;
+    }
+  }
+
+  /* Cool B&W documentary + TV static */
+  .photo-bw {
+    filter: grayscale(1) contrast(1.22) brightness(0.88);
+  }
+
+  /* Do not set position — callers use relative/absolute; relative here
+     overrides Tailwind absolute and collapses full-bleed hero bands. */
+  .photo-grain {
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .photo-grain::before,
+  .photo-grain::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  /* Coarse static layer */
+  .photo-grain::before {
+    opacity: 0.22;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+    background-size: 120px 120px;
+    animation: photo-static-shift 0.35s steps(2) infinite;
+  }
+
+  /* Fine grain + scan feel */
+  .photo-grain::after {
+    opacity: 0.38;
+    mix-blend-mode: overlay;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.12) 0px,
+        rgba(0, 0, 0, 0.12) 1px,
+        transparent 1px,
+        transparent 3px
+      ),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='turbulence' baseFrequency='1.2' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E");
+    background-size: auto, 90px 90px;
+    animation: photo-static-flicker 0.18s steps(3) infinite;
+  }
+
+  @keyframes photo-static-shift {
+    0% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(-2%, 1%);
+    }
+    50% {
+      transform: translate(1%, -2%);
+    }
+    75% {
+      transform: translate(-1%, -1%);
+    }
+    100% {
+      transform: translate(2%, 0);
+    }
+  }
+
+  @keyframes photo-static-flicker {
+    0% {
+      opacity: 0.28;
+      transform: translate(0, 0);
+    }
+    33% {
+      opacity: 0.42;
+      transform: translate(1%, -1%);
+    }
+    66% {
+      opacity: 0.32;
+      transform: translate(-2%, 1%);
+    }
+    100% {
+      opacity: 0.4;
+      transform: translate(1%, 2%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .photo-grain::before,
+    .photo-grain::after {
+      animation: none;
+    }
+
+    .photo-grain::before {
+      opacity: 0.18;
+    }
+
+    .photo-grain::after {
+      opacity: 0.3;
+    }
+  }
+}
