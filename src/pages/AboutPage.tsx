@@ -20,7 +20,7 @@ export function AboutPage() {
       detailTitle: 'Called to the margins',
       detailBody:
         'A vision for prisoners, addiction, the homeless, and the overlooked — Acts-style community with hard discipleship.',
-      image: peekSlideImages.streetWitness,
+      image: peekSlideImages.marginsGrit,
     },
     {
       id: 't2',

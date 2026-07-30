@@ -173,35 +173,58 @@ export function HomeHero({ slides }: HomeHeroProps) {
                 <p className="font-mono text-xs font-medium uppercase tracking-[0.3em]">
                   Norwich · England
                 </p>
-                <h1 className="type-display mt-5 text-4xl sm:text-5xl lg:text-[3.75rem] xl:text-[4.25rem]">
-                  <span className="block whitespace-nowrap">
-                    Be <RotatingHeroWord />
-                  </span>
-                  <span className="mt-3 block sm:mt-4">
-                    <span className="inline-block">
-                      <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
-                        <span className="block whitespace-nowrap text-[0.92em] leading-[0.88] text-lime">
-                          For Jesus
-                        </span>
-                      </span>
-                      <span
-                        aria-hidden
-                        className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
-                      />
-                      <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-lime-foreground/55 sm:text-[10px]">
-                        <span>Shape the city</span>
-                        <span aria-hidden>·</span>
-                        <span>Full Gospel</span>
-                        <span aria-hidden>·</span>
-                        <span>For Jesus</span>
-                      </span>
-                      <span
-                        aria-hidden
-                        className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
-                      />
+                <div className="relative mt-5">
+                  {/* Mobile — far right, aligned with heading */}
+                  <motion.div
+                    style={{ opacity: scrollCueOpacity }}
+                    className="pointer-events-none absolute top-0 right-0 z-20 flex items-center gap-2 text-ink lg:hidden"
+                  >
+                    <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em]">
+                      Scroll
                     </span>
-                  </span>
-                </h1>
+                    <motion.span
+                      className="flex size-7 items-center justify-center border-[1.5px] border-ink"
+                      animate={{ y: [0, 4, 0] }}
+                      transition={{
+                        duration: 1.1,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                      }}
+                    >
+                      <ArrowDown className="size-4" strokeWidth={2.5} />
+                    </motion.span>
+                  </motion.div>
+
+                  <h1 className="type-display max-w-[calc(100%-5.5rem)] text-4xl sm:text-5xl lg:max-w-none lg:text-[3.75rem] xl:text-[4.25rem]">
+                    <span className="block whitespace-nowrap">
+                      Be <RotatingHeroWord />
+                    </span>
+                    <span className="mt-3 block sm:mt-4">
+                      <span className="inline-block">
+                        <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
+                          <span className="block whitespace-nowrap text-[0.92em] leading-[0.88] text-lime">
+                            For Jesus
+                          </span>
+                        </span>
+                        <span
+                          aria-hidden
+                          className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
+                        />
+                        <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-lime-foreground/55 sm:text-[10px]">
+                          <span>Shape the city</span>
+                          <span aria-hidden>·</span>
+                          <span>Full Gospel</span>
+                          <span aria-hidden>·</span>
+                          <span>For Jesus</span>
+                        </span>
+                        <span
+                          aria-hidden
+                          className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
+                        />
+                      </span>
+                    </span>
+                  </h1>
+                </div>
                 <p className="mt-6 max-w-xl text-base font-medium leading-snug sm:text-xl">
                   {siteMeta.mission}
                 </p>
@@ -230,9 +253,10 @@ export function HomeHero({ slides }: HomeHeroProps) {
             </div>
           </div>
 
+          {/* Desktop — bottom centre */}
           <motion.div
             style={{ opacity: scrollCueOpacity }}
-            className="pointer-events-none absolute bottom-[7.75rem] left-1/2 z-20 -translate-x-1/2 sm:bottom-[8rem]"
+            className="pointer-events-none absolute bottom-[8rem] left-1/2 z-20 hidden -translate-x-1/2 lg:block"
           >
             <div className="flex items-center gap-3 text-ink">
               <span className="font-mono text-[15px] font-bold uppercase tracking-[0.28em]">
