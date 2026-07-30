@@ -4,12 +4,9 @@ import { HomeHero } from '@/components/marketing/HomeHero'
 import { StackSlide, StickyStack } from '@/components/marketing/StackSlide'
 import { urbanImages } from '@/lib/images'
 import { peekSlideImages } from '@/lib/peekSlides'
-import { getLocalContent } from '@/lib/sanity/client'
 import { siteMeta } from '@/lib/nav'
 
 export function HomePage() {
-  const content = getLocalContent()
-
   return (
     <>
       <HomeHero />
