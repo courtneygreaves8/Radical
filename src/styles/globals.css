@@ -44,14 +44,13 @@
 :root {
   --ink: #000000;
   --paper: #ffffff;
-  /* Brand primary — green (token still `lime`) */
-  --lime: #00e05a;
-  --lime-foreground: #000000;
+  /* Brand primary — electric blue (token still `lime`) */
+  --lime: #0066ff;
+  --lime-foreground: #ffffff;
   --mute: #e8e8e8;
-  /* Green-only brand — secondary tokens match primary (glitch unlocks blue) */
-  --crimson: #00e05a;
+  --crimson: #0066ff;
   --navy: #0c1b33;
-  --flame: #00e05a;
+  --flame: #0066ff;
 
   --background: #ffffff;
   --foreground: #000000;
@@ -60,42 +59,39 @@
   --popover: #ffffff;
   --popover-foreground: #000000;
   --primary: #000000;
-  --primary-foreground: #00e05a;
+  --primary-foreground: #0066ff;
   --secondary: #e8e8e8;
   --secondary-foreground: #000000;
   --muted: #e8e8e8;
   --muted-foreground: #525252;
-  --accent: #00e05a;
-  --accent-foreground: #000000;
-  --destructive: #000000;
+  --accent: #0066ff;
+  --accent-foreground: #ffffff;
+  --destructive: #0033aa;
   --border: #000000;
   --input: #000000;
-  --ring: #00e05a;
+  --ring: #0066ff;
   --radius: 0;
 }
 
-/* After Don’t Push glitch — blue brand (vars also set in JS) */
-html.site-blue {
-  --lime: #0066ff;
-  --lime-foreground: #ffffff;
-  --crimson: #0066ff;
-  --flame: #0066ff;
-  --accent: #0066ff;
-  --accent-foreground: #ffffff;
-  --primary-foreground: #0066ff;
-  --ring: #0066ff;
+/* After morph glitch — baby blue */
+html.site-baby {
+  --lime: #9ec9ff;
+  --lime-foreground: #000000;
+  --crimson: #9ec9ff;
+  --flame: #9ec9ff;
+  --accent: #9ec9ff;
+  --accent-foreground: #000000;
+  --primary-foreground: #9ec9ff;
+  --ring: #9ec9ff;
   --destructive: #0033aa;
 }
 
-/* Hero “For Jesus” on ink slab — brand green, white in blue mode */
+/* Hero “For Jesus” on ink slab — white on blue brands */
 .for-jesus-mark {
-  color: var(--lime);
-}
-html.site-blue .for-jesus-mark {
   color: #ffffff;
 }
 
-/* Amen flash — heavenly white/green bloom, then green restore */
+/* Amen flash — heavenly white/blue bloom, then main blue restore */
 html.site-amen-flash body {
   animation: site-amen-bloom 0.9s ease-out both;
 }
@@ -107,7 +103,7 @@ html.site-amen-flash body::before {
   inset: 0;
   z-index: 9999;
   background:
-    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.95) 0%, rgba(200, 255, 210, 0.75) 28%, rgba(0, 224, 90, 0.35) 55%, transparent 78%),
+    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.95) 0%, rgba(200, 220, 255, 0.75) 28%, rgba(0, 102, 255, 0.35) 55%, transparent 78%),
     rgba(255, 255, 255, 0.55);
   animation: site-amen-veil 0.9s ease-out both;
   mix-blend-mode: screen;
@@ -122,7 +118,7 @@ html.site-amen-flash body::after {
   background: radial-gradient(
     circle at center,
     rgba(255, 255, 255, 0.9) 0%,
-    rgba(0, 224, 90, 0.45) 40%,
+    rgba(0, 102, 255, 0.45) 40%,
     transparent 70%
   );
   animation: site-amen-pulse 0.9s ease-out both;
@@ -193,8 +189,8 @@ html.site-amen-flash body::after {
   background: radial-gradient(
     circle at 50% 42%,
     rgba(255, 255, 255, 0.98) 0%,
-    rgba(200, 255, 210, 0.85) 26%,
-    rgba(0, 224, 90, 0.55) 52%,
+    rgba(200, 220, 255, 0.85) 26%,
+    rgba(0, 102, 255, 0.55) 52%,
     rgba(255, 255, 255, 0.35) 72%,
     transparent 88%
   );

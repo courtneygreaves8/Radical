@@ -1,26 +1,28 @@
 const GLITCH_CLASS = 'site-glitch'
-const BLUE_CLASS = 'site-blue'
+const BABY_CLASS = 'site-baby'
 const AMEN_FLASH_CLASS = 'site-amen-flash'
 const GLITCH_MS = 1100
 const AMEN_FLASH_MS = 1100
-const BLUE_STORAGE_KEY = 'radical-site-blue'
+const BABY_STORAGE_KEY = 'radical-site-baby'
 
-const GREEN = {
-  lime: '#00e05a',
-  limeForeground: '#000000',
-} as const
-
-const BLUE = {
+/** Main brand — electric blue */
+const MAIN = {
   lime: '#0066ff',
   limeForeground: '#ffffff',
+} as const
+
+/** After morph click — baby blue */
+const BABY = {
+  lime: '#9ec9ff',
+  limeForeground: '#000000',
 } as const
 
 let glitchTimer: number | null = null
 let amenTimer: number | null = null
 
-function applyBrand(tone: 'green' | 'blue') {
+function applyBrand(tone: 'main' | 'baby') {
   const root = document.documentElement
-  const c = tone === 'blue' ? BLUE : GREEN
+  const c = tone === 'baby' ? BABY : MAIN
   root.style.setProperty('--lime', c.lime)
   root.style.setProperty('--lime-foreground', c.limeForeground)
   root.style.setProperty('--accent', c.lime)
@@ -29,63 +31,73 @@ function applyBrand(tone: 'green' | 'blue') {
   root.style.setProperty('--ring', c.lime)
   root.style.setProperty('--crimson', c.lime)
   root.style.setProperty('--flame', c.lime)
-  root.style.setProperty('--destructive', tone === 'blue' ? '#0033aa' : '#000000')
+  root.style.setProperty(
+    '--destructive',
+    tone === 'baby' ? '#0033aa' : '#0033aa'
+  )
 
-  if (tone === 'blue') {
-    root.classList.add(BLUE_CLASS)
-    root.dataset.brand = 'blue'
+  if (tone === 'baby') {
+    root.classList.add(BABY_CLASS)
+    root.dataset.brand = 'baby'
   } else {
-    root.classList.remove(BLUE_CLASS)
-    delete root.dataset.brand
-    // Clear any leftover inline overrides from FOUC / prior blue
-    root.style.setProperty('--lime', GREEN.lime)
-    root.style.setProperty('--lime-foreground', GREEN.limeForeground)
-    root.style.setProperty('--accent', GREEN.lime)
-    root.style.setProperty('--accent-foreground', GREEN.limeForeground)
-    root.style.setProperty('--primary-foreground', GREEN.lime)
-    root.style.setProperty('--ring', GREEN.lime)
-    root.style.setProperty('--crimson', GREEN.lime)
-    root.style.setProperty('--flame', GREEN.lime)
-    root.style.setProperty('--destructive', '#000000')
+    root.classList.remove(BABY_CLASS)
+    root.dataset.brand = 'blue'
   }
 }
 
-export function isSiteBlue(): boolean {
+export function isSiteBaby(): boolean {
   try {
     return (
-      sessionStorage.getItem(BLUE_STORAGE_KEY) === '1' ||
-      document.documentElement.classList.contains(BLUE_CLASS)
+      sessionStorage.getItem(BABY_STORAGE_KEY) === '1' ||
+      document.documentElement.classList.contains(BABY_CLASS)
     )
   } catch {
-    return document.documentElement.classList.contains(BLUE_CLASS)
+    return document.documentElement.classList.contains(BABY_CLASS)
   }
 }
 
-/** Restore blue shift if unlocked this session (call early on boot). */
+/** @deprecated use isSiteBaby */
+export function isSiteBlue(): boolean {
+  return isSiteBaby()
+}
+
+/** Restore baby-blue shift if unlocked this session. */
 export function restoreSiteBlueIfNeeded() {
   if (typeof document === 'undefined') return
-  if (isSiteBlue()) applyBrand('blue')
+  // Clear legacy green→blue key
+  try {
+    sessionStorage.removeItem('radical-site-blue')
+  } catch {
+    /* ignore */
+  }
+  if (isSiteBaby()) applyBrand('baby')
+  else applyBrand('main')
 }
 
-function unlockSiteBlue() {
-  applyBrand('blue')
+function unlockSiteBaby() {
+  applyBrand('baby')
   try {
-    sessionStorage.setItem(BLUE_STORAGE_KEY, '1')
+    sessionStorage.setItem(BABY_STORAGE_KEY, '1')
   } catch {
     /* ignore */
   }
 }
 
+export function restoreSiteMain() {
+  applyBrand('main')
+  try {
+    sessionStorage.removeItem(BABY_STORAGE_KEY)
+  } catch {
+    /* ignore */
+  }
+}
+
+/** @deprecated use restoreSiteMain */
 export function restoreSiteGreen() {
-  applyBrand('green')
-  try {
-    sessionStorage.removeItem(BLUE_STORAGE_KEY)
-  } catch {
-    /* ignore */
-  }
+  restoreSiteMain()
 }
 
-/** Brief full-site glitch — then brand flips to blue. */
+/** Brief full-site glitch — then brand flips to baby blue. */
 export function triggerSiteGlitch(durationMs = GLITCH_MS) {
   const root = document.documentElement
   root.classList.remove(AMEN_FLASH_CLASS)
@@ -93,22 +105,19 @@ export function triggerSiteGlitch(durationMs = GLITCH_MS) {
   if (glitchTimer != null) window.clearTimeout(glitchTimer)
   glitchTimer = window.setTimeout(() => {
     root.classList.remove(GLITCH_CLASS)
-    unlockSiteBlue()
+    unlockSiteBaby()
     glitchTimer = null
   }, durationMs)
   return durationMs
 }
 
-/**
- * Heavy heavenly flash / glow — then brand returns to green.
- */
+/** Heavenly flash — then brand returns to main blue. */
 export function triggerAmenFlash(durationMs = AMEN_FLASH_MS) {
   const root = document.documentElement
   root.classList.remove(GLITCH_CLASS)
   root.classList.add(AMEN_FLASH_CLASS)
-  // Flip green mid-flash so the bloom lands on green
   window.setTimeout(() => {
-    restoreSiteGreen()
+    restoreSiteMain()
   }, Math.min(280, durationMs * 0.25))
 
   if (amenTimer != null) window.clearTimeout(amenTimer)

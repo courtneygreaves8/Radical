@@ -1,9 +1,12 @@
-import { useRef, useState, type MouseEvent } from 'react'
+import { useEffect, useId, useRef, useState, type MouseEvent } from 'react'
 import { createPortal } from 'react-dom'
+import { Link } from 'react-router-dom'
+import { X } from 'lucide-react'
 
 import { MorphMark } from '@/components/marketing/MorphMark'
+import { Button } from '@/components/ui/button'
 import {
-  isSiteBlue,
+  isSiteBaby,
   triggerAmenFlash,
   triggerSiteGlitch,
 } from '@/lib/siteGlitch'
@@ -20,17 +23,34 @@ function isModifierClick(event: MouseEvent | globalThis.MouseEvent) {
 
 /**
  * Hero morph easter egg —
- * click: glitch → blue + Jesus speech bubble
- * click again: Amen flash → green
+ * click: glitch → baby blue + disobedience dialog
+ * alt / later click: Jesus confession → Amen flash → main blue
  */
 export function DontPushButton({
   className,
   markClassName = 'size-64 text-ink xl:size-80',
 }: DontPushButtonProps) {
+  const [open, setOpen] = useState(false)
   const [busy, setBusy] = useState(false)
   const [confession, setConfession] = useState(false)
   const [flashing, setFlashing] = useState(false)
   const modifierDown = useRef(false)
+  const titleId = useId()
+  const descId = useId()
+
+  useEffect(() => {
+    if (!open) return
+    function onKey(event: KeyboardEvent) {
+      if (event.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prev
+    }
+  }, [open])
 
   function handleMouseDown(event: MouseEvent<HTMLButtonElement>) {
     if (isModifierClick(event)) {
@@ -44,6 +64,7 @@ export function DontPushButton({
   function runAmen() {
     setBusy(true)
     setConfession(false)
+    setOpen(false)
     setFlashing(true)
     const ms = triggerAmenFlash()
     window.setTimeout(() => {
@@ -56,6 +77,8 @@ export function DontPushButton({
     if (busy) return
     event.preventDefault()
     event.stopPropagation()
+
+    const modifier = isModifierClick(event) || modifierDown.current
     modifierDown.current = false
 
     if (confession) {
@@ -63,17 +86,18 @@ export function DontPushButton({
       return
     }
 
-    // Already blue (e.g. after glitch) — show / keep Jesus bubble path
-    if (isSiteBlue()) {
+    // Already baby blue — confession path (or modifier anytime)
+    if (modifier || isSiteBaby()) {
+      setOpen(false)
       setConfession(true)
       return
     }
 
-    // Glitch → blue → Jesus confession bubble
+    // First click: glitch → baby blue + disobedience popup
     setBusy(true)
     const ms = triggerSiteGlitch()
     window.setTimeout(() => {
-      setConfession(true)
+      setOpen(true)
       setBusy(false)
     }, ms)
   }
@@ -88,7 +112,10 @@ export function DontPushButton({
           event.preventDefault()
           if (busy) return
           if (confession) runAmen()
-          else setConfession(true)
+          else {
+            setOpen(false)
+            setConfession(true)
+          }
         }}
         disabled={busy}
         className={cn(
@@ -108,7 +135,6 @@ export function DontPushButton({
           )}
         />
 
-        {/* Hover hint — hidden once Jesus bubble is up */}
         <span
           className={cn(
             'pointer-events-none absolute top-[18%] left-1/2 z-10 w-[11.5rem] -translate-x-1/2 xl:top-[20%] xl:w-[13rem]',
@@ -134,7 +160,6 @@ export function DontPushButton({
           </span>
         </span>
 
-        {/* Post-glitch / confession bubble */}
         {confession ? (
           <span
             role="status"
@@ -168,6 +193,68 @@ export function DontPushButton({
             document.body
           )
         : null}
+
+      {open ? (
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center p-5 sm:p-8"
+          role="presentation"
+        >
+          <button
+            type="button"
+            className="absolute inset-0 bg-ink/75"
+            aria-label="Close"
+            onClick={() => setOpen(false)}
+          />
+
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            aria-describedby={descId}
+            className="relative z-10 w-full max-w-md border-2 border-ink bg-paper p-6 text-ink offset-shadow-lime sm:p-8"
+          >
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="absolute top-3 right-3 z-10 flex size-9 items-center justify-center text-ink/50 transition hover:bg-lime hover:text-lime-foreground"
+              aria-label="Close dialog"
+            >
+              <X className="size-4" strokeWidth={2} />
+            </button>
+
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-ink/45">
+              Romans 3 · Short version
+            </p>
+            <h2
+              id={titleId}
+              className="type-display mt-4 text-3xl leading-[0.92] sm:text-4xl"
+            >
+              See how easy that was?
+            </h2>
+            <p
+              id={descId}
+              className="mt-4 text-sm leading-relaxed text-ink/75 sm:text-base"
+            >
+              One push and the whole page broke. Now imagine picking an apple —
+              one bite, and the whole human story cracked. We&apos;re all
+              sinners. Soft hearts. Hard truth. Jesus is the only repair.
+            </p>
+
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Button variant="lime" offset asChild>
+                <Link to="/beliefs">What we believe</Link>
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setOpen(false)}
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </>
   )
 }

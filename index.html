@@ -18,18 +18,20 @@
     <script>
       ;(function () {
         try {
-          if (sessionStorage.getItem('radical-site-blue') !== '1') return
+          // Drop legacy session keys
+          sessionStorage.removeItem('radical-site-blue')
+          if (sessionStorage.getItem('radical-site-baby') !== '1') return
           var r = document.documentElement
-          r.classList.add('site-blue')
-          r.dataset.brand = 'blue'
-          r.style.setProperty('--lime', '#0066ff')
-          r.style.setProperty('--lime-foreground', '#ffffff')
-          r.style.setProperty('--crimson', '#0066ff')
-          r.style.setProperty('--flame', '#0066ff')
-          r.style.setProperty('--accent', '#0066ff')
-          r.style.setProperty('--accent-foreground', '#ffffff')
-          r.style.setProperty('--primary-foreground', '#0066ff')
-          r.style.setProperty('--ring', '#0066ff')
+          r.classList.add('site-baby')
+          r.dataset.brand = 'baby'
+          r.style.setProperty('--lime', '#9ec9ff')
+          r.style.setProperty('--lime-foreground', '#000000')
+          r.style.setProperty('--crimson', '#9ec9ff')
+          r.style.setProperty('--flame', '#9ec9ff')
+          r.style.setProperty('--accent', '#9ec9ff')
+          r.style.setProperty('--accent-foreground', '#000000')
+          r.style.setProperty('--primary-foreground', '#9ec9ff')
+          r.style.setProperty('--ring', '#9ec9ff')
           r.style.setProperty('--destructive', '#0033aa')
         } catch (e) {}
       })()
