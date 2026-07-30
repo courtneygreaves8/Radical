@@ -1,6 +1,8 @@
 const GLITCH_CLASS = 'site-glitch'
 const BLUE_CLASS = 'site-blue'
+const AMEN_FLASH_CLASS = 'site-amen-flash'
 const GLITCH_MS = 1100
+const AMEN_FLASH_MS = 900
 const BLUE_STORAGE_KEY = 'radical-site-blue'
 
 const GREEN = {
@@ -14,6 +16,7 @@ const BLUE = {
 } as const
 
 let glitchTimer: number | null = null
+let amenTimer: number | null = null
 
 function applyBrand(tone: 'green' | 'blue') {
   const root = document.documentElement
@@ -24,7 +27,6 @@ function applyBrand(tone: 'green' | 'blue') {
   root.style.setProperty('--accent-foreground', c.limeForeground)
   root.style.setProperty('--primary-foreground', c.lime)
   root.style.setProperty('--ring', c.lime)
-  /* Green-only / blue-only — secondary tokens track primary */
   root.style.setProperty('--crimson', c.lime)
   root.style.setProperty('--flame', c.lime)
   root.style.setProperty('--destructive', tone === 'blue' ? '#0033aa' : '#000000')
@@ -61,6 +63,15 @@ function unlockSiteBlue() {
   }
 }
 
+function restoreSiteGreen() {
+  applyBrand('green')
+  try {
+    sessionStorage.removeItem(BLUE_STORAGE_KEY)
+  } catch {
+    /* ignore */
+  }
+}
+
 /** Brief full-site glitch — then brand flips to blue. */
 export function triggerSiteGlitch(durationMs = GLITCH_MS) {
   const root = document.documentElement
@@ -70,6 +81,22 @@ export function triggerSiteGlitch(durationMs = GLITCH_MS) {
     root.classList.remove(GLITCH_CLASS)
     unlockSiteBlue()
     glitchTimer = null
+  }, durationMs)
+  return durationMs
+}
+
+/**
+ * Heavy heavenly flash / glow — then brand returns to green.
+ * Returns flash duration so callers can sync UI.
+ */
+export function triggerAmenFlash(durationMs = AMEN_FLASH_MS) {
+  const root = document.documentElement
+  root.classList.add(AMEN_FLASH_CLASS)
+  if (amenTimer != null) window.clearTimeout(amenTimer)
+  amenTimer = window.setTimeout(() => {
+    root.classList.remove(AMEN_FLASH_CLASS)
+    restoreSiteGreen()
+    amenTimer = null
   }, durationMs)
   return durationMs
 }
