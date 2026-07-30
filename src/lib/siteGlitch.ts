@@ -2,7 +2,7 @@ const GLITCH_CLASS = 'site-glitch'
 const BLUE_CLASS = 'site-blue'
 const AMEN_FLASH_CLASS = 'site-amen-flash'
 const GLITCH_MS = 1100
-const AMEN_FLASH_MS = 900
+const AMEN_FLASH_MS = 1100
 const BLUE_STORAGE_KEY = 'radical-site-blue'
 
 const GREEN = {
@@ -37,14 +37,27 @@ function applyBrand(tone: 'green' | 'blue') {
   } else {
     root.classList.remove(BLUE_CLASS)
     delete root.dataset.brand
+    // Clear any leftover inline overrides from FOUC / prior blue
+    root.style.setProperty('--lime', GREEN.lime)
+    root.style.setProperty('--lime-foreground', GREEN.limeForeground)
+    root.style.setProperty('--accent', GREEN.lime)
+    root.style.setProperty('--accent-foreground', GREEN.limeForeground)
+    root.style.setProperty('--primary-foreground', GREEN.lime)
+    root.style.setProperty('--ring', GREEN.lime)
+    root.style.setProperty('--crimson', GREEN.lime)
+    root.style.setProperty('--flame', GREEN.lime)
+    root.style.setProperty('--destructive', '#000000')
   }
 }
 
 export function isSiteBlue(): boolean {
   try {
-    return sessionStorage.getItem(BLUE_STORAGE_KEY) === '1'
+    return (
+      sessionStorage.getItem(BLUE_STORAGE_KEY) === '1' ||
+      document.documentElement.classList.contains(BLUE_CLASS)
+    )
   } catch {
-    return false
+    return document.documentElement.classList.contains(BLUE_CLASS)
   }
 }
 
@@ -63,7 +76,7 @@ function unlockSiteBlue() {
   }
 }
 
-function restoreSiteGreen() {
+export function restoreSiteGreen() {
   applyBrand('green')
   try {
     sessionStorage.removeItem(BLUE_STORAGE_KEY)
@@ -75,6 +88,7 @@ function restoreSiteGreen() {
 /** Brief full-site glitch — then brand flips to blue. */
 export function triggerSiteGlitch(durationMs = GLITCH_MS) {
   const root = document.documentElement
+  root.classList.remove(AMEN_FLASH_CLASS)
   root.classList.add(GLITCH_CLASS)
   if (glitchTimer != null) window.clearTimeout(glitchTimer)
   glitchTimer = window.setTimeout(() => {
@@ -87,15 +101,19 @@ export function triggerSiteGlitch(durationMs = GLITCH_MS) {
 
 /**
  * Heavy heavenly flash / glow — then brand returns to green.
- * Returns flash duration so callers can sync UI.
  */
 export function triggerAmenFlash(durationMs = AMEN_FLASH_MS) {
   const root = document.documentElement
+  root.classList.remove(GLITCH_CLASS)
   root.classList.add(AMEN_FLASH_CLASS)
+  // Flip green mid-flash so the bloom lands on green
+  window.setTimeout(() => {
+    restoreSiteGreen()
+  }, Math.min(280, durationMs * 0.25))
+
   if (amenTimer != null) window.clearTimeout(amenTimer)
   amenTimer = window.setTimeout(() => {
     root.classList.remove(AMEN_FLASH_CLASS)
-    restoreSiteGreen()
     amenTimer = null
   }, durationMs)
   return durationMs

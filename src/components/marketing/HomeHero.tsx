@@ -202,7 +202,7 @@ export function HomeHero({ slides }: HomeHeroProps) {
                     <span className="mt-3 block sm:mt-4">
                       <span className="inline-block">
                         <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
-                          <span className="block whitespace-nowrap text-[0.92em] leading-[0.88] text-lime">
+                          <span className="for-jesus-mark block whitespace-nowrap text-[0.92em] leading-[0.88]">
                             For Jesus
                           </span>
                         </span>
@@ -315,7 +315,7 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
               <span className="mt-3 block sm:mt-4">
                 <span className="inline-block">
                   <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
-                    <span className="block whitespace-nowrap text-[0.92em] leading-[0.88] text-lime">
+                    <span className="for-jesus-mark block whitespace-nowrap text-[0.92em] leading-[0.88]">
                       For Jesus
                     </span>
                   </span>
