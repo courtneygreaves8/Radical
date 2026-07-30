@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { Link } from 'react-router-dom'
 import {
   motion,
@@ -21,13 +21,53 @@ type HomeHeroProps = {
   slides: CarouselSlide[]
 }
 
+function useIsDesktop() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia('(min-width: 1024px)')
+      mq.addEventListener('change', onChange)
+      return () => mq.removeEventListener('change', onChange)
+    },
+    () => window.matchMedia('(min-width: 1024px)').matches,
+    () => false
+  )
+}
+
+function MobileScrollCue({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn(
+        'pointer-events-none flex shrink-0 items-center gap-2 text-ink',
+        className
+      )}
+    >
+      <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em]">
+        Scroll
+      </span>
+      <motion.span
+        className="flex size-7 items-center justify-center border-[1.5px] border-ink"
+        animate={{ y: [0, 4, 0] }}
+        transition={{
+          duration: 1.1,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      >
+        <ArrowDown className="size-4" strokeWidth={2.5} />
+      </motion.span>
+    </div>
+  )
+}
+
 /**
  * Full-bleed lime over a full-bleed photo.
- * On scroll the lime shrinks from the bottom; the image was always underneath.
+ * Desktop: on scroll the lime shrinks from the bottom.
+ * Mobile: static lime + image below (no expand scrub).
  */
 export function HomeHero({ slides }: HomeHeroProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const reduceMotion = useReducedMotion()
+  const isDesktop = useIsDesktop()
   const [slideIndex, setSlideIndex] = useState(0)
   const slide = slides[slideIndex] ?? slides[0]
 
@@ -37,27 +77,25 @@ export function HomeHero({ slides }: HomeHeroProps) {
   })
 
   const p = useTransform(scrollYProgress, [0, 0.85], [0, 1])
-  /* Lime pinned to top: 100% → 50%. Image stays full-bleed underneath. */
   const limeHeight = useTransform(p, (v) => `${100 - v * 50}%`)
   const chromeOpacity = useTransform(p, [0.35, 0.75], [0, 1])
   const scrollCueOpacity = useTransform(p, [0, 0.12], [1, 0])
 
   useEffect(() => {
-    if (slides.length < 2 || reduceMotion) return
+    if (slides.length < 2 || reduceMotion || !isDesktop) return
     const id = window.setInterval(() => {
       setSlideIndex((i) => (i + 1) % slides.length)
     }, 5500)
     return () => window.clearInterval(id)
-  }, [slides.length, reduceMotion])
+  }, [slides.length, reduceMotion, isDesktop])
 
-  if (reduceMotion) {
+  if (reduceMotion || !isDesktop) {
     return <StaticSplit slides={slides} />
   }
 
   return (
     <section ref={sectionRef} className="relative h-[220vh] bg-ink">
-      <div className="sticky top-16 h-[calc(100dvh-4rem)] overflow-hidden border-b-2 border-ink sm:top-[4.5rem] sm:h-[calc(100dvh-4.5rem)]">
-        {/* Full-bleed image — always edge-to-edge; lime uncovers it */}
+      <div className="sticky top-[4.5rem] h-[calc(100dvh-4.5rem)] overflow-hidden border-b-2 border-ink">
         <div className="absolute inset-0 z-0 overflow-hidden bg-ink">
           {slide ? (
             <div className="photo-grain absolute inset-0">
@@ -151,12 +189,10 @@ export function HomeHero({ slides }: HomeHeroProps) {
           </motion.div>
         </div>
 
-        {/* Lime slab — shrinks from the bottom to reveal the photo */}
         <motion.div
           style={{ height: limeHeight }}
           className="absolute inset-x-0 top-0 z-10 overflow-hidden bg-lime text-lime-foreground"
         >
-          {/* Static background asterisk — 7% opacity, 2× size, right half clipped */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[min(120vw,76rem)] items-center overflow-hidden"
@@ -173,58 +209,35 @@ export function HomeHero({ slides }: HomeHeroProps) {
                 <p className="font-mono text-xs font-medium uppercase tracking-[0.3em]">
                   Norwich · England
                 </p>
-                <div className="relative mt-5">
-                  {/* Mobile — far right, aligned with heading */}
-                  <motion.div
-                    style={{ opacity: scrollCueOpacity }}
-                    className="pointer-events-none absolute top-0 right-0 z-20 flex items-center gap-2 text-ink lg:hidden"
-                  >
-                    <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em]">
-                      Scroll
-                    </span>
-                    <motion.span
-                      className="flex size-7 items-center justify-center border-[1.5px] border-ink"
-                      animate={{ y: [0, 4, 0] }}
-                      transition={{
-                        duration: 1.1,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                      }}
-                    >
-                      <ArrowDown className="size-4" strokeWidth={2.5} />
-                    </motion.span>
-                  </motion.div>
-
-                  <h1 className="type-display max-w-[calc(100%-5.5rem)] text-4xl sm:text-5xl lg:max-w-none lg:text-[3.75rem] xl:text-[4.25rem]">
-                    <span className="block whitespace-nowrap">
-                      Be <RotatingHeroWord />
-                    </span>
-                    <span className="mt-3 block sm:mt-4">
-                      <span className="inline-block">
-                        <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
-                          <span className="for-jesus-mark block whitespace-nowrap text-[0.92em] leading-[0.88]">
-                            For Jesus
-                          </span>
+                <h1 className="type-display mt-5 text-4xl sm:text-5xl lg:text-[3.75rem] xl:text-[4.25rem]">
+                  <span className="block whitespace-nowrap">
+                    Be <RotatingHeroWord />
+                  </span>
+                  <span className="mt-3 block sm:mt-4">
+                    <span className="inline-block">
+                      <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
+                        <span className="for-jesus-mark block whitespace-nowrap text-[0.92em] leading-[0.88]">
+                          For Jesus
                         </span>
-                        <span
-                          aria-hidden
-                          className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
-                        />
-                        <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-lime-foreground/55 sm:text-[10px]">
-                          <span>Shape the city</span>
-                          <span aria-hidden>·</span>
-                          <span>Full Gospel</span>
-                          <span aria-hidden>·</span>
-                          <span>For Jesus</span>
-                        </span>
-                        <span
-                          aria-hidden
-                          className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
-                        />
                       </span>
+                      <span
+                        aria-hidden
+                        className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
+                      />
+                      <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-lime-foreground/55 sm:text-[10px]">
+                        <span>Shape the city</span>
+                        <span aria-hidden>·</span>
+                        <span>Full Gospel</span>
+                        <span aria-hidden>·</span>
+                        <span>For Jesus</span>
+                      </span>
+                      <span
+                        aria-hidden
+                        className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
+                      />
                     </span>
-                  </h1>
-                </div>
+                  </span>
+                </h1>
                 <p className="mt-6 max-w-xl text-base font-medium leading-snug sm:text-xl">
                   {siteMeta.mission}
                 </p>
@@ -232,12 +245,7 @@ export function HomeHero({ slides }: HomeHeroProps) {
                   {siteMeta.missionSupport}
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Button
-                    variant="default"
-                    size="lg"
-                    offset
-                    asChild
-                  >
+                  <Button variant="default" size="lg" offset asChild>
                     <Link to="/visit">
                       This Sunday · {siteMeta.visit.time}
                       <ArrowRight className="size-4" />
@@ -253,10 +261,9 @@ export function HomeHero({ slides }: HomeHeroProps) {
             </div>
           </div>
 
-          {/* Desktop — bottom centre */}
           <motion.div
             style={{ opacity: scrollCueOpacity }}
-            className="pointer-events-none absolute bottom-[8rem] left-1/2 z-20 hidden -translate-x-1/2 lg:block"
+            className="pointer-events-none absolute bottom-[8rem] left-1/2 z-20 -translate-x-1/2"
           >
             <div className="flex items-center gap-3 text-ink">
               <span className="font-mono text-[15px] font-bold uppercase tracking-[0.28em]">
@@ -292,8 +299,8 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
   const slide = slides[0]
 
   return (
-    <section className="flex min-h-[calc(100dvh-4rem)] flex-col border-b-2 border-ink">
-      <div className="relative flex flex-1 items-center overflow-hidden bg-lime px-5 py-16 text-lime-foreground sm:px-8">
+    <section className="flex flex-col border-b-2 border-ink">
+      <div className="relative flex min-h-[calc(100dvh-4rem)] flex-col overflow-hidden bg-lime text-lime-foreground sm:min-h-[calc(100dvh-4.5rem)]">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[min(120vw,76rem)] items-center overflow-hidden"
@@ -303,47 +310,56 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
             className="size-[min(120vw,76rem)] shrink-0 translate-x-1/2 text-ink/[0.07]"
           />
         </div>
-        <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-start px-5 pb-28 pt-8 sm:justify-center sm:px-8 sm:pb-24 sm:pt-12 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-10">
           <div className="max-w-3xl">
             <p className="font-mono text-xs font-medium uppercase tracking-[0.3em]">
               Norwich · England
             </p>
-            <h1 className="type-display mt-5 text-4xl sm:text-5xl lg:text-[3.75rem]">
-              <span className="block whitespace-nowrap">
-                Be <RotatingHeroWord />
+
+            <h1 className="type-display mt-6 text-[2.35rem] leading-[0.95] sm:mt-5 sm:text-5xl lg:text-[3.75rem]">
+              {/* Scroll sits on the same row as Be Radical */}
+              <span className="flex items-start justify-between gap-3">
+                <span className="min-w-0 whitespace-nowrap">
+                  Be <RotatingHeroWord />
+                </span>
+                <MobileScrollCue className="mt-1 lg:hidden" />
               </span>
-              <span className="mt-3 block sm:mt-4">
+
+              <span className="mt-5 block sm:mt-4">
                 <span className="inline-block">
                   <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
                     <span className="for-jesus-mark block whitespace-nowrap text-[0.92em] leading-[0.88]">
                       For Jesus
                     </span>
                   </span>
-                  <span aria-hidden className="mt-3 block h-px w-full bg-ink sm:mt-3.5" />
-                  <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-lime-foreground/55 sm:text-[10px]">
+                  <span
+                    aria-hidden
+                    className="mt-4 block h-px w-full bg-ink sm:mt-3.5"
+                  />
+                  <span className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-lime-foreground/55 sm:mt-3 sm:text-[10px]">
                     <span>Shape the city</span>
                     <span aria-hidden>·</span>
                     <span>Full Gospel</span>
                     <span aria-hidden>·</span>
                     <span>For Jesus</span>
                   </span>
-                  <span aria-hidden className="mt-3 block h-px w-full bg-ink sm:mt-3.5" />
+                  <span
+                    aria-hidden
+                    className="mt-4 block h-px w-full bg-ink sm:mt-3.5"
+                  />
                 </span>
               </span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg font-medium">
+
+            <p className="mt-8 max-w-xl text-base font-medium leading-snug sm:mt-6 sm:text-xl">
               {siteMeta.mission}
             </p>
-            <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink/60 sm:text-base">
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-lime-foreground/60 sm:mt-2 sm:text-base">
               {siteMeta.missionSupport}
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button
-                variant="default"
-                size="lg"
-                offset
-                asChild
-              >
+            <div className="mt-10 flex flex-col gap-3 sm:mt-8 sm:flex-row">
+              <Button variant="default" size="lg" offset asChild>
                 <Link to="/visit">
                   This Sunday · {siteMeta.visit.time}
                   <ArrowRight className="size-4" />
@@ -356,8 +372,17 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
           </div>
           <DontPushButton markClassName="size-72 text-ink" />
         </div>
+
+        <div className="absolute inset-x-0 bottom-0 z-30">
+          <VerseMarquee
+            className="border-b-0 border-t-2 border-ink"
+            invertWhenVisible="#home-about"
+          />
+        </div>
       </div>
-      <div className="relative h-[42vh] w-full overflow-hidden bg-ink">
+
+      {/* Image below — no scroll-expand on mobile */}
+      <div className="relative h-[38vh] w-full overflow-hidden bg-ink sm:h-[42vh]">
         {slide ? (
           <div className="photo-grain absolute inset-0">
             <img
@@ -369,16 +394,12 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
                   ? { objectPosition: slide.imagePosition }
                   : undefined
               }
+              decoding="async"
             />
-            <div className="absolute inset-0 z-[2] bg-gradient-to-t from-ink via-ink/40 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 z-[3] p-6 pb-16">
-              <h2 className="type-display text-2xl text-paper">{slide.title}</h2>
-              <p className="mt-2 text-sm text-paper/70">{slide.caption}</p>
-            </div>
+            <div className="absolute inset-0 z-[2] bg-gradient-to-t from-ink/50 via-transparent to-transparent" />
           </div>
         ) : null}
       </div>
-      <VerseMarquee className="border-b-0" invertWhenVisible="#home-about" />
     </section>
   )
 }
