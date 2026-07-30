@@ -1,28 +1,28 @@
 const GLITCH_CLASS = 'site-glitch'
-const BABY_CLASS = 'site-baby'
+const DEEP_CLASS = 'site-deep'
 const AMEN_FLASH_CLASS = 'site-amen-flash'
 const GLITCH_MS = 1100
 const AMEN_FLASH_MS = 1100
-const BABY_STORAGE_KEY = 'radical-site-baby'
+const DEEP_STORAGE_KEY = 'radical-site-deep'
 
-/** Main brand — electric blue */
-const MAIN = {
-  lime: '#0066ff',
-  limeForeground: '#ffffff',
-} as const
-
-/** After morph click — baby blue */
-const BABY = {
+/** Primary brand — baby blue */
+const PRIMARY = {
   lime: '#9ec9ff',
   limeForeground: '#000000',
+} as const
+
+/** After morph click — dark electric blue */
+const DEEP = {
+  lime: '#0066ff',
+  limeForeground: '#ffffff',
 } as const
 
 let glitchTimer: number | null = null
 let amenTimer: number | null = null
 
-function applyBrand(tone: 'main' | 'baby') {
+function applyBrand(tone: 'primary' | 'deep') {
   const root = document.documentElement
-  const c = tone === 'baby' ? BABY : MAIN
+  const c = tone === 'deep' ? DEEP : PRIMARY
   root.style.setProperty('--lime', c.lime)
   root.style.setProperty('--lime-foreground', c.limeForeground)
   root.style.setProperty('--accent', c.lime)
@@ -31,62 +31,64 @@ function applyBrand(tone: 'main' | 'baby') {
   root.style.setProperty('--ring', c.lime)
   root.style.setProperty('--crimson', c.lime)
   root.style.setProperty('--flame', c.lime)
-  root.style.setProperty(
-    '--destructive',
-    tone === 'baby' ? '#0033aa' : '#0033aa'
-  )
+  root.style.setProperty('--destructive', '#0033aa')
 
-  if (tone === 'baby') {
-    root.classList.add(BABY_CLASS)
-    root.dataset.brand = 'baby'
+  root.classList.remove('site-baby', DEEP_CLASS)
+  if (tone === 'deep') {
+    root.classList.add(DEEP_CLASS)
+    root.dataset.brand = 'deep'
   } else {
-    root.classList.remove(BABY_CLASS)
-    root.dataset.brand = 'blue'
+    root.dataset.brand = 'baby'
   }
 }
 
-export function isSiteBaby(): boolean {
+export function isSiteDeep(): boolean {
   try {
     return (
-      sessionStorage.getItem(BABY_STORAGE_KEY) === '1' ||
-      document.documentElement.classList.contains(BABY_CLASS)
+      sessionStorage.getItem(DEEP_STORAGE_KEY) === '1' ||
+      document.documentElement.classList.contains(DEEP_CLASS)
     )
   } catch {
-    return document.documentElement.classList.contains(BABY_CLASS)
+    return document.documentElement.classList.contains(DEEP_CLASS)
   }
 }
 
-/** @deprecated use isSiteBaby */
-export function isSiteBlue(): boolean {
-  return isSiteBaby()
+/** @deprecated use isSiteDeep */
+export function isSiteBaby(): boolean {
+  return isSiteDeep()
 }
 
-/** Restore baby-blue shift if unlocked this session. */
+/** @deprecated use isSiteDeep */
+export function isSiteBlue(): boolean {
+  return isSiteDeep()
+}
+
+/** Restore deep-blue shift if unlocked this session; else primary baby blue. */
 export function restoreSiteBlueIfNeeded() {
   if (typeof document === 'undefined') return
-  // Clear legacy green→blue key
   try {
     sessionStorage.removeItem('radical-site-blue')
+    sessionStorage.removeItem('radical-site-baby')
   } catch {
     /* ignore */
   }
-  if (isSiteBaby()) applyBrand('baby')
-  else applyBrand('main')
+  if (isSiteDeep()) applyBrand('deep')
+  else applyBrand('primary')
 }
 
-function unlockSiteBaby() {
-  applyBrand('baby')
+function unlockSiteDeep() {
+  applyBrand('deep')
   try {
-    sessionStorage.setItem(BABY_STORAGE_KEY, '1')
+    sessionStorage.setItem(DEEP_STORAGE_KEY, '1')
   } catch {
     /* ignore */
   }
 }
 
 export function restoreSiteMain() {
-  applyBrand('main')
+  applyBrand('primary')
   try {
-    sessionStorage.removeItem(BABY_STORAGE_KEY)
+    sessionStorage.removeItem(DEEP_STORAGE_KEY)
   } catch {
     /* ignore */
   }
@@ -97,7 +99,7 @@ export function restoreSiteGreen() {
   restoreSiteMain()
 }
 
-/** Brief full-site glitch — then brand flips to baby blue. */
+/** Brief full-site glitch — then brand flips to dark blue. */
 export function triggerSiteGlitch(durationMs = GLITCH_MS) {
   const root = document.documentElement
   root.classList.remove(AMEN_FLASH_CLASS)
@@ -105,13 +107,13 @@ export function triggerSiteGlitch(durationMs = GLITCH_MS) {
   if (glitchTimer != null) window.clearTimeout(glitchTimer)
   glitchTimer = window.setTimeout(() => {
     root.classList.remove(GLITCH_CLASS)
-    unlockSiteBaby()
+    unlockSiteDeep()
     glitchTimer = null
   }, durationMs)
   return durationMs
 }
 
-/** Heavenly flash — then brand returns to main blue. */
+/** Heavenly flash — then brand returns to baby blue. */
 export function triggerAmenFlash(durationMs = AMEN_FLASH_MS) {
   const root = document.documentElement
   root.classList.remove(GLITCH_CLASS)

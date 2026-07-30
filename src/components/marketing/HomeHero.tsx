@@ -220,21 +220,6 @@ export function HomeHero({ slides }: HomeHeroProps) {
                           For Jesus
                         </span>
                       </span>
-                      <span
-                        aria-hidden
-                        className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
-                      />
-                      <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-lime-foreground/55 sm:text-[10px]">
-                        <span>Shape the city</span>
-                        <span aria-hidden>·</span>
-                        <span>Full Gospel</span>
-                        <span aria-hidden>·</span>
-                        <span>For Jesus</span>
-                      </span>
-                      <span
-                        aria-hidden
-                        className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
-                      />
                     </span>
                   </span>
                 </h1>
@@ -342,21 +327,6 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
                       For Jesus
                     </span>
                   </span>
-                  <span
-                    aria-hidden
-                    className="mt-4 block h-px w-full bg-ink sm:mt-3.5"
-                  />
-                  <span className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-lime-foreground/55 sm:mt-3 sm:text-[10px]">
-                    <span>Shape the city</span>
-                    <span aria-hidden>·</span>
-                    <span>Full Gospel</span>
-                    <span aria-hidden>·</span>
-                    <span>For Jesus</span>
-                  </span>
-                  <span
-                    aria-hidden
-                    className="mt-4 block h-px w-full bg-ink sm:mt-3.5"
-                  />
                 </span>
               </span>
             </h1>

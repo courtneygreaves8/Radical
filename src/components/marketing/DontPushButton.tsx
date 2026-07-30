@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type MouseEvent } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { X } from 'lucide-react'
@@ -6,7 +6,7 @@ import { X } from 'lucide-react'
 import { MorphMark } from '@/components/marketing/MorphMark'
 import { Button } from '@/components/ui/button'
 import {
-  isSiteBaby,
+  isSiteDeep,
   triggerAmenFlash,
   triggerSiteGlitch,
 } from '@/lib/siteGlitch'
@@ -17,14 +17,11 @@ type DontPushButtonProps = {
   markClassName?: string
 }
 
-function isModifierClick(event: MouseEvent | globalThis.MouseEvent) {
-  return event.altKey || event.shiftKey || event.metaKey
-}
-
 /**
- * Hero morph easter egg —
- * click: glitch → baby blue + disobedience dialog
- * alt / later click: Jesus confession → Amen flash → main blue
+ * Hero morph loop —
+ * 1) click → glitch → dark blue + disobedience popup
+ * 2) after popup closed, hover: restore message; click → Amen → baby blue
+ * 3) repeat
  */
 export function DontPushButton({
   className,
@@ -32,16 +29,21 @@ export function DontPushButton({
 }: DontPushButtonProps) {
   const [open, setOpen] = useState(false)
   const [busy, setBusy] = useState(false)
-  const [confession, setConfession] = useState(false)
+  /** Popup closed while still on dark blue — next click Amen */
+  const [awaitingAmen, setAwaitingAmen] = useState(false)
   const [flashing, setFlashing] = useState(false)
-  const modifierDown = useRef(false)
   const titleId = useId()
   const descId = useId()
 
   useEffect(() => {
+    // Session already deep (reload) — treat as post-popup restore state
+    if (isSiteDeep()) setAwaitingAmen(true)
+  }, [])
+
+  useEffect(() => {
     if (!open) return
     function onKey(event: KeyboardEvent) {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') closePopup()
     }
     window.addEventListener('keydown', onKey)
     const prev = document.body.style.overflow
@@ -52,18 +54,14 @@ export function DontPushButton({
     }
   }, [open])
 
-  function handleMouseDown(event: MouseEvent<HTMLButtonElement>) {
-    if (isModifierClick(event)) {
-      event.preventDefault()
-      modifierDown.current = true
-    } else {
-      modifierDown.current = false
-    }
+  function closePopup() {
+    setOpen(false)
+    setAwaitingAmen(true)
   }
 
   function runAmen() {
     setBusy(true)
-    setConfession(false)
+    setAwaitingAmen(false)
     setOpen(false)
     setFlashing(true)
     const ms = triggerAmenFlash()
@@ -73,28 +71,18 @@ export function DontPushButton({
     }, ms)
   }
 
-  function handlePush(event: MouseEvent<HTMLButtonElement>) {
+  function handlePush() {
     if (busy) return
-    event.preventDefault()
-    event.stopPropagation()
 
-    const modifier = isModifierClick(event) || modifierDown.current
-    modifierDown.current = false
-
-    if (confession) {
+    // Dark blue, popup already read → Amen back to baby blue
+    if (awaitingAmen || (isSiteDeep() && !open)) {
       runAmen()
       return
     }
 
-    // Already baby blue — confession path (or modifier anytime)
-    if (modifier || isSiteBaby()) {
-      setOpen(false)
-      setConfession(true)
-      return
-    }
-
-    // First click: glitch → baby blue + disobedience popup
+    // First click (baby blue): glitch → dark blue + popup
     setBusy(true)
+    setAwaitingAmen(false)
     const ms = triggerSiteGlitch()
     window.setTimeout(() => {
       setOpen(true)
@@ -102,29 +90,21 @@ export function DontPushButton({
     }, ms)
   }
 
+  const showRestoreHover = awaitingAmen && !open && !busy
+
   return (
     <>
       <button
         type="button"
-        onMouseDown={handleMouseDown}
         onClick={handlePush}
-        onContextMenu={(event) => {
-          event.preventDefault()
-          if (busy) return
-          if (confession) runAmen()
-          else {
-            setOpen(false)
-            setConfession(true)
-          }
-        }}
         disabled={busy}
         className={cn(
           'group relative hidden cursor-pointer justify-self-end border-0 bg-transparent p-0 text-left disabled:cursor-wait lg:block',
           className
         )}
         aria-label={
-          confession
-            ? 'Amen — click again'
+          showRestoreHover
+            ? 'Amen — restore what was lost'
             : "Don't push the button"
         }
       >
@@ -135,11 +115,12 @@ export function DontPushButton({
           )}
         />
 
+        {/* Default hover — don't push */}
         <span
           className={cn(
             'pointer-events-none absolute top-[18%] left-1/2 z-10 w-[11.5rem] -translate-x-1/2 xl:top-[20%] xl:w-[13rem]',
             'opacity-0 transition-opacity duration-200',
-            !confession &&
+            !showRestoreHover &&
               'group-hover:opacity-100 group-focus-visible:opacity-100'
           )}
         >
@@ -160,31 +141,34 @@ export function DontPushButton({
           </span>
         </span>
 
-        {confession ? (
+        {/* After popup — restore message on hover */}
+        <span
+          className={cn(
+            'pointer-events-none absolute top-[8%] left-1/2 z-20 w-[16.5rem] -translate-x-1/2 xl:top-[10%] xl:w-[18rem]',
+            'opacity-0 transition-opacity duration-200',
+            showRestoreHover &&
+              'group-hover:opacity-100 group-focus-visible:opacity-100'
+          )}
+        >
           <span
-            role="status"
-            className="pointer-events-none absolute top-[8%] left-1/2 z-20 w-[15.5rem] -translate-x-1/2 xl:top-[10%] xl:w-[17rem]"
-          >
+            aria-hidden
+            className="absolute inset-0 translate-x-2 translate-y-2 bg-ink"
+          />
+          <span className="relative block border-2 border-ink bg-lime px-3.5 py-3 text-lime-foreground">
             <span
               aria-hidden
-              className="absolute inset-0 translate-x-2 translate-y-2 bg-ink"
+              className="absolute -bottom-2 left-1/2 size-3 -translate-x-1/2 rotate-45 border-r-2 border-b-2 border-ink bg-lime"
             />
-            <span className="relative block border-2 border-ink bg-lime px-3.5 py-3 text-lime-foreground">
-              <span
-                aria-hidden
-                className="absolute -bottom-2 left-1/2 size-3 -translate-x-1/2 rotate-45 border-r-2 border-b-2 border-ink bg-lime"
-              />
-              <span className="relative z-10 block text-center font-mono text-[10px] font-bold uppercase tracking-[0.14em] leading-snug">
-                Jesus Christ is my Lord
-                <br />
-                &amp; Saviour
-                <span className="mt-2 block text-[11px] font-medium normal-case leading-snug tracking-normal opacity-80">
-                  Click again for an Amen!
-                </span>
+            <span className="relative z-10 block text-center font-mono text-[10px] font-bold uppercase tracking-[0.12em] leading-snug">
+              Only Jesus can restore
+              <br />
+              what was lost
+              <span className="mt-2 block text-[11px] font-medium normal-case leading-snug tracking-normal opacity-80">
+                Click again for an Amen!
               </span>
             </span>
           </span>
-        ) : null}
+        </span>
       </button>
 
       {flashing
@@ -203,7 +187,7 @@ export function DontPushButton({
             type="button"
             className="absolute inset-0 bg-ink/75"
             aria-label="Close"
-            onClick={() => setOpen(false)}
+            onClick={closePopup}
           />
 
           <div
@@ -215,7 +199,7 @@ export function DontPushButton({
           >
             <button
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={closePopup}
               className="absolute top-3 right-3 z-10 flex size-9 items-center justify-center text-ink/50 transition hover:bg-lime hover:text-lime-foreground"
               aria-label="Close dialog"
             >
@@ -244,11 +228,7 @@ export function DontPushButton({
               <Button variant="lime" offset asChild>
                 <Link to="/beliefs">What we believe</Link>
               </Button>
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => setOpen(false)}
-              >
+              <Button type="button" variant="ghost" onClick={closePopup}>
                 Close
               </Button>
             </div>
