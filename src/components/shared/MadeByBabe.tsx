@@ -32,7 +32,7 @@ export function MadeByBabe() {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="inline-flex items-center gap-2 border-2 border-ink bg-lime px-5 py-2 font-mono text-xs font-bold uppercase tracking-wider text-ink transition hover:bg-ink hover:text-lime"
+            className="inline-flex items-center gap-2 border-2 border-ink bg-lime px-5 py-2 font-mono text-xs font-bold uppercase tracking-wider text-lime-foreground transition hover:bg-ink hover:text-lime"
             aria-haspopup="dialog"
             aria-expanded={open}
           >
@@ -65,13 +65,13 @@ export function MadeByBabe() {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="absolute top-3 right-3 z-10 flex size-9 items-center justify-center text-ink/50 transition hover:bg-lime hover:text-ink"
+              className="absolute top-3 right-3 z-10 flex size-9 items-center justify-center text-ink/50 transition hover:bg-lime hover:text-lime-foreground"
               aria-label="Close dialog"
             >
               <X className="size-4" strokeWidth={2} />
             </button>
 
-            <span className="inline-flex size-11 items-center justify-center bg-lime text-ink">
+            <span className="inline-flex size-11 items-center justify-center bg-lime text-lime-foreground">
               <Heart className="size-5" strokeWidth={1.75} fill="currentColor" />
             </span>
             <h2

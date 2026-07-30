@@ -90,7 +90,7 @@ export function BeliefsPage() {
                 className={cn(
                   'border-2 px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider transition',
                   g === group
-                    ? 'border-lime bg-lime text-ink'
+                    ? 'border-lime bg-lime text-lime-foreground'
                     : 'border-paper/25 text-paper/50 hover:border-paper/50 hover:text-paper'
                 )}
               >
@@ -111,7 +111,7 @@ export function BeliefsPage() {
                       className={cn(
                         'flex w-full items-center gap-4 px-3 py-5 text-left transition sm:px-4',
                         selected
-                          ? 'bg-lime text-ink'
+                          ? 'bg-lime text-lime-foreground'
                           : 'text-paper/55 hover:bg-paper/5 hover:text-paper'
                       )}
                     >

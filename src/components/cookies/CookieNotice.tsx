@@ -52,7 +52,7 @@ export function CookieNotice() {
             </span>
             <p
               id={titleId}
-              className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ink"
+              className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-lime-foreground"
             >
               Cookies
             </p>

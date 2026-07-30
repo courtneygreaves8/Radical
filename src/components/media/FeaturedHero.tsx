@@ -81,7 +81,7 @@ export function FeaturedHero({
           className="mx-auto w-full max-w-[1600px]"
         >
           <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2 border-2 border-lime bg-lime px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ink">
+            <span className="inline-flex items-center gap-2 border-2 border-lime bg-lime px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-lime-foreground">
               <Headphones className="size-3.5" />
               Radical Media
             </span>

@@ -8,14 +8,13 @@ import {
 } from 'framer-motion'
 import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 
-import { MorphMark } from '@/components/marketing/MorphMark'
+import { DontPushButton } from '@/components/marketing/DontPushButton'
 import { RotatingHeroWord } from '@/components/marketing/RotatingHeroWord'
 import { VerseMarquee } from '@/components/marketing/VerseMarquee'
 import { GeoIcon } from '@/components/marketing/geo/GeoIcons'
 import { Button } from '@/components/ui/button'
 import type { CarouselSlide } from '@/lib/content'
 import { siteMeta } from '@/lib/nav'
-import { toggleSiteInvert } from '@/lib/siteInvert'
 import { cn } from '@/lib/utils'
 
 type HomeHeroProps = {
@@ -155,7 +154,7 @@ export function HomeHero({ slides }: HomeHeroProps) {
         {/* Lime slab — shrinks from the bottom to reveal the photo */}
         <motion.div
           style={{ height: limeHeight }}
-          className="absolute inset-x-0 top-0 z-10 overflow-hidden bg-lime"
+          className="absolute inset-x-0 top-0 z-10 overflow-hidden bg-lime text-lime-foreground"
         >
           {/* Static background asterisk — 7% opacity, 2× size, right half clipped */}
           <div
@@ -189,7 +188,7 @@ export function HomeHero({ slides }: HomeHeroProps) {
                         aria-hidden
                         className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
                       />
-                      <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-ink/55 sm:text-[10px]">
+                      <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-lime-foreground/55 sm:text-[10px]">
                         <span>Shape the city</span>
                         <span aria-hidden>·</span>
                         <span>Full Gospel</span>
@@ -206,7 +205,7 @@ export function HomeHero({ slides }: HomeHeroProps) {
                 <p className="mt-6 max-w-xl text-base font-medium leading-snug sm:text-xl">
                   {siteMeta.mission}
                 </p>
-                <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink/60 sm:text-base">
+                <p className="mt-2 max-w-xl text-sm leading-relaxed text-lime-foreground/60 sm:text-base">
                   {siteMeta.missionSupport}
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -227,17 +226,7 @@ export function HomeHero({ slides }: HomeHeroProps) {
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={toggleSiteInvert}
-                className="group hidden cursor-pointer justify-self-end border-0 bg-transparent p-0 text-left lg:block"
-                aria-label="Don't push the button — invert site colors"
-              >
-                <MorphMark className="size-64 text-ink transition duration-300 group-hover:scale-[1.04] group-active:scale-95 xl:size-80" />
-                <span className="mt-4 block max-w-[12rem] text-center font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-ink/55 transition group-hover:text-ink xl:max-w-[14rem]">
-                  Don&apos;t push the button!
-                </span>
-              </button>
+              <DontPushButton />
             </div>
           </div>
 
@@ -280,7 +269,7 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
 
   return (
     <section className="flex min-h-[calc(100dvh-4rem)] flex-col border-b-2 border-ink">
-      <div className="relative flex flex-1 items-center overflow-hidden bg-lime px-5 py-16 sm:px-8">
+      <div className="relative flex flex-1 items-center overflow-hidden bg-lime px-5 py-16 text-lime-foreground sm:px-8">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[min(120vw,76rem)] items-center overflow-hidden"
@@ -307,7 +296,7 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
                     </span>
                   </span>
                   <span aria-hidden className="mt-3 block h-px w-full bg-ink sm:mt-3.5" />
-                  <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-ink/55 sm:text-[10px]">
+                  <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-lime-foreground/55 sm:text-[10px]">
                     <span>Shape the city</span>
                     <span aria-hidden>·</span>
                     <span>Full Gospel</span>
@@ -341,17 +330,7 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
               </Button>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={toggleSiteInvert}
-            className="group hidden cursor-pointer justify-self-end border-0 bg-transparent p-0 text-left lg:block"
-            aria-label="Don't push the button — invert site colors"
-          >
-            <MorphMark className="size-72 text-ink transition duration-300 group-hover:scale-[1.04] group-active:scale-95" />
-            <span className="mt-4 block max-w-[13rem] text-center font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-ink/55 transition group-hover:text-ink">
-              Don&apos;t push the button!
-            </span>
-          </button>
+          <DontPushButton markClassName="size-72 text-ink" />
         </div>
       </div>
       <div className="relative h-[42vh] w-full overflow-hidden bg-ink">

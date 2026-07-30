@@ -219,7 +219,7 @@ export function SponsorshipPage() {
       />
 
       {/* Closing CTA band */}
-      <section className="relative overflow-hidden border-b-2 border-ink bg-lime text-ink">
+      <section className="relative overflow-hidden border-b-2 border-ink bg-lime text-lime-foreground">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-y-0 left-0 flex w-[min(90vw,34rem)] items-center overflow-hidden"

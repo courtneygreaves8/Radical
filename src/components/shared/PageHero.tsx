@@ -11,7 +11,7 @@ type PageHeroProps = {
 }
 
 const toneShell = {
-  lime: 'bg-lime text-ink border-ink',
+  lime: 'bg-lime text-lime-foreground border-ink',
   ink: 'bg-ink text-paper border-ink',
   paper: 'bg-paper text-ink border-ink',
   navy: 'bg-navy text-paper border-ink',

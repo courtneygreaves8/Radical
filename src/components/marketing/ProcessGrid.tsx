@@ -79,15 +79,15 @@ export function ProcessGrid({
       icon: 'text-lime/40',
     },
     lime: {
-      section: 'bg-lime text-ink border-ink',
-      mute: 'text-ink/50',
-      body: 'text-ink/70',
+      section: 'bg-lime text-lime-foreground border-ink',
+      mute: 'text-lime-foreground/50',
+      body: 'text-lime-foreground/70',
       cell: 'border-ink/25',
       markTone: 'ink' as const,
       motif: 'sunburst' as GeoIconName,
       anchor: 'bleed-left' as const,
       opacity: 0.1,
-      icon: 'text-ink/25',
+      icon: 'text-lime-foreground/25',
     },
   }[tone]
 

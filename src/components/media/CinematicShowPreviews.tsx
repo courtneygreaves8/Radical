@@ -82,7 +82,7 @@ export function CinematicShowPreviews({
                   className={cn(
                     'border-2 px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.16em] transition sm:text-[10px]',
                     i === index
-                      ? 'border-lime bg-lime text-ink'
+                      ? 'border-lime bg-lime text-lime-foreground'
                       : 'border-paper/35 bg-ink/50 text-paper/70 hover:border-lime hover:text-lime'
                   )}
                 >

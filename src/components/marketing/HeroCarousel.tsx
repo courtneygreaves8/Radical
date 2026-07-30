@@ -71,7 +71,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
               <button
                 type="button"
                 aria-label="Previous slide"
-                className="flex size-11 items-center justify-center border-2 border-paper bg-ink text-paper transition hover:bg-lime hover:text-ink"
+                className="flex size-11 items-center justify-center border-2 border-paper bg-ink text-paper transition hover:bg-lime hover:text-lime-foreground"
                 onClick={() =>
                   setIndex((i) => (i - 1 + slides.length) % slides.length)
                 }
@@ -81,7 +81,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
               <button
                 type="button"
                 aria-label="Next slide"
-                className="flex size-11 items-center justify-center border-2 border-paper bg-ink text-paper transition hover:bg-lime hover:text-ink"
+                className="flex size-11 items-center justify-center border-2 border-paper bg-ink text-paper transition hover:bg-lime hover:text-lime-foreground"
                 onClick={() => setIndex((i) => (i + 1) % slides.length)}
               >
                 <ChevronRight className="size-5" />

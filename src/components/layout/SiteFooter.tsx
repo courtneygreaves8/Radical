@@ -47,7 +47,7 @@ export function SiteFooter() {
             </p>
             <Link
               to="/visit"
-              className="mt-6 inline-flex border-2 border-ink bg-lime px-4 py-2.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink offset-shadow-crimson transition hover:translate-x-[3px] hover:translate-y-[3px]"
+              className="mt-6 inline-flex border-2 border-ink bg-lime px-4 py-2.5 font-mono text-[10px] font-bold uppercase tracking-wider text-lime-foreground offset-shadow-crimson transition hover:translate-x-[3px] hover:translate-y-[3px]"
             >
               This Sunday · {siteMeta.visit.time}
             </Link>

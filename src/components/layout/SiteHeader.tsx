@@ -19,11 +19,11 @@ export function SiteHeader() {
   }, [open])
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-ink bg-lime">
+    <header className="sticky top-0 z-50 border-b-2 border-ink bg-lime text-lime-foreground">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:h-[4.5rem] sm:px-8">
         <Link
           to="/"
-          className="type-display text-[1.6875rem] leading-none tracking-tight text-ink sm:text-[1.875rem]"
+          className="type-display text-[1.6875rem] leading-none tracking-tight text-lime-foreground sm:text-[1.875rem]"
           onClick={() => setOpen(false)}
         >
           {siteMeta.name}
@@ -37,7 +37,9 @@ export function SiteHeader() {
               className={({ isActive }) =>
                 cn(
                   'px-3 py-2 font-mono text-xs font-medium uppercase tracking-wider transition',
-                  isActive ? 'bg-ink text-lime' : 'text-ink hover:bg-ink/10'
+                  isActive
+                    ? 'bg-ink text-lime'
+                    : 'text-lime-foreground hover:bg-ink/10'
                 )
               }
             >
@@ -48,19 +50,14 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <AuthMenu tone="light" />
-          <Button
-            variant="default"
-            size="sm"
-            offset
-            asChild
-          >
+          <Button variant="default" size="sm" offset asChild>
             <Link to="/visit">This Sunday</Link>
           </Button>
         </div>
 
         <button
           type="button"
-          className="flex size-11 items-center justify-center border-2 border-ink bg-paper lg:hidden"
+          className="flex size-11 items-center justify-center border-2 border-ink bg-paper text-ink lg:hidden"
           aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen((v) => !v)}
         >
@@ -85,7 +82,9 @@ export function SiteHeader() {
                   className={({ isActive }) =>
                     cn(
                       'px-3 py-3 font-sans text-lg font-bold uppercase tracking-tight',
-                      isActive ? 'bg-lime text-ink' : 'text-paper hover:bg-lime/20'
+                      isActive
+                        ? 'bg-lime text-lime-foreground'
+                        : 'text-paper hover:bg-lime/20'
                     )
                   }
                 >

@@ -20,7 +20,7 @@ const buttonVariants = cva(
         // Black face / lime type → white + black stroke on hover; paper offset slab
         default:
           'border-2 border-ink bg-ink text-lime hover:bg-paper hover:text-ink',
-        lime: 'border-2 border-ink bg-lime text-ink hover:bg-paper hover:text-ink',
+        lime: 'border-2 border-ink bg-lime text-lime-foreground hover:bg-paper hover:text-ink',
         outline: [
           'border-2 border-ink bg-transparent text-ink hover:bg-paper hover:text-ink',
           'offset-shadow-paper',

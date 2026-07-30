@@ -107,7 +107,7 @@ function StatBlock({
     <div
       className={cn(
         'group relative flex min-h-[260px] flex-col justify-between overflow-hidden border-2 border-ink p-6 transition-colors duration-200 sm:min-h-[320px] sm:p-8',
-        tone === 'lime' ? 'bg-lime text-ink' : 'bg-ink text-paper',
+        tone === 'lime' ? 'bg-lime text-lime-foreground' : 'bg-ink text-paper',
         'hover:bg-[#111] hover:text-paper'
       )}
     >

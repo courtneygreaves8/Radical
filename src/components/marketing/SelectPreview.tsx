@@ -75,7 +75,7 @@ export function SelectPreview({
                       'flex w-full items-center gap-4 px-3 py-5 text-left transition sm:gap-6 sm:px-4',
                       selected
                         ? dark
-                          ? 'bg-lime text-ink'
+                          ? 'bg-lime text-lime-foreground'
                           : 'bg-ink text-lime'
                         : dark
                           ? 'text-paper/55 hover:bg-paper/5 hover:text-paper'
@@ -94,7 +94,7 @@ export function SelectPreview({
                         selected
                           ? dark
                             ? 'border-ink bg-ink text-lime'
-                            : 'border-lime bg-lime text-ink'
+                            : 'border-lime bg-lime text-lime-foreground'
                           : dark
                             ? 'border-paper/25'
                             : 'border-ink/25'

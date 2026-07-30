@@ -97,7 +97,7 @@ export function AccordionRail({
                       'flex size-10 shrink-0 items-center justify-center border-2 transition',
                       ink
                         ? open
-                          ? 'border-lime bg-lime text-ink'
+                          ? 'border-lime bg-lime text-lime-foreground'
                           : 'border-paper/30 text-paper'
                         : open
                           ? 'border-ink bg-ink text-lime'

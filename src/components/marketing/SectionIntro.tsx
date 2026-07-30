@@ -45,7 +45,7 @@ export function SectionIntro({
   const tones = {
     ink: 'bg-ink text-paper border-ink',
     paper: 'bg-paper text-ink border-ink',
-    lime: 'bg-lime text-ink border-ink',
+    lime: 'bg-lime text-lime-foreground border-ink',
     navy: 'bg-navy text-paper border-ink',
   }
   const dark = tone === 'ink' || tone === 'navy'

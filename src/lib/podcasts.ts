@@ -40,7 +40,7 @@ export const podcastShows: PodcastShow[] = [
       'Sunday messages and prophetic preaching from Radical Church — hard-core discipleship, no fluff.',
     cover: soon,
     backdrop: soon,
-    accent: '#BFE000',
+    accent: '#00E05A',
     category: 'Sermons',
   },
   {
@@ -52,7 +52,7 @@ export const podcastShows: PodcastShow[] = [
       'Live worship sessions and spontaneous moments from gatherings — atmosphere for encountering God.',
     cover: soon,
     backdrop: soon,
-    accent: '#BFE000',
+    accent: '#00E05A',
     category: 'Worship',
   },
   {
@@ -64,7 +64,7 @@ export const podcastShows: PodcastShow[] = [
       'Discipleship series for growing deep — repentance, holiness, and following Jesus without compromise.',
     cover: soon,
     backdrop: soon,
-    accent: '#BFE000',
+    accent: '#00E05A',
     category: 'Discipleship',
   },
   {
@@ -76,7 +76,7 @@ export const podcastShows: PodcastShow[] = [
       'Stories and teaching shaped by travelling faith communities — raw, relational, radical.',
     cover: soon,
     backdrop: soon,
-    accent: '#BFE000',
+    accent: '#00E05A',
     category: 'Stories',
   },
 ]

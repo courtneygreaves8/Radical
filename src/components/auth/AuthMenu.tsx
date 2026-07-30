@@ -40,7 +40,9 @@ export function AuthMenu({ tone = 'light' }: AuthMenuProps) {
         to="/sign-in"
         className={cn(
           'hidden px-2 py-2 font-mono text-xs font-bold uppercase tracking-wider transition sm:inline',
-          dark ? 'text-white/70 hover:text-lime' : 'text-ink/70 hover:text-ink'
+          dark
+            ? 'text-white/70 hover:text-lime'
+            : 'text-lime-foreground/70 hover:text-lime-foreground'
         )}
       >
         Sign in
@@ -52,8 +54,8 @@ export function AuthMenu({ tone = 'light' }: AuthMenuProps) {
           'offset-shadow-paper',
           offsetMotion,
           dark
-            ? 'border-lime bg-lime text-ink hover:bg-ink hover:text-lime hover:border-lime'
-            : 'border-ink bg-ink text-lime hover:bg-lime hover:text-ink'
+            ? 'border-lime bg-lime text-lime-foreground hover:bg-ink hover:text-lime hover:border-lime'
+            : 'border-ink bg-ink text-lime hover:bg-lime hover:text-lime-foreground'
         )}
       >
         Join

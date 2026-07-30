@@ -55,7 +55,7 @@ export function EpisodePlayer({
             <button
               type="button"
               onClick={() => setPlaying((p) => !p)}
-              className="flex size-20 items-center justify-center bg-lime text-ink transition hover:scale-105 offset-shadow-ink sm:size-24"
+              className="flex size-20 items-center justify-center bg-lime text-lime-foreground transition hover:scale-105 offset-shadow-ink sm:size-24"
               aria-label={playing ? 'Pause' : 'Play'}
             >
               {playing ? (

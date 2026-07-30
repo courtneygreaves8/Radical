@@ -62,7 +62,7 @@ export function ComingSoonThumb({
   return (
     <div
       className={cn(
-        'relative flex size-full flex-col overflow-hidden bg-lime text-ink',
+        'relative flex size-full flex-col overflow-hidden bg-lime text-lime-foreground',
         className
       )}
     >
@@ -80,7 +80,7 @@ export function ComingSoonThumb({
           <span className="inline-flex size-10 items-center justify-center border-2 border-ink bg-ink text-lime sm:size-11">
             <Icon className="size-5 sm:size-6" strokeWidth={2} />
           </span>
-          <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-ink/55">
+          <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-lime-foreground/55">
             {label}
           </span>
         </div>
@@ -97,11 +97,11 @@ export function ComingSoonThumb({
             soon
           </p>
           {title ? (
-            <p className="mt-2 line-clamp-2 text-xs font-medium text-ink/65 sm:text-sm">
+            <p className="mt-2 line-clamp-2 text-xs font-medium text-lime-foreground/65 sm:text-sm">
               {title}
             </p>
           ) : (
-            <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.16em] text-ink/50">
+            <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.16em] text-lime-foreground/50">
               Radical Media
             </p>
           )}

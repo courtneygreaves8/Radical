@@ -60,7 +60,7 @@ export function StackSlide({
   const tones = {
     paper: 'bg-paper text-ink border-ink',
     ink: 'bg-ink text-paper border-ink',
-    lime: 'bg-lime text-ink border-ink',
+    lime: 'bg-lime text-lime-foreground border-ink',
     navy: 'bg-navy text-paper border-ink',
   }
   const dark = tone === 'ink' || tone === 'navy'
@@ -109,7 +109,7 @@ export function StackSlide({
                 className={cn(
                   'mt-1 flex size-9 shrink-0 items-center justify-center border-2 border-current transition',
                   dark
-                    ? 'hover:border-lime hover:bg-lime hover:text-ink'
+                    ? 'hover:border-lime hover:bg-lime hover:text-lime-foreground'
                     : 'hover:bg-ink hover:text-lime'
                 )}
               >

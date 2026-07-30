@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 export type AboutStat = {
   value: string
   label: string
-  /** Accent the value — brand blue via crimson token */
+  /** Accent the value — cobalt via crimson token */
   accent?: 'crimson' | 'lime'
 }
 
@@ -60,7 +60,7 @@ export function AboutProof({
         </ul>
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-start lg:gap-14">
-          <p className="inline-flex w-fit border-2 border-ink bg-lime px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ink">
+          <p className="inline-flex w-fit border-2 border-ink bg-lime px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-lime-foreground">
             {label}
           </p>
           <div className="max-w-2xl">

@@ -121,7 +121,7 @@ export function FilterRail({
                       'shrink-0 whitespace-nowrap border-2 px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.16em] transition sm:px-4 sm:text-[11px]',
                       on
                         ? ink
-                          ? 'border-lime bg-lime text-ink'
+                          ? 'border-lime bg-lime text-lime-foreground'
                           : 'border-ink bg-ink text-lime'
                         : ink
                           ? 'border-paper/25 text-paper/70 hover:border-lime hover:text-lime'

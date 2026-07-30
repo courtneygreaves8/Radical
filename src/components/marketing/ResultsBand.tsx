@@ -49,7 +49,7 @@ export function ResultsBand({
             <Button
               variant="outline"
               size="icon"
-              className="border-paper/40 text-paper hover:border-lime hover:bg-lime hover:text-ink"
+              className="border-paper/40 text-paper hover:border-lime hover:bg-lime hover:text-lime-foreground"
               asChild
             >
               <Link to={panel.href} aria-label={panel.cta ?? 'Learn more'}>
@@ -82,7 +82,7 @@ export function ResultsBand({
                 ))}
               </ul>
 
-              <div className="w-full max-w-sm border-2 border-ink bg-lime p-6 text-ink sm:p-8">
+              <div className="w-full max-w-sm border-2 border-ink bg-lime p-6 text-lime-foreground sm:p-8">
                 <h3 className="text-xl font-bold tracking-tight sm:text-2xl">
                   {panel.title}
                 </h3>

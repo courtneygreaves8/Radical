@@ -188,7 +188,7 @@ export function GiveWays({ charityNumber, email, className }: GiveWaysProps) {
 
           {/* SMS */}
           <OffsetBlock offset="paper" revealOnHover>
-            <div className="relative overflow-hidden border-2 border-ink bg-lime p-5 text-ink sm:p-7">
+            <div className="relative overflow-hidden border-2 border-ink bg-lime p-5 text-lime-foreground sm:p-7">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-ink/55">

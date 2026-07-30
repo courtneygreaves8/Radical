@@ -141,7 +141,7 @@ export function ValueCards({
                   <div
                     className={cn(
                       'relative flex min-h-[340px] flex-col overflow-hidden border-2 border-ink p-6 sm:min-h-[400px] sm:p-8',
-                      card.tone === 'lime' ? 'bg-lime text-ink' : 'bg-paper text-ink'
+                      card.tone === 'lime' ? 'bg-lime text-lime-foreground' : 'bg-paper text-ink'
                     )}
                   >
                     <p

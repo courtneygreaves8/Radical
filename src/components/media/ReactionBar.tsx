@@ -49,7 +49,7 @@ export function ReactionBar({
               className={cn(
                 'inline-flex items-center gap-2 border px-3 py-2 font-mono text-xs uppercase tracking-wider transition',
                 active
-                  ? 'border-lime bg-lime text-ink'
+                  ? 'border-lime bg-lime text-lime-foreground'
                   : 'border-white/20 bg-white/5 text-white/80',
                 user
                   ? 'hover:border-lime hover:text-lime'
