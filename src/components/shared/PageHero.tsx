@@ -15,7 +15,7 @@ const toneShell = {
   ink: 'bg-ink text-paper border-ink',
   paper: 'bg-paper text-ink border-ink',
   navy: 'bg-navy text-paper border-ink',
-  crimson: 'bg-crimson text-paper border-ink',
+  crimson: 'bg-crimson text-lime border-ink',
 } as const
 
 const markTone = {
@@ -23,7 +23,7 @@ const markTone = {
   ink: 'text-lime/[0.12]',
   paper: 'text-ink/[0.07]',
   navy: 'text-lime/[0.14]',
-  crimson: 'text-paper/[0.12]',
+  crimson: 'text-lime/[0.14]',
 } as const
 
 const defaultMark: Record<keyof typeof toneShell, GeoIconName> = {

@@ -277,7 +277,7 @@ export function GiveWays({ charityNumber, email, className }: GiveWaysProps) {
                     gift.
                   </p>
                 </div>
-                <span className="flex size-12 shrink-0 items-center justify-center border-2 border-ink bg-crimson text-paper">
+                <span className="flex size-12 shrink-0 items-center justify-center border-2 border-ink bg-crimson text-lime">
                   <ArrowUpRight className="size-5" />
                 </span>
               </div>

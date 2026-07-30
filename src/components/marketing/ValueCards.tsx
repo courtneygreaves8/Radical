@@ -161,7 +161,7 @@ export function ValueCards({
                         'relative z-10 inline-block w-fit border-2 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider',
                         card.tone === 'lime'
                           ? 'border-ink bg-ink text-lime'
-                          : 'border-crimson bg-crimson text-paper'
+                          : 'border-crimson bg-crimson text-lime'
                       )}
                     >
                       {card.tag}

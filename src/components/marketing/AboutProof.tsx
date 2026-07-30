@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 export type AboutStat = {
   value: string
   label: string
-  /** Accent the value — cobalt via crimson token */
+  /** Accent the value — ink via crimson token (high contrast on green) */
   accent?: 'crimson' | 'lime'
 }
 
