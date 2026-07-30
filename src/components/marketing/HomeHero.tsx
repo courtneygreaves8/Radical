@@ -296,7 +296,17 @@ export function HomeHero({ slides }: HomeHeroProps) {
 }
 
 function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
-  const slide = slides[0]
+  const reduceMotion = useReducedMotion()
+  const [slideIndex, setSlideIndex] = useState(0)
+  const slide = slides[slideIndex] ?? slides[0]
+
+  useEffect(() => {
+    if (slides.length < 2 || reduceMotion) return
+    const id = window.setInterval(() => {
+      setSlideIndex((i) => (i + 1) % slides.length)
+    }, 5500)
+    return () => window.clearInterval(id)
+  }, [slides.length, reduceMotion])
 
   return (
     <section className="flex flex-col border-b-2 border-ink">
@@ -312,18 +322,17 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
         </div>
 
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-start px-5 pb-28 pt-8 sm:justify-center sm:px-8 sm:pb-24 sm:pt-12 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-10">
-          <div className="max-w-3xl">
+          <div className="flex items-center justify-between gap-3 lg:col-span-2">
             <p className="font-mono text-xs font-medium uppercase tracking-[0.3em]">
               Norwich · England
             </p>
+            <MobileScrollCue className="lg:hidden" />
+          </div>
 
-            <h1 className="type-display mt-6 text-[2.35rem] leading-[0.95] sm:mt-5 sm:text-5xl lg:text-[3.75rem]">
-              {/* Scroll sits on the same row as Be Radical */}
-              <span className="flex items-start justify-between gap-3">
-                <span className="min-w-0 whitespace-nowrap">
-                  Be <RotatingHeroWord />
-                </span>
-                <MobileScrollCue className="mt-1 lg:hidden" />
+          <div className="mt-6 max-w-3xl sm:mt-5">
+            <h1 className="type-display text-[2.35rem] leading-[0.95] sm:text-5xl lg:text-[3.75rem]">
+              <span className="block whitespace-nowrap">
+                Be <RotatingHeroWord />
               </span>
 
               <span className="mt-5 block sm:mt-4">
@@ -381,11 +390,12 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
         </div>
       </div>
 
-      {/* Image below — no scroll-expand on mobile */}
-      <div className="relative h-[38vh] w-full overflow-hidden bg-ink sm:h-[42vh]">
+      {/* Image slider — no scroll-expand; compact chrome */}
+      <div className="relative h-[42vh] w-full overflow-hidden bg-ink sm:h-[46vh]">
         {slide ? (
           <div className="photo-grain absolute inset-0">
             <img
+              key={slide.id}
               src={slide.image}
               alt=""
               className="photo-bw absolute inset-0 size-full object-cover"
@@ -396,10 +406,83 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
               }
               decoding="async"
             />
-            <div className="absolute inset-0 z-[2] bg-gradient-to-t from-ink/50 via-transparent to-transparent" />
+            <div className="absolute inset-0 z-[2] bg-gradient-to-t from-ink via-ink/50 to-ink/15" />
           </div>
         ) : null}
+
+        {slides.length > 1 ? (
+          <div className="absolute inset-x-0 top-0 z-[3] flex gap-1 px-4 pt-3 sm:px-5">
+            {slides.map((s, i) => (
+              <button
+                key={s.id}
+                type="button"
+                aria-label={`Slide ${i + 1}`}
+                className={cn(
+                  'h-1 flex-1 transition-colors',
+                  i === slideIndex ? 'bg-lime' : 'bg-paper/30'
+                )}
+                onClick={() => setSlideIndex(i)}
+              />
+            ))}
+          </div>
+        ) : null}
+
+        <div className="absolute inset-x-0 bottom-0 z-[3] p-4 sm:p-5">
+          <div className="flex items-end justify-between gap-3">
+            <div className="min-w-0">
+              <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-lime">
+                0{slideIndex + 1} / 0{slides.length}
+              </p>
+              <h2 className="type-display mt-1 truncate text-lg text-paper sm:text-xl">
+                {slide?.title}
+              </h2>
+              {slide?.caption ? (
+                <p className="mt-1 line-clamp-2 max-w-sm text-xs text-paper/65 sm:text-sm">
+                  {slide.caption}
+                </p>
+              ) : null}
+            </div>
+
+            <div className="flex shrink-0 items-center gap-2">
+              {slide?.ctaHref ? (
+                <Button variant="lime" size="sm" offset asChild>
+                  <Link to={slide.ctaHref}>
+                    {slide.ctaLabel ?? 'More'}
+                    <ArrowRight className="size-3.5" />
+                  </Link>
+                </Button>
+              ) : null}
+              {slides.length > 1 ? (
+                <>
+                  <button
+                    type="button"
+                    aria-label="Previous"
+                    className="flex size-9 items-center justify-center border-2 border-paper/50 bg-ink/50 text-paper backdrop-blur transition hover:border-lime hover:text-lime"
+                    onClick={() =>
+                      setSlideIndex(
+                        (i) => (i - 1 + slides.length) % slides.length
+                      )
+                    }
+                  >
+                    <ChevronLeft className="size-4" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Next"
+                    className="flex size-9 items-center justify-center border-2 border-paper/50 bg-ink/50 text-paper backdrop-blur transition hover:border-lime hover:text-lime"
+                    onClick={() =>
+                      setSlideIndex((i) => (i + 1) % slides.length)
+                    }
+                  >
+                    <ChevronRight className="size-4" />
+                  </button>
+                </>
+              ) : null}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
 }
+
