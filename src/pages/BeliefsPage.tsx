@@ -32,33 +32,40 @@ export function BeliefsPage() {
       <PageHero
         eyebrow="Doctrine"
         title="What we believe"
-        description="We may be Radical — but we are old fashioned in our theology."
+        description="Old fashioned theology. Soft hearts. Helping shape this city — for Jesus."
         tone="ink"
       />
 
       <SectionIntro
         index="01"
         label="Conviction"
-        body="Just for the record. Pentecostal and not ashamed. Character and fruit. Jesus made famous in this city."
+        body="Just for the record. Pentecostal and not ashamed. Character and fruit. Belief that shapes how we live Norwich for Jesus."
         headline={
           <>
-            Belief is a foundation that <Em tone="ink">holds</Em> under pressure
-            — Word, Spirit, and <Em tone="ink">holiness</Em>.
+            Belief is a foundation that <Em tone="ink">shapes</Em> under
+            pressure — Word, Spirit, and <Em tone="crimson">holiness</Em>.
           </>
         }
         cta={{ label: 'Visit this Sunday', href: '/visit' }}
         tone="lime"
+        mark="cross"
+        markAnchor="bleed-left"
       />
 
       <ProcessGrid
         index="02"
         label="Pillars"
         tone="paper"
+        mark="rings"
+        markAnchor="bleed-right"
         headline="Six convictions that hold the house — old fashioned, Spirit-filled, unashamed."
-        steps={beliefs.map((b) => ({
+        steps={beliefs.map((b, i) => ({
           id: b.id,
           title: b.title,
           body: b.body,
+          mark: (
+            ['cross', 'asterisk6', 'rings', 'spark', 'sunburst', 'star12'] as const
+          )[i % 6],
         }))}
       />
 
@@ -69,7 +76,8 @@ export function BeliefsPage() {
               (03) Deep dive
             </p>
             <h2 className="max-w-2xl text-2xl font-medium leading-snug tracking-tight sm:text-3xl lg:text-right">
-              Select a pillar. Read the <Em>fire</Em>. Live the <Em>Word</Em>.
+              Select a pillar. Read the <Em tone="flame">fire</Em>. Live the{' '}
+              <Em>Word</Em>.
             </h2>
           </div>
 

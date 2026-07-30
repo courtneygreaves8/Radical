@@ -6,7 +6,6 @@ import { SelectPreview } from '@/components/marketing/SelectPreview'
 import { ValueCards } from '@/components/marketing/ValueCards'
 import { PageHero } from '@/components/shared/PageHero'
 import { Button } from '@/components/ui/button'
-import { urbanImages } from '@/lib/images'
 import { peekSlideImages } from '@/lib/peekSlides'
 import { getLocalContent } from '@/lib/sanity/client'
 
@@ -21,7 +20,7 @@ export function AboutPage() {
       detailTitle: 'Called to the margins',
       detailBody:
         'A vision for prisoners, addiction, the homeless, and the overlooked — Acts-style community with hard discipleship.',
-      image: urbanImages.alley,
+      image: peekSlideImages.streetWitness,
     },
     {
       id: 't2',
@@ -30,7 +29,7 @@ export function AboutPage() {
       detailTitle: 'Double-decker witness',
       detailBody:
         'Outreach and evangelism across Norfolk on the Radical Hope Bus — supermarket streets, clubs, and communities that need Jesus.',
-      image: urbanImages.soho,
+      image: peekSlideImages.busPreach,
     },
     {
       id: 't3',
@@ -39,7 +38,7 @@ export function AboutPage() {
       detailTitle: 'Make Jesus famous here',
       detailBody:
         'God is wanting to bring revival to our county. We want to be part of a move of God in our generation and region.',
-      image: urbanImages.shoreditch,
+      image: peekSlideImages.bibleStreet,
     },
     {
       id: 't4',
@@ -47,7 +46,7 @@ export function AboutPage() {
       title: 'Dare to visit',
       detailTitle: 'Not comfortable — radical',
       detailBody: about.body[2] ?? about.lead,
-      image: urbanImages.shaftesbury,
+      image: peekSlideImages.outreachCrew,
       href: '/visit',
     },
   ]
@@ -75,7 +74,7 @@ export function AboutPage() {
             label: 'Continents we partner with',
           },
         ]}
-        headline="We believe a life changed by Jesus is more than a meeting — it’s the whole street made new."
+        headline="We believe a life changed by Jesus shapes more than a meeting — it reshapes the whole street."
         body="Our team runs toward the broken with Full Gospel fire and Whole Bible grit. From Hope Bus nights to discipleship that costs something, we help people find Jesus and keep walking with Him — in Norwich and beyond."
         cta={{ label: 'Learn more', href: '/visit' }}
         image={peekSlideImages.field}
@@ -87,12 +86,13 @@ export function AboutPage() {
         body={about.lead}
         headline={
           <>
-            We believe in the power of God to <Em>transform lives</Em> — called
-            to the broken, the marginalised, and the <Em>overlooked</Em>.
+            We help <Em tone="crimson">shape</Em> lives and streets — called to
+            the broken, the marginalised, and the{' '}
+            <Em tone="ink">overlooked</Em> of Norwich.
           </>
         }
         cta={{ label: 'Dare to visit', href: '/visit' }}
-        tone="ink"
+        tone="lime"
       />
 
       <SelectPreview
@@ -100,8 +100,8 @@ export function AboutPage() {
         label="Our story"
         headline={
           <>
-            Story is a street that <Em>reflects</Em> our ongoing{' '}
-            <Em>dedication</Em> to Jesus made famous in Norwich.
+            Story is a street that <Em>shapes</Em> our ongoing{' '}
+            <Em>dedication</Em> to helping Norwich know Jesus.
           </>
         }
         items={timeline}
@@ -112,7 +112,7 @@ export function AboutPage() {
         index="03"
         label="DNA"
         headline="What shapes us"
-        body="Called to the broken. Fired by the Spirit. Unashamed of the Gospel."
+        body="Called to the broken. Fired by the Spirit. Helping shape the city — for Jesus."
         cards={[
           {
             id: 'd1',
@@ -120,7 +120,7 @@ export function AboutPage() {
             tag: 'Call',
             title: 'Margins first',
             body: 'Prisoners, addiction, homeless, overlooked — that is who we run toward.',
-            image: urbanImages.alley,
+            image: peekSlideImages.prisons,
           },
           {
             id: 'd2',

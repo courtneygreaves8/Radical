@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 
+import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
 export type PreviewItem = {
@@ -117,13 +118,15 @@ export function SelectPreview({
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.28 }}
                 >
-                  <div className="photo-grain relative aspect-[16/10] overflow-hidden border-2 border-ink bg-ink">
-                    <img
-                      src={active.image}
-                      alt=""
-                      className="photo-bw absolute inset-0 size-full object-cover"
-                    />
-                  </div>
+                  <OffsetBlock offset={dark ? 'lime' : 'ink'} className="mb-1">
+                    <div className="photo-grain relative aspect-[16/10] overflow-hidden border-2 border-ink bg-ink">
+                      <img
+                        src={active.image}
+                        alt=""
+                        className="photo-bw absolute inset-0 size-full object-cover"
+                      />
+                    </div>
+                  </OffsetBlock>
                   <h3 className="mt-5 text-xl font-bold tracking-tight sm:text-2xl">
                     {active.detailTitle}
                   </h3>

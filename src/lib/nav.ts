@@ -24,12 +24,16 @@ export const footerNav = {
     { label: 'Events', href: '/events' },
     { label: 'Missions', href: '/missions' },
     { label: 'Give', href: '/give' },
+    { label: 'Sponsorship', href: '/sponsorship' },
   ],
 } as const
 
 export const siteMeta = {
   name: 'Radical Church',
-  mission: 'Loving Jesus, Loving each other, and Loving the lost',
+  /** Primary brand line — pairs with geo shapes across the site */
+  mission: 'Helping shape the city — for Jesus',
+  missionSupport:
+    'Loving Jesus, loving each other, and loving the lost across Norwich.',
   email: 'radicalchurchuk@gmail.com',
   charityNumber: '1174903',
   visit: {

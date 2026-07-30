@@ -9,7 +9,9 @@ import {
 import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { MorphMark } from '@/components/marketing/MorphMark'
+import { RotatingHeroWord } from '@/components/marketing/RotatingHeroWord'
 import { VerseMarquee } from '@/components/marketing/VerseMarquee'
+import { GeoIcon } from '@/components/marketing/geo/GeoIcons'
 import { Button } from '@/components/ui/button'
 import type { CarouselSlide } from '@/lib/content'
 import { siteMeta } from '@/lib/nav'
@@ -154,26 +156,67 @@ export function HomeHero({ slides }: HomeHeroProps) {
           style={{ height: limeHeight }}
           className="absolute inset-x-0 top-0 z-10 overflow-hidden bg-lime"
         >
-          <div className="flex h-full w-full items-center">
+          {/* Static background asterisk — 7% opacity, 2× size, right half clipped */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[min(120vw,76rem)] items-center overflow-hidden"
+          >
+            <GeoIcon
+              name="asterisk6"
+              className="size-[min(120vw,76rem)] shrink-0 translate-x-1/2 text-ink/[0.07]"
+            />
+          </div>
+
+          <div className="relative z-10 flex h-full w-full items-center">
             <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-10">
-              <div className="relative z-10 max-w-3xl">
+              <div className="relative max-w-3xl">
                 <p className="font-mono text-xs font-medium uppercase tracking-[0.3em]">
                   Norwich · England
                 </p>
-                <h1 className="type-display mt-5 text-5xl text-balance sm:text-6xl lg:text-[4.75rem] xl:text-[5.5rem]">
-                  Be Radical.
-                  <br />
-                  Love Jesus.
+                <h1 className="type-display mt-5 text-4xl sm:text-5xl lg:text-[3.75rem] xl:text-[4.25rem]">
+                  <span className="block whitespace-nowrap">
+                    Be <RotatingHeroWord />
+                  </span>
+                  <span className="mt-3 block sm:mt-4">
+                    <span className="inline-block">
+                      <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
+                        <span className="block whitespace-nowrap text-[0.92em] leading-[0.88] text-lime">
+                          For Jesus
+                        </span>
+                      </span>
+                      <span
+                        aria-hidden
+                        className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
+                      />
+                      <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-ink/55 sm:text-[10px]">
+                        <span>Shape the city</span>
+                        <span aria-hidden className="text-crimson">
+                          ·
+                        </span>
+                        <span>Full Gospel</span>
+                        <span aria-hidden className="text-crimson">
+                          ·
+                        </span>
+                        <span>For Jesus</span>
+                      </span>
+                      <span
+                        aria-hidden
+                        className="mt-3 block h-px w-full bg-ink sm:mt-3.5"
+                      />
+                    </span>
+                  </span>
                 </h1>
                 <p className="mt-6 max-w-xl text-base font-medium leading-snug sm:text-xl">
                   {siteMeta.mission}
+                </p>
+                <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink/60 sm:text-base">
+                  {siteMeta.missionSupport}
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Button
                     variant="default"
                     size="lg"
                     offset
-                    className="offset-shadow-paper"
                     asChild
                   >
                     <Link to="/visit">
@@ -232,26 +275,59 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
 
   return (
     <section className="flex min-h-[calc(100dvh-4rem)] flex-col border-b-2 border-ink">
-      <div className="flex flex-1 items-center bg-lime px-5 py-16 sm:px-8">
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
+      <div className="relative flex flex-1 items-center overflow-hidden bg-lime px-5 py-16 sm:px-8">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[min(120vw,76rem)] items-center overflow-hidden"
+        >
+          <GeoIcon
+            name="asterisk6"
+            className="size-[min(120vw,76rem)] shrink-0 translate-x-1/2 text-ink/[0.07]"
+          />
+        </div>
+        <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="max-w-3xl">
             <p className="font-mono text-xs font-medium uppercase tracking-[0.3em]">
               Norwich · England
             </p>
-            <h1 className="type-display mt-5 text-5xl sm:text-6xl lg:text-[4.75rem]">
-              Be Radical.
-              <br />
-              Love Jesus.
+            <h1 className="type-display mt-5 text-4xl sm:text-5xl lg:text-[3.75rem]">
+              <span className="block whitespace-nowrap">
+                Be <RotatingHeroWord />
+              </span>
+              <span className="mt-3 block sm:mt-4">
+                <span className="inline-block">
+                  <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
+                    <span className="block whitespace-nowrap text-[0.92em] leading-[0.88] text-lime">
+                      For Jesus
+                    </span>
+                  </span>
+                  <span aria-hidden className="mt-3 block h-px w-full bg-ink sm:mt-3.5" />
+                  <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-ink/55 sm:text-[10px]">
+                    <span>Shape the city</span>
+                    <span aria-hidden className="text-crimson">
+                      ·
+                    </span>
+                    <span>Full Gospel</span>
+                    <span aria-hidden className="text-crimson">
+                      ·
+                    </span>
+                    <span>For Jesus</span>
+                  </span>
+                  <span aria-hidden className="mt-3 block h-px w-full bg-ink sm:mt-3.5" />
+                </span>
+              </span>
             </h1>
             <p className="mt-6 max-w-xl text-lg font-medium">
               {siteMeta.mission}
+            </p>
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink/60 sm:text-base">
+              {siteMeta.missionSupport}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button
                 variant="default"
                 size="lg"
                 offset
-                className="offset-shadow-paper"
                 asChild
               >
                 <Link to="/visit">

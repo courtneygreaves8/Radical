@@ -6,8 +6,6 @@ export const peekSlideImages = {
   streets: '/media/slider-01.jpg',
   /** Shaw's Passage mural wall */
   dock: '/media/slider-02.jpg',
-  /** Underpass fly mural */
-  fly: '/media/slider-05.jpg',
   /** Open grain field */
   field: '/media/slider-04.jpg',
   /** Street grit */
@@ -16,4 +14,24 @@ export const peekSlideImages = {
   still: '/media/still-boats.jpg',
   /** Figure on the path — The Jesus Way */
   jesusWay: '/media/slider-07.jpg',
+  /** Crown of thorns */
+  crown: '/media/stack-crown.jpg',
+  /** Pedestrianised street / red bus */
+  streetBus: '/media/stack-street.jpg',
+  /** St Mungo mural with robin */
+  muralRobin: '/media/stack-mural.jpg',
+  /** Dove mid-flight over rooftop */
+  dove: '/media/stack-dove.jpg',
+  /** Bars + dove — prison ministry */
+  prisons: '/media/mission-prisons.jpg',
+  /** Outdoors with the Word — evangelism */
+  bibleStreet: '/media/evangelism-bible.jpg',
+  /** Preaching on the bus — Hope Bus / street evangelism */
+  busPreach: '/media/evangelism-bus.jpg',
+  /** Outdoor Word — street preaching / evangelism */
+  outreachCrew: '/media/evangelism-crew.jpg',
+  /** Underpass grit — city & margins witness */
+  streetWitness: '/media/evangelism-street.jpg',
+  /** Children — generosity / mission */
+  give: '/media/stack-give.jpg',
 } as const

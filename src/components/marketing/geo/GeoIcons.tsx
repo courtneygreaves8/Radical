@@ -71,17 +71,6 @@ export function GeoRings({ className }: IconProps) {
   )
 }
 
-/** Overlapping team circles */
-export function GeoVenn({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 100 100" className={className} aria-hidden>
-      <circle cx="38" cy="42" r="28" fill="none" stroke="currentColor" strokeWidth="2.5" />
-      <circle cx="62" cy="42" r="28" fill="none" stroke="currentColor" strokeWidth="2.5" />
-      <circle cx="50" cy="62" r="28" fill="none" stroke="currentColor" strokeWidth="2.5" />
-    </svg>
-  )
-}
-
 /** Building-block circle grid with partial fills */
 export function GeoGrid({ className }: IconProps) {
   const cells = [
@@ -160,11 +149,24 @@ export function GeoSunburst({ className }: IconProps) {
   return <BrandGlyph shape="sunburst" className={className} />
 }
 
+/** Christian cross — flat arms, sharp corners */
+export function GeoCross({ className, mode = 'fill' }: IconProps) {
+  return (
+    <svg viewBox="0 0 100 100" className={className} aria-hidden>
+      <path
+        d="M38 4 H62 V32 H96 V56 H62 V96 H38 V56 H4 V32 H38 Z"
+        fill={mode === 'fill' ? 'currentColor' : 'none'}
+        stroke="currentColor"
+        strokeWidth={mode === 'stroke' ? 2.5 : 0}
+      />
+    </svg>
+  )
+}
+
 export const geoIconMap = {
   spark: GeoSpark,
   network: GeoNetwork,
   rings: GeoRings,
-  venn: GeoVenn,
   grid: GeoGrid,
   tunnel: GeoTunnel,
   gear: GeoGear,
@@ -172,6 +174,7 @@ export const geoIconMap = {
   asterisk6: GeoAsterisk6,
   asterisk8: GeoAsterisk8,
   sunburst: GeoSunburst,
+  cross: GeoCross,
 } as const
 
 export type GeoIconName = keyof typeof geoIconMap

@@ -6,30 +6,38 @@ type OffsetBlockProps = {
   children: ReactNode
   className?: string
   slabClassName?: string
-  offset?: 'ink' | 'lime' | 'paper'
+  /** Solid fill behind the frame */
+  offset?: 'ink' | 'lime' | 'paper' | 'crimson' | 'navy' | 'flame'
+  /** Hide slab until hover / focus-within */
+  revealOnHover?: boolean
 }
+
+const slabs = {
+  ink: 'bg-ink',
+  lime: 'bg-lime',
+  paper: 'border-2 border-ink bg-paper',
+  crimson: 'bg-crimson',
+  navy: 'bg-navy',
+  flame: 'bg-flame',
+} as const
 
 /** Image/button frame with a solid offset slab behind for 3D brutal feel. */
 export function OffsetBlock({
   children,
   className,
   slabClassName,
-  offset = 'ink',
+  offset = 'lime',
+  revealOnHover = false,
 }: OffsetBlockProps) {
-  const slab =
-    offset === 'lime'
-      ? 'bg-lime'
-      : offset === 'paper'
-        ? 'bg-paper'
-        : 'bg-ink'
-
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn('group/offset relative', className)}>
       <div
         aria-hidden
         className={cn(
-          'absolute inset-0 translate-x-2 translate-y-2 sm:translate-x-3 sm:translate-y-3',
-          slab,
+          'absolute inset-0 translate-x-2.5 translate-y-2.5 transition duration-200 sm:translate-x-3 sm:translate-y-3',
+          slabs[offset],
+          revealOnHover &&
+            'opacity-0 group-hover/offset:opacity-100 group-focus-within/offset:opacity-100',
           slabClassName
         )}
       />

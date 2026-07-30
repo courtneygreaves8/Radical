@@ -1,4 +1,4 @@
-import { urbanImages } from '@/lib/images'
+import { COMING_SOON_COVER } from '@/components/media/ComingSoonThumb'
 
 export type PodcastShow = {
   id: string
@@ -26,20 +26,8 @@ export type PodcastEpisode = {
   tags?: string[]
 }
 
-const covers = {
-  preach: urbanImages.shaftesbury,
-  worship: urbanImages.nightCity,
-  discipleship: urbanImages.brickStreet,
-  gypsy: urbanImages.estate,
-  street: urbanImages.soho,
-  hands: urbanImages.tags,
-  field: urbanImages.londonSky,
-  night: urbanImages.alley,
-  graffiti: urbanImages.graffitiWall,
-  mural: urbanImages.mural,
-  bus: urbanImages.londonBus,
-  crossing: urbanImages.crossing,
-}
+/** All Radical Media art is Coming Soon until real covers land. */
+const soon = COMING_SOON_COVER
 
 export const podcastShows: PodcastShow[] = [
   {
@@ -49,8 +37,8 @@ export const podcastShows: PodcastShow[] = [
     tagline: 'Unfiltered Word. Real fire.',
     description:
       'Sunday messages and prophetic preaching from Radical Church — hard-core discipleship, no fluff.',
-    cover: covers.preach,
-    backdrop: covers.graffiti,
+    cover: soon,
+    backdrop: soon,
     accent: '#C8F500',
     category: 'Sermons',
   },
@@ -61,8 +49,8 @@ export const podcastShows: PodcastShow[] = [
     tagline: 'Presence over performance.',
     description:
       'Live worship sessions and spontaneous moments from gatherings — atmosphere for encountering God.',
-    cover: covers.worship,
-    backdrop: covers.night,
+    cover: soon,
+    backdrop: soon,
     accent: '#C8F500',
     category: 'Worship',
   },
@@ -73,8 +61,8 @@ export const podcastShows: PodcastShow[] = [
     tagline: 'Walk like Him.',
     description:
       'Discipleship series for growing deep — repentance, holiness, and following Jesus without compromise.',
-    cover: covers.discipleship,
-    backdrop: covers.hands,
+    cover: soon,
+    backdrop: soon,
     accent: '#C8F500',
     category: 'Discipleship',
   },
@@ -85,8 +73,8 @@ export const podcastShows: PodcastShow[] = [
     tagline: 'Faith on the road.',
     description:
       'Stories and teaching shaped by travelling faith communities — raw, relational, radical.',
-    cover: covers.gypsy,
-    backdrop: covers.street,
+    cover: soon,
+    backdrop: soon,
     accent: '#C8F500',
     category: 'Stories',
   },
@@ -102,7 +90,7 @@ export const podcastEpisodes: PodcastEpisode[] = [
       'If you want comfortable seats and predictable meetings, this is not that. A call to pursue God hard.',
     duration: '42 min',
     publishedAt: '2026-07-20',
-    cover: covers.preach,
+    cover: soon,
     featured: true,
     tags: ['Sunday', 'Call'],
   },
@@ -115,7 +103,7 @@ export const podcastEpisodes: PodcastEpisode[] = [
       'Mission to the broken and marginalised — supermarket streets, clubs, and the Hope Bus.',
     duration: '38 min',
     publishedAt: '2026-07-13',
-    cover: covers.street,
+    cover: soon,
     tags: ['Outreach'],
   },
   {
@@ -127,7 +115,7 @@ export const podcastEpisodes: PodcastEpisode[] = [
       'Pentecostal and not ashamed — gifts, healing, and character that holds under pressure.',
     duration: '51 min',
     publishedAt: '2026-07-06',
-    cover: covers.graffiti,
+    cover: soon,
     tags: ['Spirit'],
   },
   {
@@ -139,7 +127,7 @@ export const podcastEpisodes: PodcastEpisode[] = [
       'We gather to worship God — not entertain people. A night in the presence.',
     duration: '56 min',
     publishedAt: '2026-07-19',
-    cover: covers.worship,
+    cover: soon,
     featured: true,
     tags: ['Live'],
   },
@@ -151,7 +139,7 @@ export const podcastEpisodes: PodcastEpisode[] = [
     synopsis: 'Unplanned worship moments from a Sunday gathering in Norwich.',
     duration: '28 min',
     publishedAt: '2026-07-05',
-    cover: covers.night,
+    cover: soon,
     tags: ['Live'],
   },
   {
@@ -163,7 +151,7 @@ export const podcastEpisodes: PodcastEpisode[] = [
       'Raising sons, daughters, and warriors — what it costs to follow Jesus fully.',
     duration: '33 min',
     publishedAt: '2026-07-18',
-    cover: covers.discipleship,
+    cover: soon,
     featured: true,
     tags: ['Series'],
   },
@@ -175,7 +163,7 @@ export const podcastEpisodes: PodcastEpisode[] = [
     synopsis: 'Conviction, turning, and sanctification — the Jesus Way starts here.',
     duration: '29 min',
     publishedAt: '2026-07-04',
-    cover: covers.mural,
+    cover: soon,
     tags: ['Series'],
   },
   {
@@ -187,7 +175,7 @@ export const podcastEpisodes: PodcastEpisode[] = [
       'Stories from travelling communities — belonging, family, and Jesus on the road.',
     duration: '36 min',
     publishedAt: '2026-07-12',
-    cover: covers.gypsy,
+    cover: soon,
     featured: true,
     tags: ['Story'],
   },
@@ -199,7 +187,7 @@ export const podcastEpisodes: PodcastEpisode[] = [
     synopsis: 'What it means to be family in the Kingdom — no mediocre faith.',
     duration: '31 min',
     publishedAt: '2026-06-28',
-    cover: covers.bus,
+    cover: soon,
     tags: ['Story'],
   },
   {
@@ -211,7 +199,7 @@ export const podcastEpisodes: PodcastEpisode[] = [
       'God is wanting to bring revival to Norfolk — and we want to be part of it.',
     duration: '44 min',
     publishedAt: '2026-06-22',
-    cover: covers.crossing,
+    cover: soon,
     tags: ['Sunday'],
   },
 ]

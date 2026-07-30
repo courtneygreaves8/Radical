@@ -29,6 +29,9 @@
   --color-lime: var(--lime);
   --color-lime-foreground: var(--lime-foreground);
   --color-mute: var(--mute);
+  --color-crimson: var(--crimson);
+  --color-navy: var(--navy);
+  --color-flame: var(--flame);
 
   --radius-sm: 0;
   --radius-md: 0;
@@ -44,6 +47,10 @@
   --lime: #c8f500;
   --lime-foreground: #000000;
   --mute: #e8e8e8;
+  /* Extended brand accents */
+  --crimson: #da2c38;
+  --navy: #0c1b33;
+  --flame: #f6511d;
 
   --background: #ffffff;
   --foreground: #000000;
@@ -59,7 +66,7 @@
   --muted-foreground: #525252;
   --accent: #c8f500;
   --accent-foreground: #000000;
-  --destructive: #dc2626;
+  --destructive: #da2c38;
   --border: #000000;
   --input: #000000;
   --ring: #c8f500;
@@ -117,19 +124,54 @@
     paint-order: stroke fill;
   }
 
+  /* Offset slabs — hidden at rest, reveal on hover/focus */
   .offset-shadow-ink {
+    box-shadow: 5px 5px 0 0 transparent;
+  }
+
+  .offset-shadow-ink:is(:hover, :focus-visible, :active) {
     box-shadow: 5px 5px 0 0 var(--ink);
   }
 
   .offset-shadow-lime {
+    box-shadow: 5px 5px 0 0 transparent;
+  }
+
+  .offset-shadow-lime:is(:hover, :focus-visible, :active) {
     box-shadow: 5px 5px 0 0 var(--lime);
   }
 
-  /* White offset slab with black stroke around the shadow */
+  .offset-shadow-crimson {
+    box-shadow: 5px 5px 0 0 transparent;
+  }
+
+  .offset-shadow-crimson:is(:hover, :focus-visible, :active) {
+    box-shadow: 5px 5px 0 0 var(--crimson);
+  }
+
+  .offset-shadow-navy {
+    box-shadow: 5px 5px 0 0 transparent;
+  }
+
+  .offset-shadow-navy:is(:hover, :focus-visible, :active) {
+    box-shadow: 5px 5px 0 0 var(--navy);
+  }
+
+  .offset-shadow-flame {
+    box-shadow: 5px 5px 0 0 transparent;
+  }
+
+  .offset-shadow-flame:is(:hover, :focus-visible, :active) {
+    box-shadow: 5px 5px 0 0 var(--flame);
+  }
+
+  /* Ink fill slab reveals on hover (was always-on paper + ink fill) */
   .offset-shadow-paper {
-    box-shadow:
-      5px 5px 0 0 var(--paper),
-      5px 5px 0 2px var(--ink);
+    box-shadow: 5px 5px 0 0 transparent;
+  }
+
+  .offset-shadow-paper:is(:hover, :focus-visible, :active) {
+    box-shadow: 5px 5px 0 0 var(--ink);
   }
 
   .verse-marquee {
@@ -151,8 +193,9 @@
     }
   }
 
-  /* Cool B&W documentary + TV static */
-  .photo-bw {
+  /* Cool B&W documentary + TV static — all site photography */
+  .photo-bw,
+  .photo-grain img {
     filter: grayscale(1) contrast(1.22) brightness(0.88);
   }
 

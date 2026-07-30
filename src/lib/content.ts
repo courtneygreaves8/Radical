@@ -49,7 +49,7 @@ export const carouselSlides: CarouselSlide[] = [
   {
     id: '1',
     title: 'Hope on the streets',
-    caption: 'The Radical Hope Bus — outreach across Norfolk.',
+    caption: 'Helping shape Norwich from the Hope Bus — outreach across Norfolk.',
     image: peekSlideImages.streets,
     ctaLabel: 'See missions',
     ctaHref: '/missions',
@@ -66,8 +66,8 @@ export const carouselSlides: CarouselSlide[] = [
   {
     id: '3',
     title: 'City witness',
-    caption: 'Called to the broken, the marginalised, and the overlooked.',
-    image: peekSlideImages.dock,
+    caption: 'Shaping lives on the margins — for Jesus, in this city.',
+    image: peekSlideImages.streetWitness,
     ctaLabel: 'Our vision',
     ctaHref: '/about',
   },
@@ -91,13 +91,13 @@ export const carouselSlides: CarouselSlide[] = [
 
 export const aboutCopy = {
   eyebrow: 'Who we are',
-  title: 'We believe in being Radical.',
-  lead: 'Radical Church is a community of believers that simply love Jesus.',
+  title: 'Helping shape the city.',
+  lead: 'Radical Church is a community of believers helping shape Norwich — for Jesus.',
   body: [
-    'Our mission: Loving Jesus, Loving each other, and Loving the lost.',
-    'We believe in the power of God to transform lives, and especially feel called to the broken and marginalised. We believe in the Full Gospel and the Whole Bible and want to see Jesus made famous.',
+    'Our mission is simple: help shape the city in Jesus’ name. Loving Jesus, loving each other, and loving the lost.',
+    'We believe in the power of God to transform lives, and especially feel called to the broken and marginalised. Full Gospel. Whole Bible. Soft hearts, hard discipleship — Jesus made famous on these streets.',
     'When we meet together we meet to worship God — not entertain people. If you are looking for comfortable seats and predictable meetings where you are not challenged to pursue God, this is not the fellowship for you.',
-    'If you are looking to be used of God, work hard, be challenged and make a difference — then we dare you to come and visit.',
+    'If you are looking to be used of God, work hard, be challenged and help shape this city — then we dare you to come and visit.',
   ],
   signOff: 'Pastor Matt and team.',
 }
@@ -159,15 +159,15 @@ export const missions: MissionStory[] = [
     number: '01',
     title: 'Radical Hope Bus',
     body: 'Outreach and evangelism across Norfolk on our double-decker Hope Bus — supermarket streets, clubs, and communities that need Jesus.',
-    image: urbanImages.soho,
+    image: peekSlideImages.busPreach,
   },
   {
     id: 'm2',
     region: 'uk',
     number: '02',
-    title: 'Norwich & beyond',
+    title: 'City & prisons',
     body: 'Prison prayer, street preaching, Tough Talk, and local mission with churches across the city. Revival in our county — we want in.',
-    image: urbanImages.shoreditch,
+    image: '/media/mission-prisons.jpg',
   },
   {
     id: 'm3',

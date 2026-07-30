@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
 export type ResultsStat = {
@@ -58,8 +59,8 @@ export function ResultsBand({
           ) : null}
         </div>
 
-        <div className="relative overflow-hidden border-2 border-paper/20">
-          <div className="photo-grain relative min-h-[420px] sm:min-h-[520px]">
+        <OffsetBlock offset="lime">
+          <div className="photo-grain relative min-h-[420px] overflow-hidden border-2 border-ink sm:min-h-[520px]">
             <img
               src={image}
               alt=""
@@ -100,7 +101,7 @@ export function ResultsBand({
               </div>
             </div>
           </div>
-        </div>
+        </OffsetBlock>
       </div>
     </section>
   )

@@ -1,9 +1,7 @@
 import { AccordionRail } from '@/components/marketing/AccordionRail'
-import { MetricBento } from '@/components/marketing/MetricBento'
+import { GiveWays } from '@/components/marketing/GiveWays'
 import { ProcessGrid } from '@/components/marketing/ProcessGrid'
 import { Em, SectionIntro } from '@/components/marketing/SectionIntro'
-import { PageHero } from '@/components/shared/PageHero'
-import { urbanImages } from '@/lib/images'
 import { getLocalContent } from '@/lib/sanity/client'
 
 export function GivePage() {
@@ -11,49 +9,24 @@ export function GivePage() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Generosity"
-        title="Ways to give"
-        description="Prefer in-person when you can. Or partner by text, bank, or sponsorship."
-        tone="ink"
-      />
-
-      <MetricBento
-        cards={[
-          {
-            id: 'g1',
-            eyebrow: 'SMS',
-            value: '70085',
-            detail: 'RADICALOFFERING · RADICALTITHES · SAVIOURJESUS',
-            tone: 'lime',
-          },
-          {
-            id: 'g2',
-            eyebrow: 'Sponsor',
-            value: '£30/mo',
-            detail: 'Orphanage care in India — no admin fees taken from your gift.',
-            tone: 'photo',
-            image: urbanImages.mural,
-          },
-        ]}
-      />
+      <GiveWays charityNumber={charityNumber} email={email} />
 
       <SectionIntro
-        index="01"
+        index="02"
         label="Partner"
         body="Every gift fuels outreach, care, and long-term mission — from Norwich streets to partners overseas."
         headline={
           <>
-            Generosity is <Em>worship</Em> with open hands — not a tip for a
-            good Sunday.
+            Generosity <Em tone="flame">shapes</Em> the work — open hands for a
+            city and nations that need Jesus.
           </>
         }
         cta={{ label: 'Email giving questions', href: `mailto:${email}` }}
-        tone="paper"
+        tone="ink"
       />
 
       <AccordionRail
-        index="02"
+        index="03"
         label="Give options"
         tone="paper"
         items={giveOptions.map((opt) => ({
@@ -64,7 +37,7 @@ export function GivePage() {
       />
 
       <ProcessGrid
-        index="03"
+        index="04"
         label="How gifts move"
         tone="lime"
         headline="From your phone to the field — clear steps, no fluff."
@@ -104,7 +77,7 @@ export function GivePage() {
 
       <div className="border-b-2 border-ink bg-paper px-5 py-10 sm:px-8">
         <p className="mx-auto max-w-7xl font-mono text-xs text-ink/50">
-          Charity number {charityNumber} · Questions?{' '}
+          Charity number {charityNumber} · England & Wales · Questions?{' '}
           <a href={`mailto:${email}`} className="text-ink underline">
             {email}
           </a>

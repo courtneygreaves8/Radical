@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 
+import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
 export type ExpertiseSlide = {
@@ -86,23 +87,25 @@ export function ExpertisePanel({
           </div>
 
           <div className="p-6 sm:p-8 lg:p-10">
-            <div className="photo-grain relative aspect-[16/9] overflow-hidden border-2 border-paper/20 bg-ink sm:aspect-[21/9]">
-              <AnimatePresence mode="wait">
-                {slide ? (
-                  <motion.img
-                    key={slide.id}
-                    src={slide.image}
-                    alt=""
-                    initial={{ opacity: 0, scale: 1.04 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.45 }}
-                    className="photo-bw absolute inset-0 size-full object-cover"
-                  />
-                ) : null}
-              </AnimatePresence>
-              <div className="absolute inset-0 z-[2] bg-gradient-to-t from-ink via-transparent to-transparent" />
-            </div>
+            <OffsetBlock offset="lime">
+              <div className="photo-grain relative aspect-[16/9] overflow-hidden border-2 border-ink bg-ink sm:aspect-[21/9]">
+                <AnimatePresence mode="wait">
+                  {slide ? (
+                    <motion.img
+                      key={slide.id}
+                      src={slide.image}
+                      alt=""
+                      initial={{ opacity: 0, scale: 1.04 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.45 }}
+                      className="photo-bw absolute inset-0 size-full object-cover"
+                    />
+                  ) : null}
+                </AnimatePresence>
+                <div className="absolute inset-0 z-[2] bg-gradient-to-t from-ink via-transparent to-transparent" />
+              </div>
+            </OffsetBlock>
 
             <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
               <div>

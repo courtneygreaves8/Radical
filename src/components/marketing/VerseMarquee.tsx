@@ -33,7 +33,7 @@ export function VerseMarquee({
   className,
   invertWhenVisible,
 }: VerseMarqueeProps) {
-  const sep = ' ——— '
+  const sep = ' ⸺ '
   const line = items.join(sep)
   const track = `${line}${sep}${line}${sep}`
   const [inverted, setInverted] = useState(false)

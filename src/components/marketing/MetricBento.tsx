@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 
 import { MorphMark } from '@/components/marketing/MorphMark'
+import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
 export type MetricCard = {
@@ -39,7 +40,7 @@ export function MetricBento({
           </p>
         ) : null}
 
-        <div className="grid gap-3 sm:gap-4 lg:grid-cols-2">
+        <div className="grid gap-3 pb-3 sm:gap-4 sm:pb-4 lg:grid-cols-2">
           {cards.slice(0, 2).map((card) => {
             const inner = (
               <>
@@ -89,19 +90,21 @@ export function MetricBento({
 
             if (card.tone === 'photo' && card.image) {
               const node = (
-                <div className={shell}>
-                  <div className="photo-grain absolute inset-0">
-                    <img
-                      src={card.image}
-                      alt=""
-                      className="photo-bw absolute inset-0 size-full object-cover opacity-55"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30" />
+                <OffsetBlock offset="lime">
+                  <div className={shell}>
+                    <div className="photo-grain absolute inset-0">
+                      <img
+                        src={card.image}
+                        alt=""
+                        className="photo-bw absolute inset-0 size-full object-cover opacity-55"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30" />
+                    </div>
+                    <div className="relative z-10 flex h-full flex-col justify-between">
+                      {inner}
+                    </div>
                   </div>
-                  <div className="relative z-10 flex h-full flex-col justify-between">
-                    {inner}
-                  </div>
-                </div>
+                </OffsetBlock>
               )
               return card.href ? (
                 <Link key={card.id} to={card.href} className="block">

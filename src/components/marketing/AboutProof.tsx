@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
 export type AboutStat = {
@@ -74,14 +75,16 @@ export function AboutProof({
           </div>
         </div>
 
-        <div className="photo-grain relative mt-12 aspect-[16/9] overflow-hidden border-2 border-ink bg-ink sm:mt-14 sm:aspect-[21/9]">
-          <img
-            src={image}
-            alt=""
-            className="photo-bw absolute inset-0 size-full object-cover"
-          />
-          <div className="absolute inset-0 bg-ink/15" />
-        </div>
+        <OffsetBlock offset="lime" className="mt-12 sm:mt-14">
+          <div className="photo-grain relative aspect-[16/9] overflow-hidden border-2 border-ink bg-ink sm:aspect-[21/9]">
+            <img
+              src={image}
+              alt=""
+              className="photo-bw absolute inset-0 size-full object-cover"
+            />
+            <div className="absolute inset-0 bg-ink/15" />
+          </div>
+        </OffsetBlock>
       </div>
     </section>
   )

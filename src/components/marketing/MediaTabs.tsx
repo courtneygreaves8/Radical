@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, Play } from 'lucide-react'
 
+import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
 export type MediaTab = {
@@ -10,6 +11,8 @@ export type MediaTab = {
   title: string
   body: string
   image: string
+  /** YouTube watch URL or 11-char id */
+  video?: string
 }
 
 type MediaTabsProps = {
@@ -21,7 +24,16 @@ type MediaTabsProps = {
   className?: string
 }
 
-/** Media left + large-type selector right — swaps preview + copy. */
+function youtubeId(raw?: string) {
+  if (!raw) return null
+  if (/^[a-zA-Z0-9_-]{11}$/.test(raw)) return raw
+  const m = raw.match(
+    /(?:youtu\.be\/|v=|embed\/|shorts\/)([a-zA-Z0-9_-]{11})/
+  )
+  return m?.[1] ?? null
+}
+
+/** Media left + large-type selector right — image/video preview + copy. */
 export function MediaTabs({
   index,
   label,
@@ -31,8 +43,14 @@ export function MediaTabs({
   className,
 }: MediaTabsProps) {
   const [activeId, setActiveId] = useState(tabs[0]?.id ?? '')
+  const [playing, setPlaying] = useState(false)
   const active = tabs.find((t) => t.id === activeId) ?? tabs[0]
   const ink = tone === 'ink'
+  const yt = youtubeId(active?.video)
+
+  useEffect(() => {
+    setPlaying(false)
+  }, [activeId])
 
   if (!active) return null
 
@@ -54,38 +72,74 @@ export function MediaTabs({
           ({index}) {label}
         </p>
 
+        <OffsetBlock offset={ink ? 'lime' : 'ink'} className="mt-8">
         <div
           className={cn(
-            'mt-8 grid overflow-hidden border-2 border-ink lg:grid-cols-[1.1fr_0.9fr]',
+            'grid overflow-hidden border-2 border-ink lg:grid-cols-[1.1fr_0.9fr]',
             ink ? 'bg-ink' : 'bg-paper'
           )}
         >
           <div className="photo-grain relative min-h-[280px] border-b-2 border-ink lg:min-h-[420px] lg:border-b-0 lg:border-r-2">
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={active.id}
-                src={active.image}
-                alt=""
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35 }}
-                className="photo-bw absolute inset-0 size-full object-cover"
+            {playing && yt ? (
+              <iframe
+                title={active.title}
+                src={`https://www.youtube.com/embed/${yt}?autoplay=1&rel=0`}
+                className="absolute inset-0 size-full grayscale contrast-125"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
               />
-            </AnimatePresence>
-            <div className="absolute inset-0 bg-ink/20" />
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <span
-                className={cn(
-                  'flex size-14 items-center justify-center border-2 backdrop-blur-sm sm:size-16',
-                  ink
-                    ? 'border-lime/80 bg-ink/40 text-lime'
-                    : 'border-paper/80 bg-paper/25 text-paper'
+            ) : (
+              <>
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={active.id}
+                    src={active.image}
+                    alt=""
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="photo-bw absolute inset-0 size-full object-cover"
+                  />
+                </AnimatePresence>
+                <div className="absolute inset-0 bg-ink/20" />
+                {yt ? (
+                  <button
+                    type="button"
+                    onClick={() => setPlaying(true)}
+                    aria-label="Play video"
+                    className={cn(
+                      'absolute inset-0 z-10 flex items-center justify-center transition',
+                      'hover:bg-ink/10'
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        'flex size-14 items-center justify-center border-2 backdrop-blur-sm sm:size-16',
+                        ink
+                          ? 'border-lime/80 bg-ink/40 text-lime'
+                          : 'border-paper/80 bg-paper/25 text-paper'
+                      )}
+                    >
+                      <Play className="size-5 fill-current" />
+                    </span>
+                  </button>
+                ) : (
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                    <span
+                      className={cn(
+                        'flex size-14 items-center justify-center border-2 backdrop-blur-sm sm:size-16',
+                        ink
+                          ? 'border-lime/80 bg-ink/40 text-lime'
+                          : 'border-paper/80 bg-paper/25 text-paper'
+                      )}
+                    >
+                      <Play className="size-5 fill-current" />
+                    </span>
+                  </div>
                 )}
-              >
-                <Play className="size-5 fill-current" />
-              </span>
-            </div>
+              </>
+            )}
           </div>
 
           <div className="flex flex-col justify-between p-6 sm:p-8 lg:p-10">
@@ -157,6 +211,7 @@ export function MediaTabs({
             </AnimatePresence>
           </div>
         </div>
+        </OffsetBlock>
       </div>
     </section>
   )

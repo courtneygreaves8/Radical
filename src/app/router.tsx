@@ -15,6 +15,7 @@ import { PodcastShowPage } from '@/pages/PodcastShowPage'
 import { PodcastsPage } from '@/pages/PodcastsPage'
 import { SignInPage } from '@/pages/SignInPage'
 import { SignUpPage } from '@/pages/SignUpPage'
+import { SponsorshipPage } from '@/pages/SponsorshipPage'
 import { VisitPage } from '@/pages/VisitPage'
 
 export const router = createBrowserRouter([
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
       { path: 'events', element: <EventsPage /> },
       { path: 'missions', element: <MissionsPage /> },
       { path: 'give', element: <GivePage /> },
+      { path: 'sponsorship', element: <SponsorshipPage /> },
       { path: 'account', element: <AccountPage /> },
     ],
   },

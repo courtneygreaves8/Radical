@@ -23,7 +23,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:h-[4.5rem] sm:px-8">
         <Link
           to="/"
-          className="type-display text-lg sm:text-xl"
+          className="inline-block bg-crimson px-2.5 py-1 type-display text-lg text-paper sm:px-3 sm:text-xl"
           onClick={() => setOpen(false)}
         >
           {siteMeta.name}
@@ -52,7 +52,6 @@ export function SiteHeader() {
             variant="default"
             size="sm"
             offset
-            className="offset-shadow-paper"
             asChild
           >
             <Link to="/visit">This Sunday</Link>

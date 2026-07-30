@@ -1,45 +1,45 @@
 import { Link } from 'react-router-dom'
 
 import { AccordionRail } from '@/components/marketing/AccordionRail'
-import { MetricBento } from '@/components/marketing/MetricBento'
 import { Em, SectionIntro } from '@/components/marketing/SectionIntro'
+import { SplitProof } from '@/components/marketing/SplitProof'
 import { PageHero } from '@/components/shared/PageHero'
 import { Button } from '@/components/ui/button'
-import { urbanImages } from '@/lib/images'
 import { getLocalContent } from '@/lib/sanity/client'
+import { siteMeta } from '@/lib/nav'
 
 export function EventsPage() {
   const { events } = getLocalContent()
+  const liveCount = events.length
 
   return (
     <>
       <PageHero
         eyebrow="What's happening"
         title="Public events"
-        description="Some gatherings are for the church family. Here's what's open to everyone."
+        description="Gatherings that help shape the city — some for the church family, Sunday open to everyone."
         tone="paper"
       />
 
-      <MetricBento
-        cards={[
-          {
-            id: 'e1',
-            eyebrow: 'Every Sunday',
-            value: '10:30',
-            detail: 'City Gates Centre · open to all',
-            tone: 'lime',
-            href: '/visit',
-          },
-          {
-            id: 'e2',
-            eyebrow: 'Calendar',
-            value: events.length ? `${events.length} live` : 'Come anyway',
-            detail: 'Public listings update as we announce.',
-            tone: 'photo',
-            image: urbanImages.nightCity,
-            href: '/visit',
-          },
-        ]}
+      <SplitProof
+        left={{
+          eyebrow: 'Every Sunday',
+          value: siteMeta.visit.time,
+          detail: `${siteMeta.visit.venue} · open to all`,
+          cta: { label: 'Plan your visit', href: '/visit' },
+          mark: 'asterisk8',
+        }}
+        right={{
+          eyebrow: 'Calendar',
+          value: liveCount > 0 ? `${liveCount} live` : 'Open door',
+          detail:
+            liveCount > 0
+              ? 'Public listings update as we announce.'
+              : 'No extra listings yet — Sunday is always open.',
+          cta: { label: 'See gatherings', href: '/events#listings' },
+          mark: 'cross',
+          image: '/media/cowgate.jpg',
+        }}
       />
 
       <SectionIntro
@@ -48,15 +48,15 @@ export function EventsPage() {
         body="Some nights are for the church family. The list below is what we make public — and Sunday is always a dare to come."
         headline={
           <>
-            Events are a doorway into <Em>presence</Em> — not a programme to
-            consume.
+            Events are a doorway into <Em tone="crimson">shaping</Em> presence —
+            not a programme to consume.
           </>
         }
         cta={{ label: 'Visit this Sunday', href: '/visit' }}
-        tone="ink"
+        tone="lime"
       />
 
-      <section className="border-b-2 border-ink bg-paper">
+      <section id="listings" className="border-b-2 border-ink bg-paper">
         <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
           {events.length === 0 ? (
             <div className="border-2 border-dashed border-ink/40 bg-mute p-10 text-center">

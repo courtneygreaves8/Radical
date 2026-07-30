@@ -1,7 +1,13 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { Play } from 'lucide-react'
 
+import {
+  ComingSoonThumb,
+  comingSoonKindFromCategory,
+  isComingSoonCover,
+} from '@/components/media/ComingSoonThumb'
 import { MediaCard } from '@/components/media/MediaCard'
+import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { Button } from '@/components/ui/button'
 import { episodesForShow, getShow } from '@/lib/podcasts'
 
@@ -12,27 +18,46 @@ export function PodcastShowPage() {
 
   const episodes = episodesForShow(show.id)
   const first = episodes[0]
+  const soon = isComingSoonCover(show.backdrop)
+  const kind = comingSoonKindFromCategory(show.category)
 
   return (
     <div className="pb-20">
-      <section className="photo-grain relative min-h-[55vh] overflow-hidden">
-        <img
-          src={show.backdrop}
-          alt=""
-          className="photo-bw absolute inset-0 size-full object-cover"
-        />
-        <div className="absolute inset-0 z-[2] media-fade-left" />
-        <div className="absolute inset-0 z-[2] media-fade-bottom" />
+      <section className="relative min-h-[55vh] overflow-hidden border-b-2 border-ink">
+        {soon ? (
+          <>
+            <ComingSoonThumb
+              kind={kind}
+              className="absolute inset-0"
+              title={show.title}
+            />
+            <div className="absolute inset-0 z-[2] bg-gradient-to-r from-ink via-ink/75 to-ink/25" />
+          </>
+        ) : (
+          <>
+            <img
+              src={show.backdrop}
+              alt=""
+              className="photo-bw absolute inset-0 size-full object-cover"
+            />
+            <div className="absolute inset-0 z-[2] media-fade-left" />
+            <div className="absolute inset-0 z-[2] media-fade-bottom" />
+          </>
+        )}
 
         <div className="relative z-10 mx-auto flex min-h-[55vh] max-w-[1600px] flex-col justify-end gap-8 px-4 pb-12 pt-24 sm:flex-row sm:items-end sm:px-8 sm:pb-16">
-          <img
-            src={show.cover}
-            alt=""
-            className="photo-bw hidden w-40 border border-white/20 shadow-[8px_8px_0_0_#C8F500] sm:block sm:w-48"
-          />
+          <OffsetBlock offset="ink" className="hidden w-40 shrink-0 sm:block sm:w-48">
+            <div className="relative aspect-[2/3] overflow-hidden border-2 border-ink">
+              <ComingSoonThumb
+                kind={kind}
+                title={show.title}
+                className="absolute inset-0"
+              />
+            </div>
+          </OffsetBlock>
           <div className="max-w-2xl">
             <p className="font-mono text-xs uppercase tracking-[0.25em] text-lime">
-              {show.category} · Series
+              {show.category} · Coming soon
             </p>
             <h1 className="type-display mt-3 text-4xl text-white sm:text-6xl">
               {show.title}
@@ -47,7 +72,7 @@ export function PodcastShowPage() {
               <Button variant="lime" size="lg" className="mt-8" offset asChild>
                 <Link to={`/podcasts/${show.slug}/${first.slug}`}>
                   <Play className="size-4 fill-current" />
-                  Play latest
+                  Preview latest
                 </Link>
               </Button>
             ) : null}
@@ -55,16 +80,16 @@ export function PodcastShowPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1600px] px-4 py-12 sm:px-8">
-        <h2 className="type-display text-xl text-white sm:text-2xl">
-          Episodes
-        </h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="mx-auto max-w-[1600px] bg-black px-4 py-10 sm:px-8">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-white/40">
+          Episodes · Coming soon
+        </p>
+        <div className="mt-6 flex flex-wrap gap-4">
           {episodes.map((ep) => (
-            <MediaCard key={ep.id} episode={ep} size="lg" className="!w-full" />
+            <MediaCard key={ep.id} episode={ep} />
           ))}
         </div>
-      </section>
+      </div>
     </div>
   )
 }

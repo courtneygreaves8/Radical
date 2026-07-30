@@ -28,7 +28,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
 
   return (
     <section className="relative border-b-2 border-ink bg-ink">
-      <div className="relative aspect-[16/10] min-h-[280px] w-full overflow-hidden sm:aspect-[21/9] sm:min-h-[360px]">
+      <div className="photo-grain relative aspect-[16/10] min-h-[280px] w-full overflow-hidden sm:aspect-[21/9] sm:min-h-[360px]">
         <AnimatePresence mode="wait">
           <motion.img
             key={slide.id}
@@ -38,7 +38,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.55 }}
-            className="absolute inset-0 size-full object-cover"
+            className="photo-bw absolute inset-0 size-full object-cover"
           />
         </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />

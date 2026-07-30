@@ -5,116 +5,136 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 type BrutalSplitProps = {
-  /** Solid-fill letters (left / over paper) */
+  /** Solid-fill letters */
   fill: string
-  /** Outline letters (right / over image) */
+  /** Outline letters */
   outline: string
   subline?: string
-  image: string
   points?: string[]
+  body?: string
   cta?: { label: string; href: string }
   className?: string
 }
 
 /**
- * Part-fill / part-outline display word —
- * solid letters over paper, stroked letters over the photo.
+ * Sticky stacked cards on lime — identity → DNA labels → invite.
+ * No photo. Labels are static marks, not faux links.
  */
 export function BrutalSplit({
   fill,
   outline,
   subline,
-  image,
   points = [],
+  body = 'Church is driven by a deep passion for loving Jesus, loving each other, and loving the lost — with fire, not fluff.',
   cta,
   className,
 }: BrutalSplitProps) {
-  const left = points.slice(0, Math.ceil(points.length / 2))
-  const right = points.slice(Math.ceil(points.length / 2))
-
-  return (
-    <section className={cn('border-b-2 border-ink bg-lime', className)}>
-      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14">
-        <div className="relative overflow-hidden border-2 border-ink bg-paper">
-          <div className="grid min-h-[420px] lg:min-h-[520px] lg:grid-cols-2">
-            {/* Paper column — fill letters sit here */}
-            <div className="relative z-20 flex flex-col justify-between gap-10 p-6 sm:p-8 lg:p-10">
-              <div>
-                {/* Spacer so absolute word has room */}
-                <div className="type-brutal invisible text-[clamp(3.5rem,14vw,8.5rem)] leading-[0.85]">
-                  {fill}
-                  {outline}
-                </div>
-                {subline ? (
-                  <div className="mt-3 flex items-center gap-3">
-                    <p className="type-brutal text-xl tracking-tight text-ink sm:text-2xl">
-                      {subline}
-                    </p>
-                    {cta ? (
-                      <Link
-                        to={cta.href}
-                        className="flex size-9 items-center justify-center border-2 border-ink transition hover:bg-ink hover:text-lime"
-                        aria-label={cta.label}
-                      >
-                        <ArrowRight className="size-4" />
-                      </Link>
-                    ) : null}
-                  </div>
-                ) : null}
-              </div>
-
-              {points.length ? (
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <ul className="space-y-0">
-                    {left.map((item) => (
-                      <li
-                        key={item}
-                        className="border-t border-ink/25 py-2.5 text-xs font-medium uppercase tracking-wider text-ink/55 sm:text-sm"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <ul className="space-y-0">
-                    {right.map((item) => (
-                      <li
-                        key={item}
-                        className="border-t border-ink/25 py-2.5 text-xs font-medium uppercase tracking-wider text-ink/55 sm:text-sm"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : cta ? (
-                <Button variant="default" offset asChild>
-                  <Link to={cta.href}>
-                    {cta.label}
-                    <ArrowRight className="size-4" />
-                  </Link>
-                </Button>
-              ) : null}
-            </div>
-
-            {/* Image column — outline letters sit over this */}
-            <div className="photo-grain relative min-h-[280px] border-t-2 border-ink bg-mute lg:min-h-0 lg:border-t-0 lg:border-l-2">
-              <img
-                src={image}
-                alt=""
-                className="photo-bw absolute inset-0 size-full object-cover opacity-90"
-              />
-              <div className="absolute inset-0 bg-ink/10" />
-            </div>
-          </div>
-
-          {/* Absolute word spanning the split */}
+  const cards = [
+    {
+      id: '01',
+      title: 'Identity',
+      node: (
+        <div className="flex flex-col justify-between gap-10 p-6 sm:p-8 lg:min-h-[42vh] lg:p-10">
           <h2
             aria-label={`${fill}${outline}`}
-            className="type-brutal pointer-events-none absolute top-6 left-6 z-30 text-[clamp(3.5rem,14vw,8.5rem)] leading-[0.85] sm:top-8 sm:left-8 lg:top-10 lg:left-10"
+            className="type-brutal text-[clamp(3.25rem,12vw,7.5rem)] leading-[0.85]"
           >
             <span className="text-ink">{fill}</span>
             <span className="text-outline-ink">{outline}</span>
           </h2>
+          {subline ? (
+            <div className="flex flex-wrap items-center gap-3">
+              <p className="type-brutal text-xl tracking-tight text-ink sm:text-2xl">
+                {subline}
+              </p>
+              {cta ? (
+                <Link
+                  to={cta.href}
+                  className="flex size-10 items-center justify-center border-2 border-ink transition hover:bg-ink hover:text-lime"
+                  aria-label={cta.label}
+                >
+                  <ArrowRight className="size-4" />
+                </Link>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+      ),
+    },
+    {
+      id: '02',
+      title: 'DNA',
+      node: (
+        <div className="flex flex-col gap-8 p-6 sm:p-8 lg:min-h-[38vh] lg:p-10">
+          <div className="flex items-end justify-between gap-4 border-b-2 border-ink pb-4">
+            <p className="type-display text-5xl text-ink sm:text-6xl">02</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink/45">
+              What we run on
+            </p>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-3">
+            {points.map((item) => (
+              <li key={item}>
+                <span
+                  className={cn(
+                    'inline-flex cursor-default items-center gap-2 border border-ink/20 bg-mute/60 px-3 py-2',
+                    'font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-ink/55'
+                  )}
+                >
+                  <span className="size-1.5 shrink-0 bg-ink/40" aria-hidden />
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ),
+    },
+    {
+      id: '03',
+      title: 'Invite',
+      node: (
+        <div className="flex flex-col justify-between gap-10 p-6 sm:p-8 lg:min-h-[36vh] lg:p-10">
+          <div className="flex items-end justify-between gap-4 border-b-2 border-ink pb-4">
+            <p className="type-display text-5xl text-ink sm:text-6xl">03</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink/45">
+              Next step
+            </p>
+          </div>
+          <p className="max-w-xl text-lg font-medium leading-snug text-ink sm:text-xl">
+            {body}
+          </p>
+          {cta ? (
+            <div>
+              <Button variant="default" offset asChild>
+                <Link to={cta.href}>
+                  {cta.label}
+                  <ArrowRight className="size-4" />
+                </Link>
+              </Button>
+            </div>
+          ) : null}
+        </div>
+      ),
+    },
+  ]
+
+  return (
+    <section className={cn('border-b-2 border-ink bg-lime', className)}>
+      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14">
+        <div className="relative">
+          {cards.map((card, i) => (
+            <article
+              key={card.id}
+              className="sticky mb-3 overflow-hidden border-2 border-ink bg-paper shadow-[0_12px_0_0_rgba(0,0,0,0.06)] last:mb-0"
+              style={{
+                top: `calc(5rem + ${i * 14}px)`,
+                zIndex: i + 1,
+              }}
+            >
+              {card.node}
+            </article>
+          ))}
         </div>
       </div>
     </section>

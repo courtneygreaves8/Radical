@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 
 import { CommentsSection } from '@/components/media/CommentsSection'
+import { comingSoonKindFromCategory } from '@/components/media/ComingSoonThumb'
 import { EpisodePlayer } from '@/components/media/EpisodePlayer'
 import { MediaCard } from '@/components/media/MediaCard'
 import { ReactionBar } from '@/components/media/ReactionBar'
@@ -50,6 +51,7 @@ export function PodcastEpisodePage() {
           title={episode.title}
           cover={episode.cover}
           duration={episode.duration}
+          kind={comingSoonKindFromCategory(show.category)}
         />
       </div>
 

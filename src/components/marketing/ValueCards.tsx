@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
+import { ArrowUpRight } from 'lucide-react'
 
 import {
   GeoIcon,
   type GeoIconName,
 } from '@/components/marketing/geo/GeoIcons'
-import { GeoPattern } from '@/components/marketing/geo/GeoPattern'
+import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
 export type ValueCard = {
@@ -45,7 +46,17 @@ export function ValueCards({
         className
       )}
     >
-      <GeoPattern motif="venn" tone="ink" anchor="tl" opacity={0.2} />
+      {/* Big half-bleed shape — left half clipped */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-0 z-0 flex w-[min(95vw,42rem)] items-center overflow-hidden"
+      >
+        <GeoIcon
+          name="asterisk6"
+          className="size-[min(95vw,42rem)] shrink-0 -translate-x-1/2 text-ink/[0.07]"
+        />
+      </div>
+
       <div className="relative z-10 mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16">
         <div className="mx-auto max-w-2xl text-center">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/45">
@@ -63,73 +74,117 @@ export function ValueCards({
           ) : null}
         </div>
 
-        <div className="mt-12 grid gap-3 md:grid-cols-3 md:gap-4">
+        <div className="mt-12 grid gap-3 pb-3 md:grid-cols-3 md:gap-4 md:pb-4">
           {cards.map((card, i) => {
             const icon = card.icon ?? defaultIcons[i % defaultIcons.length]
+            const num = String(i + 1).padStart(2, '0')
+            const cta = card.href ? 'Enter' : 'Our DNA'
+
+            const footer = (
+              <div className="relative z-10 mt-auto flex items-center justify-between gap-3 border-t-2 border-current/15 pt-4">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] opacity-50">
+                  {num} · Shape
+                </span>
+                <span className="inline-flex items-center gap-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em]">
+                  {cta}
+                  <ArrowUpRight className="size-3.5" />
+                </span>
+              </div>
+            )
+
             const inner =
               card.tone === 'photo' ? (
-                <div className="photo-grain relative flex min-h-[320px] flex-col justify-end overflow-hidden border-2 border-ink p-6 sm:min-h-[380px] sm:p-8">
-                  {card.image ? (
-                    <img
-                      src={card.image}
-                      alt=""
-                      className="photo-bw absolute inset-0 size-full object-cover"
+                <OffsetBlock offset="crimson" revealOnHover>
+                  <div className="photo-grain relative flex min-h-[340px] flex-col justify-end overflow-hidden border-2 border-ink p-6 sm:min-h-[400px] sm:p-8">
+                    {card.image ? (
+                      <img
+                        src={card.image}
+                        alt=""
+                        className="photo-bw absolute inset-0 size-full object-cover"
+                      />
+                    ) : null}
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/15" />
+                    <p className="absolute left-5 top-5 z-10 type-display text-4xl text-paper/25 sm:left-6 sm:top-6 sm:text-5xl">
+                      {num}
+                    </p>
+                    <GeoIcon
+                      name={icon}
+                      className="absolute top-5 right-5 z-10 size-12 text-flame sm:size-14"
                     />
-                  ) : null}
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/20" />
-                  <GeoIcon
-                    name={icon}
-                    className="absolute top-5 right-5 z-10 size-12 text-lime sm:size-14"
-                  />
-                  <div className="relative z-10">
-                    <span className="inline-block border-2 border-paper bg-paper px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-ink">
-                      {card.tag}
-                    </span>
-                    <h3 className="type-display mt-5 text-2xl text-paper sm:text-3xl">
-                      {card.title}
-                    </h3>
-                    <p className="mt-3 text-sm text-paper/70">{card.body}</p>
+                    <div className="relative z-10 text-paper">
+                      <span className="inline-block border-2 border-paper bg-paper px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-ink">
+                        {card.tag}
+                      </span>
+                      <h3 className="type-display mt-5 text-2xl sm:text-3xl">
+                        {card.title}
+                      </h3>
+                      <p className="mt-3 text-sm text-paper/70">{card.body}</p>
+                      <div className="mt-6 border-t-2 border-paper/25 pt-4">
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-paper/45">
+                            {num} · Shape
+                          </span>
+                          <span className="inline-flex items-center gap-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-flame">
+                            {cta}
+                            <ArrowUpRight className="size-3.5" />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </OffsetBlock>
               ) : (
-                <div
-                  className={cn(
-                    'relative flex min-h-[320px] flex-col overflow-hidden border-2 border-ink p-6 sm:min-h-[380px] sm:p-8',
-                    card.tone === 'lime' ? 'bg-lime' : 'bg-paper'
-                  )}
+                <OffsetBlock
+                  offset={card.tone === 'lime' ? 'navy' : 'flame'}
+                  revealOnHover
                 >
-                  <GeoIcon
-                    name={icon}
+                  <div
                     className={cn(
-                      'absolute right-4 top-4 size-14 opacity-90 sm:size-16',
-                      'text-ink'
-                    )}
-                  />
-                  <span
-                    className={cn(
-                      'inline-block w-fit border-2 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider',
-                      card.tone === 'lime'
-                        ? 'border-ink bg-ink text-lime'
-                        : 'border-lime bg-lime text-ink'
+                      'relative flex min-h-[340px] flex-col overflow-hidden border-2 border-ink p-6 sm:min-h-[400px] sm:p-8',
+                      card.tone === 'lime' ? 'bg-lime text-ink' : 'bg-paper text-ink'
                     )}
                   >
-                    {card.tag}
-                  </span>
-                  <h3 className="mt-8 max-w-[85%] text-2xl font-bold tracking-tight sm:text-3xl">
-                    {card.title}
-                  </h3>
-                  <p className="mt-4 flex-1 text-sm leading-relaxed text-ink/70">
-                    {card.body}
-                  </p>
-                </div>
+                    <p
+                      className={cn(
+                        'absolute left-5 top-5 type-display text-4xl sm:left-6 sm:top-6 sm:text-5xl',
+                        card.tone === 'lime' ? 'text-ink/15' : 'text-ink/10'
+                      )}
+                    >
+                      {num}
+                    </p>
+                    <GeoIcon
+                      name={icon}
+                      className="absolute right-4 top-4 size-14 text-ink sm:size-16"
+                    />
+                    <span
+                      className={cn(
+                        'relative z-10 inline-block w-fit border-2 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider',
+                        card.tone === 'lime'
+                          ? 'border-ink bg-ink text-lime'
+                          : 'border-crimson bg-crimson text-paper'
+                      )}
+                    >
+                      {card.tag}
+                    </span>
+                    <h3 className="relative z-10 mt-8 max-w-[85%] text-2xl font-bold tracking-tight sm:text-3xl">
+                      {card.title}
+                    </h3>
+                    <p className="relative z-10 mt-4 flex-1 text-sm leading-relaxed text-ink/70">
+                      {card.body}
+                    </p>
+                    {footer}
+                  </div>
+                </OffsetBlock>
               )
 
             return card.href ? (
-              <Link key={card.id} to={card.href} className="block">
+              <Link key={card.id} to={card.href} className="group block">
                 {inner}
               </Link>
             ) : (
-              <div key={card.id}>{inner}</div>
+              <div key={card.id} className="group">
+                {inner}
+              </div>
             )
           })}
         </div>

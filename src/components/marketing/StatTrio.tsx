@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import { BrandGlyph } from '@/components/marketing/MorphMark'
+import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
 export type StatTrioProps = {
@@ -37,15 +38,17 @@ export function StatTrio({
   className,
 }: StatTrioProps) {
   const photo = (
-    <div className="photo-grain relative min-h-[260px] overflow-hidden border-2 border-ink bg-ink sm:min-h-[320px]">
-      <img
-        src={image}
-        alt=""
-        className="photo-bw absolute inset-0 size-full object-cover"
-      />
-      <div className="absolute inset-0 bg-ink/25" />
-      <StarMark className="absolute bottom-5 left-5 size-12 text-lime sm:size-14" />
-    </div>
+    <OffsetBlock offset="lime">
+      <div className="photo-grain relative min-h-[260px] overflow-hidden border-2 border-ink bg-ink sm:min-h-[320px]">
+        <img
+          src={image}
+          alt=""
+          className="photo-bw absolute inset-0 size-full object-cover"
+        />
+        <div className="absolute inset-0 bg-ink/25" />
+        <StarMark className="absolute bottom-5 left-5 size-12 text-lime sm:size-14" />
+      </div>
+    </OffsetBlock>
   )
 
   return (

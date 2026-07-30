@@ -4,6 +4,7 @@ import { ArrowUpRight } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { GeoPattern } from '@/components/marketing/geo/GeoPattern'
+import type { GeoIconName } from '@/components/marketing/geo/GeoIcons'
 import { cn } from '@/lib/utils'
 
 type SectionIntroProps = {
@@ -12,7 +13,18 @@ type SectionIntroProps = {
   body: string
   headline: ReactNode
   cta?: { label: string; href: string }
-  tone?: 'ink' | 'paper' | 'lime'
+  tone?: 'ink' | 'paper' | 'lime' | 'navy'
+  /** Override default geo motif */
+  mark?: GeoIconName
+  markAnchor?:
+    | 'tr'
+    | 'tl'
+    | 'br'
+    | 'bl'
+    | 'center-right'
+    | 'center-left'
+    | 'bleed-left'
+    | 'bleed-right'
   className?: string
   id?: string
 }
@@ -25,6 +37,8 @@ export function SectionIntro({
   headline,
   cta,
   tone = 'ink',
+  mark,
+  markAnchor,
   className,
   id,
 }: SectionIntroProps) {
@@ -32,9 +46,20 @@ export function SectionIntro({
     ink: 'bg-ink text-paper border-ink',
     paper: 'bg-paper text-ink border-ink',
     lime: 'bg-lime text-ink border-ink',
+    navy: 'bg-navy text-paper border-ink',
   }
-  const muted =
-    tone === 'ink' ? 'text-paper/55' : tone === 'lime' ? 'text-ink/55' : 'text-ink/55'
+  const dark = tone === 'ink' || tone === 'navy'
+  const muted = dark ? 'text-paper/55' : 'text-ink/55'
+
+  const motif =
+    mark ??
+    (tone === 'ink' || tone === 'navy'
+      ? 'sunburst'
+      : tone === 'lime'
+        ? 'asterisk6'
+        : 'star12')
+  const anchor =
+    markAnchor ?? (tone === 'paper' ? 'tl' : 'bleed-left')
 
   return (
     <section
@@ -46,12 +71,12 @@ export function SectionIntro({
       )}
     >
       <GeoPattern
-        motif={
-          tone === 'ink' ? 'sunburst' : tone === 'lime' ? 'asterisk6' : 'star12'
+        motif={motif}
+        tone={dark ? 'paper' : 'ink'}
+        anchor={anchor}
+        opacity={
+          tone === 'navy' ? 0.1 : tone === 'ink' ? 0.14 : tone === 'lime' ? 0.1 : 0.22
         }
-        tone={tone === 'ink' ? 'paper' : 'ink'}
-        anchor={tone === 'ink' ? 'bleed-left' : 'tl'}
-        opacity={tone === 'ink' ? 0.14 : 0.22}
       />
       <div className="relative z-10 mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
         <p className={cn('font-mono text-xs uppercase tracking-[0.2em]', muted)}>
@@ -70,7 +95,7 @@ export function SectionIntro({
             {cta ? (
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Button
-                  variant={tone === 'ink' ? 'lime' : 'default'}
+                  variant={dark ? 'lime' : 'default'}
                   offset
                   asChild
                 >
@@ -109,7 +134,7 @@ export function Em({
   tone = 'lime',
 }: {
   children: ReactNode
-  tone?: 'lime' | 'paper' | 'ink'
+  tone?: 'lime' | 'paper' | 'ink' | 'crimson' | 'flame'
 }) {
   return (
     <strong
@@ -117,7 +142,9 @@ export function Em({
         'font-bold',
         tone === 'lime' && 'text-lime',
         tone === 'paper' && 'text-paper',
-        tone === 'ink' && 'text-ink'
+        tone === 'ink' && 'text-ink',
+        tone === 'crimson' && 'text-crimson',
+        tone === 'flame' && 'text-flame'
       )}
     >
       {children}

@@ -11,7 +11,7 @@ const CYCLE: GeoIconName[] = [
   'spark',
   'network',
   'rings',
-  'venn',
+  'cross',
   'tunnel',
   'asterisk6',
 ]
