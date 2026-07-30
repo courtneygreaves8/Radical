@@ -2,23 +2,25 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { Link } from 'react-router-dom'
 import {
   motion,
+  useReducedMotion,
   useScroll,
   useTransform,
-  useReducedMotion,
 } from 'framer-motion'
-import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowDown, ArrowRight } from 'lucide-react'
 
 import { DontPushButton } from '@/components/marketing/DontPushButton'
 import { RotatingHeroWord } from '@/components/marketing/RotatingHeroWord'
 import { VerseMarquee } from '@/components/marketing/VerseMarquee'
 import { GeoIcon } from '@/components/marketing/geo/GeoIcons'
 import { Button } from '@/components/ui/button'
-import type { CarouselSlide } from '@/lib/content'
 import { siteMeta } from '@/lib/nav'
 import { cn } from '@/lib/utils'
 
-type HomeHeroProps = {
-  slides: CarouselSlide[]
+/** Match StackSlide horizontal gutters (px-6 / sm:px-10 / lg:px-16 / xl:px-20) */
+function contentWidth(vw: number) {
+  const pad =
+    vw >= 1280 ? 80 : vw >= 1024 ? 64 : vw >= 640 ? 40 : 24
+  return Math.max(vw - pad * 2, 320)
 }
 
 function useIsDesktop() {
@@ -33,43 +35,33 @@ function useIsDesktop() {
   )
 }
 
-function MobileScrollCue({ className }: { className?: string }) {
-  return (
-    <div
-      className={cn(
-        'pointer-events-none flex shrink-0 items-center gap-2 text-ink',
-        className
-      )}
-    >
-      <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em]">
-        Scroll
-      </span>
-      <motion.span
-        className="flex size-7 items-center justify-center border-[1.5px] border-ink"
-        animate={{ y: [0, 4, 0] }}
-        transition={{
-          duration: 1.1,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      >
-        <ArrowDown className="size-4" strokeWidth={2.5} />
-      </motion.span>
-    </div>
-  )
+function useViewport() {
+  const [size, setSize] = useState({ w: 1280, h: 800 })
+  useEffect(() => {
+    function measure() {
+      setSize({ w: window.innerWidth, h: window.innerHeight })
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [])
+  return size
 }
 
 /**
- * Full-bleed lime over a full-bleed photo.
- * Desktop: on scroll the lime shrinks from the bottom.
- * Mobile: static lime + image below (no expand scrub).
+ * Full-bleed lime hero. On scroll (desktop) it shrinks to the width of
+ * content below and shortens slightly in height — stays centered.
  */
-export function HomeHero({ slides }: HomeHeroProps) {
+export function HomeHero() {
   const sectionRef = useRef<HTMLElement>(null)
   const reduceMotion = useReducedMotion()
   const isDesktop = useIsDesktop()
-  const [slideIndex, setSlideIndex] = useState(0)
-  const slide = slides[slideIndex] ?? slides[0]
+  const { w: vw, h: vh } = useViewport()
+
+  const headerH = vw >= 640 ? 72 : 64
+  const fullH = Math.max(vh - headerH, 480)
+  const shrunkH = Math.round(fullH * 0.82)
+  const endW = contentWidth(vw)
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -77,382 +69,167 @@ export function HomeHero({ slides }: HomeHeroProps) {
   })
 
   const p = useTransform(scrollYProgress, [0, 0.85], [0, 1])
-  const limeHeight = useTransform(p, (v) => `${100 - v * 50}%`)
-  const chromeOpacity = useTransform(p, [0.35, 0.75], [0, 1])
-  const scrollCueOpacity = useTransform(p, [0, 0.12], [1, 0])
-
-  useEffect(() => {
-    if (slides.length < 2 || reduceMotion || !isDesktop) return
-    const id = window.setInterval(() => {
-      setSlideIndex((i) => (i + 1) % slides.length)
-    }, 5500)
-    return () => window.clearInterval(id)
-  }, [slides.length, reduceMotion, isDesktop])
+  const width = useTransform(p, [0, 1], [vw, endW])
+  const height = useTransform(p, [0, 1], [fullH, shrunkH])
+  const scrollCueOpacity = useTransform(p, [0, 0.18], [1, 0])
+  const sideBorder = useTransform(p, [0, 0.35, 1], [0, 0, 2])
 
   if (reduceMotion || !isDesktop) {
-    return <StaticSplit slides={slides} />
+    return <StaticHero />
   }
 
   return (
-    <section ref={sectionRef} className="relative h-[220vh] bg-ink">
-      <div className="sticky top-[4.5rem] h-[calc(100dvh-4.5rem)] overflow-hidden border-b-2 border-ink">
-        <div className="absolute inset-0 z-0 overflow-hidden bg-ink">
-          {slide ? (
-            <div className="photo-grain absolute inset-0">
-              <img
-                key={slide.id}
-                src={slide.image}
-                alt=""
-                className="photo-bw absolute inset-0 size-full object-cover"
-                style={
-                  slide.imagePosition
-                    ? { objectPosition: slide.imagePosition }
-                    : undefined
-                }
-                decoding="async"
-              />
-              <div className="absolute inset-0 z-[2] bg-gradient-to-t from-ink via-ink/35 to-ink/10" />
-            </div>
-          ) : null}
+    <section ref={sectionRef} className="relative h-[200vh] bg-paper">
+      <div
+        className="sticky top-16 flex items-center justify-center sm:top-[4.5rem]"
+        style={{ height: fullH }}
+      >
+        <motion.div
+          style={{
+            width,
+            height,
+            borderLeftWidth: sideBorder,
+            borderRightWidth: sideBorder,
+            borderTopWidth: sideBorder,
+          }}
+          className="relative flex flex-col overflow-hidden border-b-2 border-ink bg-lime text-lime-foreground"
+        >
+          <HeroChrome scrollCueOpacity={scrollCueOpacity} />
+        </motion.div>
+      </div>
+    </section>
+  )
+}
 
-          <motion.div
-            style={{ opacity: chromeOpacity }}
-            className="pointer-events-none absolute inset-x-0 bottom-12 z-[3] p-5 sm:bottom-14 sm:p-8"
-          >
-            <div className="pointer-events-auto mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-lime">
-                  0{slideIndex + 1} / 0{slides.length}
-                </p>
-                <h2 className="type-display mt-2 text-2xl text-paper sm:text-4xl">
-                  {slide?.title}
-                </h2>
-                <p className="mt-2 max-w-xl text-sm text-paper/70 sm:text-base">
-                  {slide?.caption}
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                {slide?.ctaHref ? (
-                  <Button variant="lime" size="sm" offset asChild>
-                    <Link to={slide.ctaHref}>
-                      {slide.ctaLabel ?? 'Learn more'}
-                      <ArrowRight className="size-4" />
-                    </Link>
-                  </Button>
-                ) : null}
-                {slides.length > 1 ? (
-                  <>
-                    <button
-                      type="button"
-                      aria-label="Previous"
-                      className="flex size-10 items-center justify-center border-2 border-paper/50 bg-ink/50 text-paper backdrop-blur transition hover:border-lime hover:text-lime"
-                      onClick={() =>
-                        setSlideIndex(
-                          (i) => (i - 1 + slides.length) % slides.length
-                        )
-                      }
-                    >
-                      <ChevronLeft className="size-4" />
-                    </button>
-                    <button
-                      type="button"
-                      aria-label="Next"
-                      className="flex size-10 items-center justify-center border-2 border-paper/50 bg-ink/50 text-paper backdrop-blur transition hover:border-lime hover:text-lime"
-                      onClick={() =>
-                        setSlideIndex((i) => (i + 1) % slides.length)
-                      }
-                    >
-                      <ChevronRight className="size-4" />
-                    </button>
-                  </>
-                ) : null}
-              </div>
-            </div>
-          </motion.div>
+function StaticHero() {
+  return (
+    <section className="relative flex min-h-[calc(100dvh-4rem)] flex-col overflow-hidden border-b-2 border-ink bg-lime text-lime-foreground sm:min-h-[calc(100dvh-4.5rem)]">
+      <HeroChrome />
+    </section>
+  )
+}
 
-          <motion.div
-            style={{ opacity: chromeOpacity }}
-            className="absolute inset-x-0 top-0 z-[3] flex gap-1 px-5 pt-3 sm:px-8"
-          >
-            {slides.map((s, i) => (
-              <button
-                key={s.id}
-                type="button"
-                aria-label={`Slide ${i + 1}`}
-                className={cn(
-                  'h-1 flex-1 transition-colors',
-                  i === slideIndex ? 'bg-lime' : 'bg-paper/30'
-                )}
-                onClick={() => setSlideIndex(i)}
-              />
-            ))}
-          </motion.div>
+function HeroChrome({
+  scrollCueOpacity,
+}: {
+  scrollCueOpacity?: ReturnType<typeof useTransform<number, number>>
+}) {
+  return (
+    <>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[min(120vw,76rem)] items-center overflow-hidden"
+      >
+        <GeoIcon
+          name="asterisk6"
+          className="size-[min(120vw,76rem)] shrink-0 translate-x-1/2 text-ink/[0.07]"
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-5 pt-8 sm:px-8 sm:pt-12 lg:px-10">
+        <div className="flex items-center justify-between gap-3">
+          <p className="font-mono text-xs font-medium uppercase tracking-[0.3em]">
+            Norwich · England
+          </p>
+          <ScrollCue className="lg:hidden" />
         </div>
 
-        <motion.div
-          style={{ height: limeHeight }}
-          className="absolute inset-x-0 top-0 z-10 overflow-hidden bg-lime text-lime-foreground"
-        >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[min(120vw,76rem)] items-center overflow-hidden"
-          >
-            <GeoIcon
-              name="asterisk6"
-              className="size-[min(120vw,76rem)] shrink-0 translate-x-1/2 text-ink/[0.07]"
-            />
-          </div>
+        <div className="mt-6 grid flex-1 items-center gap-10 sm:mt-8 lg:grid-cols-[1.15fr_0.85fr]">
+          <HeroCopy className="max-w-3xl" />
+          <DontPushButton markClassName="size-64 text-ink xl:size-80" />
+        </div>
 
-          <div className="relative z-10 flex h-full w-full items-center">
-            <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-10">
-              <div className="relative max-w-3xl">
-                <p className="font-mono text-xs font-medium uppercase tracking-[0.3em]">
-                  Norwich · England
-                </p>
-                <h1 className="type-display mt-5 text-4xl sm:text-5xl lg:text-[3.75rem] xl:text-[4.25rem]">
-                  <span className="block whitespace-nowrap">
-                    Be <RotatingHeroWord />
-                  </span>
-                  <span className="mt-3 block sm:mt-4">
-                    <span className="inline-block">
-                      <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
-                        <span className="for-jesus-mark block whitespace-nowrap text-[0.92em] leading-[0.88]">
-                          For Jesus
-                        </span>
-                      </span>
-                    </span>
-                  </span>
-                </h1>
-                <p className="mt-6 max-w-xl text-base font-medium leading-snug sm:text-xl">
-                  {siteMeta.mission}
-                </p>
-                <p className="mt-2 max-w-xl text-sm leading-relaxed text-lime-foreground/60 sm:text-base">
-                  {siteMeta.missionSupport}
-                </p>
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Button variant="default" size="lg" offset asChild>
-                    <Link to="/visit">
-                      This Sunday · {siteMeta.visit.time}
-                      <ArrowRight className="size-4" />
-                    </Link>
-                  </Button>
-                  <Button variant="outline" size="lg" asChild>
-                    <Link to="/about">Our story</Link>
-                  </Button>
-                </div>
-              </div>
-
-              <DontPushButton />
-            </div>
-          </div>
-
+        {scrollCueOpacity ? (
           <motion.div
             style={{ opacity: scrollCueOpacity }}
-            className="pointer-events-none absolute bottom-[8rem] left-1/2 z-20 -translate-x-1/2"
+            className="pointer-events-none absolute bottom-28 left-1/2 z-20 hidden -translate-x-1/2 lg:block"
           >
-            <div className="flex items-center gap-3 text-ink">
-              <span className="font-mono text-[15px] font-bold uppercase tracking-[0.28em]">
-                Scroll
-              </span>
-              <motion.span
-                className="flex size-[1.875rem] items-center justify-center border-[1.5px] border-ink"
-                animate={{ y: [0, 5, 0] }}
-                transition={{
-                  duration: 1.1,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              >
-                <ArrowDown className="size-[1.3125rem]" strokeWidth={2.5} />
-              </motion.span>
-            </div>
+            <ScrollCue />
           </motion.div>
-        </motion.div>
-
-        <div className="absolute inset-x-0 bottom-0 z-30">
-          <VerseMarquee
-            className="border-b-0 border-t-2 border-ink"
-            invertWhenVisible="#home-about"
-          />
-        </div>
+        ) : (
+          <div className="mt-10 mb-24 flex justify-center lg:mb-28">
+            <ScrollCue className="hidden lg:flex" />
+          </div>
+        )}
       </div>
-    </section>
+
+      <div className="relative z-30 mt-auto">
+        <VerseMarquee
+          className="border-b-0 border-t-2 border-ink"
+          invertWhenVisible="#home-about"
+        />
+      </div>
+    </>
   )
 }
 
-function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
-  const reduceMotion = useReducedMotion()
-  const [slideIndex, setSlideIndex] = useState(0)
-  const slide = slides[slideIndex] ?? slides[0]
+function HeroCopy({ className }: { className?: string }) {
+  return (
+    <div className={className}>
+      <h1 className="type-display text-[2.35rem] leading-[0.95] sm:text-5xl lg:text-[3.75rem] xl:text-[4.25rem]">
+        <span className="block whitespace-nowrap">
+          Be <RotatingHeroWord />
+        </span>
 
-  useEffect(() => {
-    if (slides.length < 2 || reduceMotion) return
-    const id = window.setInterval(() => {
-      setSlideIndex((i) => (i + 1) % slides.length)
-    }, 5500)
-    return () => window.clearInterval(id)
-  }, [slides.length, reduceMotion])
+        <span className="mt-5 block sm:mt-4">
+          <span className="inline-block">
+            <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
+              <span className="for-jesus-mark block whitespace-nowrap text-[0.92em] leading-[0.88]">
+                For Jesus
+              </span>
+            </span>
+          </span>
+        </span>
+      </h1>
+
+      <p className="mt-8 max-w-xl text-base font-medium leading-snug sm:mt-6 sm:text-xl">
+        {siteMeta.mission}
+      </p>
+      <p className="mt-3 max-w-xl text-sm leading-relaxed text-lime-foreground/60 sm:mt-2 sm:text-base">
+        {siteMeta.missionSupport}
+      </p>
+      <div className="mt-10 flex flex-col gap-3 sm:mt-8 sm:flex-row">
+        <Button variant="default" size="lg" offset asChild>
+          <Link to="/visit">
+            This Sunday · {siteMeta.visit.time}
+            <ArrowRight className="size-4" />
+          </Link>
+        </Button>
+        <Button variant="outline" size="lg" asChild>
+          <Link to="/about">Our story</Link>
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+function ScrollCue({ className }: { className?: string }) {
+  const reduceMotion = useReducedMotion()
 
   return (
-    <section className="flex flex-col border-b-2 border-ink">
-      <div className="relative flex min-h-[calc(100dvh-4rem)] flex-col overflow-hidden bg-lime text-lime-foreground sm:min-h-[calc(100dvh-4.5rem)]">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[min(120vw,76rem)] items-center overflow-hidden"
-        >
-          <GeoIcon
-            name="asterisk6"
-            className="size-[min(120vw,76rem)] shrink-0 translate-x-1/2 text-ink/[0.07]"
-          />
-        </div>
-
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-start px-5 pb-28 pt-8 sm:justify-center sm:px-8 sm:pb-24 sm:pt-12 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-10">
-          <div className="flex items-center justify-between gap-3 lg:col-span-2">
-            <p className="font-mono text-xs font-medium uppercase tracking-[0.3em]">
-              Norwich · England
-            </p>
-            <MobileScrollCue className="lg:hidden" />
-          </div>
-
-          <div className="mt-6 max-w-3xl sm:mt-5">
-            <h1 className="type-display text-[2.35rem] leading-[0.95] sm:text-5xl lg:text-[3.75rem]">
-              <span className="block whitespace-nowrap">
-                Be <RotatingHeroWord />
-              </span>
-
-              <span className="mt-5 block sm:mt-4">
-                <span className="inline-block">
-                  <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
-                    <span className="for-jesus-mark block whitespace-nowrap text-[0.92em] leading-[0.88]">
-                      For Jesus
-                    </span>
-                  </span>
-                </span>
-              </span>
-            </h1>
-
-            <p className="mt-8 max-w-xl text-base font-medium leading-snug sm:mt-6 sm:text-xl">
-              {siteMeta.mission}
-            </p>
-            <p className="mt-3 max-w-xl text-sm leading-relaxed text-lime-foreground/60 sm:mt-2 sm:text-base">
-              {siteMeta.missionSupport}
-            </p>
-            <div className="mt-10 flex flex-col gap-3 sm:mt-8 sm:flex-row">
-              <Button variant="default" size="lg" offset asChild>
-                <Link to="/visit">
-                  This Sunday · {siteMeta.visit.time}
-                  <ArrowRight className="size-4" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/about">Our story</Link>
-              </Button>
-            </div>
-          </div>
-          <DontPushButton markClassName="size-72 text-ink" />
-        </div>
-
-        <div className="absolute inset-x-0 bottom-0 z-30">
-          <VerseMarquee
-            className="border-b-0 border-t-2 border-ink"
-            invertWhenVisible="#home-about"
-          />
-        </div>
-      </div>
-
-      {/* Image slider — no scroll-expand; compact chrome */}
-      <div className="relative h-[42vh] w-full overflow-hidden bg-ink sm:h-[46vh]">
-        {slide ? (
-          <div className="photo-grain absolute inset-0">
-            <img
-              key={slide.id}
-              src={slide.image}
-              alt=""
-              className="photo-bw absolute inset-0 size-full object-cover"
-              style={
-                slide.imagePosition
-                  ? { objectPosition: slide.imagePosition }
-                  : undefined
-              }
-              decoding="async"
-            />
-            <div className="absolute inset-0 z-[2] bg-gradient-to-t from-ink via-ink/50 to-ink/15" />
-          </div>
-        ) : null}
-
-        {slides.length > 1 ? (
-          <div className="absolute inset-x-0 top-0 z-[3] flex gap-1 px-4 pt-3 sm:px-5">
-            {slides.map((s, i) => (
-              <button
-                key={s.id}
-                type="button"
-                aria-label={`Slide ${i + 1}`}
-                className={cn(
-                  'h-1 flex-1 transition-colors',
-                  i === slideIndex ? 'bg-lime' : 'bg-paper/30'
-                )}
-                onClick={() => setSlideIndex(i)}
-              />
-            ))}
-          </div>
-        ) : null}
-
-        <div className="absolute inset-x-0 bottom-0 z-[3] p-4 sm:p-5">
-          <div className="flex items-end justify-between gap-3">
-            <div className="min-w-0">
-              <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-lime">
-                0{slideIndex + 1} / 0{slides.length}
-              </p>
-              <h2 className="type-display mt-1 truncate text-lg text-paper sm:text-xl">
-                {slide?.title}
-              </h2>
-              {slide?.caption ? (
-                <p className="mt-1 line-clamp-2 max-w-sm text-xs text-paper/65 sm:text-sm">
-                  {slide.caption}
-                </p>
-              ) : null}
-            </div>
-
-            <div className="flex shrink-0 items-center gap-2">
-              {slide?.ctaHref ? (
-                <Button variant="lime" size="sm" offset asChild>
-                  <Link to={slide.ctaHref}>
-                    {slide.ctaLabel ?? 'More'}
-                    <ArrowRight className="size-3.5" />
-                  </Link>
-                </Button>
-              ) : null}
-              {slides.length > 1 ? (
-                <>
-                  <button
-                    type="button"
-                    aria-label="Previous"
-                    className="flex size-9 items-center justify-center border-2 border-paper/50 bg-ink/50 text-paper backdrop-blur transition hover:border-lime hover:text-lime"
-                    onClick={() =>
-                      setSlideIndex(
-                        (i) => (i - 1 + slides.length) % slides.length
-                      )
-                    }
-                  >
-                    <ChevronLeft className="size-4" />
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="Next"
-                    className="flex size-9 items-center justify-center border-2 border-paper/50 bg-ink/50 text-paper backdrop-blur transition hover:border-lime hover:text-lime"
-                    onClick={() =>
-                      setSlideIndex((i) => (i + 1) % slides.length)
-                    }
-                  >
-                    <ChevronRight className="size-4" />
-                  </button>
-                </>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div
+      className={cn(
+        'pointer-events-none flex shrink-0 items-center gap-2 text-ink',
+        className
+      )}
+    >
+      <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] lg:text-[15px] lg:tracking-[0.28em]">
+        Scroll
+      </span>
+      <motion.span
+        className="flex size-7 items-center justify-center border-[1.5px] border-ink lg:size-[1.875rem]"
+        animate={reduceMotion ? undefined : { y: [0, 4, 0] }}
+        transition={{
+          duration: 1.1,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      >
+        <ArrowDown
+          className="size-4 lg:size-[1.3125rem]"
+          strokeWidth={2.5}
+        />
+      </motion.span>
+    </div>
   )
 }
-

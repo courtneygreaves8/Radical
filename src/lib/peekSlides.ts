@@ -36,4 +36,12 @@ export const peekSlideImages = {
   marginsGrit: '/media/slider-hope-streets.jpg',
   /** Children — generosity / mission */
   give: '/media/stack-give.jpg',
+  /** Hero slider — metro platform */
+  metro: '/media/slider-metro.jpg',
+  /** Hero slider — tube platform */
+  tube: '/media/slider-tube.jpg',
+  /** Hero slider — night tram */
+  tram: '/media/slider-tram.jpg',
+  /** Hero slider — Gothic minster */
+  minster: '/media/slider-minster.jpg',
 } as const

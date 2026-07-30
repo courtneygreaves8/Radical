@@ -32,6 +32,7 @@ export function DontPushButton({
   /** Popup closed while still on dark blue — next click Amen */
   const [awaitingAmen, setAwaitingAmen] = useState(false)
   const [flashing, setFlashing] = useState(false)
+  const [morphSnap, setMorphSnap] = useState(0)
   const titleId = useId()
   const descId = useId()
 
@@ -63,6 +64,7 @@ export function DontPushButton({
     setBusy(true)
     setAwaitingAmen(false)
     setOpen(false)
+    setMorphSnap((n) => n + 1)
     setFlashing(true)
     const ms = triggerAmenFlash()
     window.setTimeout(() => {
@@ -113,6 +115,8 @@ export function DontPushButton({
             'pointer-events-none transition duration-300 group-hover:scale-[1.04] group-active:scale-95 group-disabled:opacity-80',
             markClassName
           )}
+          snapToken={morphSnap}
+          holdShape={flashing ? 'cross' : null}
         />
 
         {/* Default hover — don't push */}

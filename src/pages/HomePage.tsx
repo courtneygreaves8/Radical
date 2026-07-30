@@ -12,7 +12,7 @@ export function HomePage() {
 
   return (
     <>
-      <HomeHero slides={content.carousel} />
+      <HomeHero />
 
       <StickyStack tone="ink">
         <StackSlide

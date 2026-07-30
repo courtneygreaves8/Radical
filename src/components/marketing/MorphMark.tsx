@@ -230,6 +230,7 @@ const SHAPE_PATHS: Record<MorphShapeName, string> = Object.fromEntries(
 ) as Record<MorphShapeName, string>
 
 const MORPH_CYCLE: MorphShapeName[] = [
+  'cross',
   'star',
   'asterisk6',
   'plus',
@@ -238,43 +239,62 @@ const MORPH_CYCLE: MorphShapeName[] = [
   'burst',
   'asterisk8',
   'sunburst',
-  'cross',
 ]
+
+const CROSS_INDEX = MORPH_CYCLE.indexOf('cross')
 
 type MorphMarkProps = {
   className?: string
   interval?: number
+  /** Increment to snap the cycle to the cross (e.g. amen restore). */
+  snapToken?: number
+  /** Hold on a shape — pauses the cycle while set. */
+  holdShape?: MorphShapeName | null
 }
 
-export function MorphMark({ className, interval = 2.8 }: MorphMarkProps) {
+export function MorphMark({
+  className,
+  interval = 2.8,
+  snapToken = 0,
+  holdShape = null,
+}: MorphMarkProps) {
   const reduceMotion = useReducedMotion()
-  const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(CROSS_INDEX)
 
   useEffect(() => {
-    if (reduceMotion) return
+    if (snapToken <= 0) return
+    setIndex(CROSS_INDEX)
+  }, [snapToken])
+
+  useEffect(() => {
+    if (reduceMotion || holdShape) return
     const id = window.setInterval(() => {
       setIndex((i) => (i + 1) % MORPH_CYCLE.length)
     }, interval * 1000)
     return () => window.clearInterval(id)
-  }, [interval, reduceMotion])
+  }, [interval, reduceMotion, holdShape])
+
+  const shape = holdShape ?? MORPH_CYCLE[index]
 
   return (
     <motion.svg
       viewBox="0 0 200 200"
       className={className}
       overflow="visible"
-      animate={reduceMotion ? undefined : { scale: [1, 1.025, 1] }}
+      animate={
+        reduceMotion || holdShape ? undefined : { scale: [1, 1.025, 1] }
+      }
       transition={
-        reduceMotion
+        reduceMotion || holdShape
           ? undefined
           : { duration: interval, ease: 'easeInOut', repeat: Infinity }
       }
     >
       <motion.path
-        d={SHAPE_PATHS[MORPH_CYCLE[0]]}
+        d={SHAPE_PATHS[MORPH_CYCLE[CROSS_INDEX]]}
         fill="currentColor"
         initial={false}
-        animate={{ d: SHAPE_PATHS[MORPH_CYCLE[index]] }}
+        animate={{ d: SHAPE_PATHS[shape] }}
         transition={
           reduceMotion
             ? { duration: 0 }
