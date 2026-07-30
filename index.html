@@ -15,6 +15,25 @@
       rel="stylesheet"
     />
     <title>Radical Church | Norwich</title>
+    <script>
+      ;(function () {
+        try {
+          if (sessionStorage.getItem('radical-site-blue') !== '1') return
+          var r = document.documentElement
+          r.classList.add('site-blue')
+          r.dataset.brand = 'blue'
+          r.style.setProperty('--lime', '#0066ff')
+          r.style.setProperty('--lime-foreground', '#ffffff')
+          r.style.setProperty('--crimson', '#0066ff')
+          r.style.setProperty('--flame', '#0066ff')
+          r.style.setProperty('--accent', '#0066ff')
+          r.style.setProperty('--accent-foreground', '#ffffff')
+          r.style.setProperty('--primary-foreground', '#0066ff')
+          r.style.setProperty('--ring', '#0066ff')
+          r.style.setProperty('--destructive', '#0033aa')
+        } catch (e) {}
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

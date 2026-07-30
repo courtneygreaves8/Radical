@@ -42,7 +42,7 @@ export function SponsorshipPage() {
         eyebrow="Partner · India"
         title="Sponsor a child"
         description="Around £30 a month. No admin fees. Helping shape a life — for Jesus."
-        tone="crimson"
+        tone="lime"
         mark="cross"
       />
 
@@ -135,7 +135,7 @@ export function SponsorshipPage() {
             {IMPACT.map((item, i) => (
               <li key={item.id}>
                 <OffsetBlock
-                  offset={i === 1 ? 'lime' : i === 2 ? 'crimson' : 'navy'}
+                  offset={i === 1 ? 'lime' : i === 2 ? 'ink' : 'navy'}
                   revealOnHover
                 >
                   <div

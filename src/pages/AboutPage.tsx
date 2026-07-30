@@ -64,7 +64,7 @@ export function AboutPage() {
           {
             value: 'Ongoing',
             label: 'Funds raised for the field',
-            accent: 'crimson',
+            accent: 'lime',
           },
           {
             value: '13',
@@ -87,7 +87,7 @@ export function AboutPage() {
         body={about.lead}
         headline={
           <>
-            We help <Em tone="crimson">shape</Em> lives and streets — called to
+            We help <Em tone="lime">shape</Em> lives and streets — called to
             the broken, the marginalised, and the{' '}
             <Em tone="ink">overlooked</Em> of Norwich.
           </>

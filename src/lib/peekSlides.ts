@@ -30,8 +30,8 @@ export const peekSlideImages = {
   busPreach: '/media/evangelism-bus.jpg',
   /** Outdoor Word — street preaching / evangelism */
   outreachCrew: '/media/evangelism-crew.jpg',
-  /** Norwich streets — city witness */
-  streetWitness: '/media/cowgate.jpg',
+  /** Street mural — city witness */
+  streetWitness: '/media/city-witness.jpg',
   /** Fence / margins grit */
   marginsGrit: '/media/slider-hope-streets.jpg',
   /** Children — generosity / mission */

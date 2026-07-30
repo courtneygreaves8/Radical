@@ -34,7 +34,7 @@ export function HomePage() {
           image={urbanImages.graffitiWall}
           cta={{ label: 'Our story', href: '/about' }}
           tone="ink"
-          slab="crimson"
+          slab="lime"
         />
 
         <StackSlide

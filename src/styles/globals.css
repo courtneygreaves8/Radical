@@ -48,10 +48,10 @@
   --lime: #00e05a;
   --lime-foreground: #000000;
   --mute: #e8e8e8;
-  /* Secondary punch — ink black: max contrast on green brand surfaces */
-  --crimson: #000000;
+  /* Green-only brand — secondary tokens match primary (glitch unlocks blue) */
+  --crimson: #00e05a;
   --navy: #0c1b33;
-  --flame: #000000;
+  --flame: #00e05a;
 
   --background: #ffffff;
   --foreground: #000000;
@@ -72,6 +72,19 @@
   --input: #000000;
   --ring: #00e05a;
   --radius: 0;
+}
+
+/* After Don’t Push glitch — blue brand (vars also set in JS) */
+html.site-blue {
+  --lime: #0066ff;
+  --lime-foreground: #ffffff;
+  --crimson: #0066ff;
+  --flame: #0066ff;
+  --accent: #0066ff;
+  --accent-foreground: #ffffff;
+  --primary-foreground: #0066ff;
+  --ring: #0066ff;
+  --destructive: #0033aa;
 }
 
 @layer base {

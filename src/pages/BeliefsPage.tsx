@@ -3,12 +3,27 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 
+import { GeoIcon, type GeoIconName } from '@/components/marketing/geo/GeoIcons'
 import { ProcessGrid } from '@/components/marketing/ProcessGrid'
 import { Em, SectionIntro } from '@/components/marketing/SectionIntro'
 import { PageHero } from '@/components/shared/PageHero'
 import { Button } from '@/components/ui/button'
 import { getLocalContent } from '@/lib/sanity/client'
 import { cn } from '@/lib/utils'
+
+const BELIEF_SHAPES: GeoIconName[] = [
+  'cross',
+  'asterisk6',
+  'rings',
+  'spark',
+  'sunburst',
+  'star12',
+  'asterisk8',
+  'gear',
+  'tunnel',
+  'grid',
+  'network',
+]
 
 export function BeliefsPage() {
   const { beliefs } = getLocalContent()
@@ -43,7 +58,7 @@ export function BeliefsPage() {
         headline={
           <>
             Belief is a foundation that <Em tone="ink">shapes</Em> under
-            pressure — Word, Spirit, and <Em tone="crimson">holiness</Em>.
+            pressure — Word, Spirit, and <Em tone="lime">holiness</Em>.
           </>
         }
         cta={{ label: 'Visit this Sunday', href: '/visit' }}
@@ -63,9 +78,7 @@ export function BeliefsPage() {
           id: b.id,
           title: b.title,
           body: b.body,
-          mark: (
-            ['cross', 'asterisk6', 'rings', 'spark', 'sunburst', 'star12'] as const
-          )[i % 6],
+          mark: BELIEF_SHAPES[i % BELIEF_SHAPES.length],
         }))}
       />
 
@@ -144,12 +157,23 @@ export function BeliefsPage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
-                  className="border-2 border-lime bg-ink p-6 sm:p-8"
+                  className="relative border-2 border-lime bg-ink p-6 sm:p-8"
                 >
+                  <GeoIcon
+                    name={
+                      BELIEF_SHAPES[
+                        Math.max(
+                          0,
+                          beliefs.findIndex((b) => b.id === active.id)
+                        ) % BELIEF_SHAPES.length
+                      ]
+                    }
+                    className="pointer-events-none absolute top-5 right-5 size-12 text-lime sm:top-6 sm:right-6 sm:size-14"
+                  />
                   <p className="font-mono text-xs uppercase tracking-[0.2em] text-lime">
                     {active.group}
                   </p>
-                  <h3 className="type-display mt-4 text-2xl sm:text-3xl">
+                  <h3 className="type-display mt-4 max-w-[calc(100%-4rem)] text-2xl sm:max-w-[calc(100%-4.5rem)] sm:text-3xl">
                     {active.title}
                   </h3>
                   <p className="mt-5 text-sm leading-relaxed text-paper/70 sm:text-base">

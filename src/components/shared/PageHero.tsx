@@ -15,7 +15,7 @@ const toneShell = {
   ink: 'bg-ink text-paper border-ink',
   paper: 'bg-paper text-ink border-ink',
   navy: 'bg-navy text-paper border-ink',
-  crimson: 'bg-crimson text-lime border-ink',
+  crimson: 'bg-crimson text-ink border-ink',
 } as const
 
 const markTone = {
@@ -23,7 +23,7 @@ const markTone = {
   ink: 'text-lime/[0.12]',
   paper: 'text-ink/[0.07]',
   navy: 'text-lime/[0.14]',
-  crimson: 'text-lime/[0.14]',
+  crimson: 'text-ink/[0.1]',
 } as const
 
 const defaultMark: Record<keyof typeof toneShell, GeoIconName> = {
@@ -68,7 +68,7 @@ export function PageHero({
         <p
           className={cn(
             'font-mono text-[10px] font-bold uppercase tracking-[0.28em] sm:text-xs',
-            tone === 'ink' || tone === 'navy' || tone === 'crimson'
+            tone === 'ink' || tone === 'navy'
               ? 'text-paper/50'
               : 'text-ink/55'
           )}
@@ -82,7 +82,7 @@ export function PageHero({
           <p
             className={cn(
               'mt-7 max-w-md text-base leading-relaxed sm:mt-8 sm:text-lg',
-              tone === 'ink' || tone === 'navy' || tone === 'crimson'
+              tone === 'ink' || tone === 'navy'
                 ? 'text-paper/65'
                 : 'text-ink/70'
             )}

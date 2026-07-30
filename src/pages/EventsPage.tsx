@@ -48,7 +48,7 @@ export function EventsPage() {
         body="Some nights are for the church family. The list below is what we make public — and Sunday is always a dare to come."
         headline={
           <>
-            Events are a doorway into <Em tone="crimson">shaping</Em> presence —
+            Events are a doorway into <Em tone="lime">shaping</Em> presence —
             not a programme to consume.
           </>
         }
