@@ -224,7 +224,7 @@ export function PeekCarousel({
           <motion.div
             aria-hidden
             className={cn(
-              'pointer-events-none absolute top-0 left-0 z-30 hidden size-[4.25rem] items-center justify-center rounded-full bg-flame font-mono text-[10px] font-bold uppercase tracking-wider text-ink shadow-[4px_4px_0_0_#000] transition-opacity duration-150 sm:flex',
+              'pointer-events-none absolute top-0 left-0 z-30 hidden size-[4.25rem] items-center justify-center rounded-full bg-lime font-mono text-[10px] font-bold uppercase tracking-wider text-ink shadow-[4px_4px_0_0_#000] transition-opacity duration-150 sm:flex',
               hovering ? 'opacity-100' : 'opacity-0'
             )}
             style={{

@@ -49,6 +49,10 @@ export function MediaLayout() {
         <div className="mx-auto flex max-w-[1600px] flex-col gap-2 font-mono text-xs text-white/40 sm:flex-row sm:justify-between">
           <p>Radical Media · Sermons, worship & discipleship</p>
           <p>
+            <Link to="/cookies" className="hover:text-lime">
+              Cookies
+            </Link>
+            <span className="mx-2 text-white/20">·</span>
             <Link to="/" className="hover:text-lime">
               Back to church site
             </Link>

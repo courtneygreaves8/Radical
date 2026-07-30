@@ -2,28 +2,37 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Headphones, Info, Play } from 'lucide-react'
 
-import { GeoIcon } from '@/components/marketing/geo/GeoIcons'
 import { Button } from '@/components/ui/button'
 import type { PodcastEpisode, PodcastShow } from '@/lib/podcasts'
 import { getShowById } from '@/lib/podcasts'
 import { cn } from '@/lib/utils'
 
 type FeaturedHeroProps = {
-  episode: PodcastEpisode
+  episode?: PodcastEpisode
   show?: PodcastShow
   /** Full-bleed cinematic backdrop (overrides episode cover) */
   backdrop?: string
 }
 
+/**
+ * Cinematic Radical Media billboard — works with a real episode or a show preview.
+ */
 export function FeaturedHero({
   episode,
   show: showProp,
   backdrop = '/media/podcast-hero.png',
 }: FeaturedHeroProps) {
-  const show = showProp ?? getShowById(episode.showId)
+  const show = showProp ?? (episode ? getShowById(episode.showId) : undefined)
   if (!show) return null
 
-  const playHref = `/podcasts/${show.slug}/${episode.slug}`
+  const title = episode?.title ?? show.title
+  const synopsis = episode?.synopsis ?? show.description
+  const metaLeft = episode ? show.title : show.tagline
+  const metaRight = episode?.duration ?? `${show.category} · Coming soon`
+  const primaryHref = episode
+    ? `/podcasts/${show.slug}/${episode.slug}`
+    : `/podcasts/${show.slug}`
+  const primaryLabel = episode ? 'Preview' : 'Enter show'
 
   return (
     <section className="relative min-h-[78vh] w-full overflow-hidden border-b-2 border-ink bg-ink sm:min-h-[88vh]">
@@ -53,17 +62,6 @@ export function FeaturedHero({
             'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.35) 3px)',
         }}
       />
-
-      {/* Half-bleed geo */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 z-[2] flex w-[min(90vw,48rem)] items-center overflow-hidden"
-      >
-        <GeoIcon
-          name="asterisk6"
-          className="size-[min(90vw,48rem)] shrink-0 translate-x-[38%] text-lime/[0.1]"
-        />
-      </div>
 
       {/* Letterbox bars */}
       <div
@@ -97,34 +95,48 @@ export function FeaturedHero({
               'type-display mt-5 max-w-4xl text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.9] tracking-tight text-paper'
             )}
           >
-            {episode.title}
+            {title}
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-paper/70 sm:text-lg">
-            {episode.synopsis}
+            {synopsis}
           </p>
           <div className="mt-3 flex flex-wrap gap-3 font-mono text-xs text-paper/40">
-            <span>{show.title}</span>
+            <span>{metaLeft}</span>
             <span>·</span>
-            <span>{episode.duration}</span>
+            <span>{metaRight}</span>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button variant="lime" size="lg" offset asChild>
-              <Link to={playHref}>
+              <Link to={primaryHref}>
                 <Play className="size-4 fill-current" />
-                Preview
+                {primaryLabel}
               </Link>
             </Button>
-            <Button
-              variant="paper"
-              size="lg"
-              className="border-2 border-paper bg-transparent text-paper hover:bg-paper hover:text-ink"
-              asChild
-            >
-              <Link to={`/podcasts/${show.slug}`}>
-                <Info className="size-4" />
-                More info
-              </Link>
-            </Button>
+            {episode ? (
+              <Button
+                variant="paper"
+                size="lg"
+                className="border-2 border-paper bg-transparent text-paper hover:bg-paper hover:text-ink"
+                asChild
+              >
+                <Link to={`/podcasts/${show.slug}`}>
+                  <Info className="size-4" />
+                  More info
+                </Link>
+              </Button>
+            ) : (
+              <Button
+                variant="paper"
+                size="lg"
+                className="border-2 border-paper bg-transparent text-paper hover:bg-paper hover:text-ink"
+                asChild
+              >
+                <Link to="/podcasts">
+                  <Info className="size-4" />
+                  All shows
+                </Link>
+              </Button>
+            )}
           </div>
         </motion.div>
       </div>

@@ -76,7 +76,7 @@ export function BeliefsPage() {
               (03) Deep dive
             </p>
             <h2 className="max-w-2xl text-2xl font-medium leading-snug tracking-tight sm:text-3xl lg:text-right">
-              Select a pillar. Read the <Em tone="flame">fire</Em>. Live the{' '}
+              Select a pillar. Read the <Em>fire</Em>. Live the{' '}
               <Em>Word</Em>.
             </h2>
           </div>

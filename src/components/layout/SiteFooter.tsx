@@ -4,6 +4,7 @@ import { GeoIcon } from '@/components/marketing/geo/GeoIcons'
 import { footerNav, siteMeta } from '@/lib/nav'
 
 const legalLinks = [
+  { label: 'Cookies', href: '/cookies' },
   { label: 'Email us', href: `mailto:${siteMeta.email}` },
 ] as const
 
@@ -34,7 +35,7 @@ export function SiteFooter() {
           <div className="max-w-sm">
             <GeoIcon
               name="spark"
-              className="size-8 text-flame sm:size-9"
+              className="size-8 text-lime sm:size-9"
             />
             <p className="mt-5 text-base leading-relaxed text-paper/55 sm:text-lg">
               Helping shape Norwich — for Jesus. Soft hearts, hard
@@ -60,12 +61,21 @@ export function SiteFooter() {
               <ul className="mt-6 space-y-2">
                 {legalLinks.map((item) => (
                   <li key={item.href}>
-                    <a
-                      href={item.href}
-                      className="text-sm text-paper/70 transition hover:text-lime"
-                    >
-                      {item.label}
-                    </a>
+                    {item.href.startsWith('mailto:') ? (
+                      <a
+                        href={item.href}
+                        className="text-sm text-paper/70 transition hover:text-lime"
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link
+                        to={item.href}
+                        className="text-sm text-paper/70 transition hover:text-lime"
+                      >
+                        {item.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

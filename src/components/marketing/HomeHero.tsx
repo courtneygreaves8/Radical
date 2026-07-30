@@ -15,6 +15,7 @@ import { GeoIcon } from '@/components/marketing/geo/GeoIcons'
 import { Button } from '@/components/ui/button'
 import type { CarouselSlide } from '@/lib/content'
 import { siteMeta } from '@/lib/nav'
+import { toggleSiteInvert } from '@/lib/siteInvert'
 import { cn } from '@/lib/utils'
 
 type HomeHeroProps = {
@@ -179,7 +180,7 @@ export function HomeHero({ slides }: HomeHeroProps) {
                   </span>
                   <span className="mt-3 block sm:mt-4">
                     <span className="inline-block">
-                      <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
+                      <span className="inline-block bg-crimson px-2.5 py-[0.1em] sm:px-3.5">
                         <span className="block whitespace-nowrap text-[0.92em] leading-[0.88] text-lime">
                           For Jesus
                         </span>
@@ -190,13 +191,9 @@ export function HomeHero({ slides }: HomeHeroProps) {
                       />
                       <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-ink/55 sm:text-[10px]">
                         <span>Shape the city</span>
-                        <span aria-hidden className="text-crimson">
-                          ·
-                        </span>
+                        <span aria-hidden>·</span>
                         <span>Full Gospel</span>
-                        <span aria-hidden className="text-crimson">
-                          ·
-                        </span>
+                        <span aria-hidden>·</span>
                         <span>For Jesus</span>
                       </span>
                       <span
@@ -230,9 +227,17 @@ export function HomeHero({ slides }: HomeHeroProps) {
                 </div>
               </div>
 
-              <div className="hidden justify-self-end lg:block" aria-hidden>
-                <MorphMark className="size-64 text-ink xl:size-80" />
-              </div>
+              <button
+                type="button"
+                onClick={toggleSiteInvert}
+                className="group hidden cursor-pointer justify-self-end border-0 bg-transparent p-0 text-left lg:block"
+                aria-label="Don't push the button — invert site colors"
+              >
+                <MorphMark className="size-64 text-ink transition duration-300 group-hover:scale-[1.04] group-active:scale-95 xl:size-80" />
+                <span className="mt-4 block max-w-[12rem] text-center font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-ink/55 transition group-hover:text-ink xl:max-w-[14rem]">
+                  Don&apos;t push the button!
+                </span>
+              </button>
             </div>
           </div>
 
@@ -296,7 +301,7 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
               </span>
               <span className="mt-3 block sm:mt-4">
                 <span className="inline-block">
-                  <span className="inline-block bg-ink px-2.5 py-[0.1em] sm:px-3.5">
+                  <span className="inline-block bg-crimson px-2.5 py-[0.1em] sm:px-3.5">
                     <span className="block whitespace-nowrap text-[0.92em] leading-[0.88] text-lime">
                       For Jesus
                     </span>
@@ -304,13 +309,9 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
                   <span aria-hidden className="mt-3 block h-px w-full bg-ink sm:mt-3.5" />
                   <span className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-ink/55 sm:text-[10px]">
                     <span>Shape the city</span>
-                    <span aria-hidden className="text-crimson">
-                      ·
-                    </span>
+                    <span aria-hidden>·</span>
                     <span>Full Gospel</span>
-                    <span aria-hidden className="text-crimson">
-                      ·
-                    </span>
+                    <span aria-hidden>·</span>
                     <span>For Jesus</span>
                   </span>
                   <span aria-hidden className="mt-3 block h-px w-full bg-ink sm:mt-3.5" />
@@ -340,9 +341,17 @@ function StaticSplit({ slides }: { slides: CarouselSlide[] }) {
               </Button>
             </div>
           </div>
-          <div className="hidden justify-self-end lg:block" aria-hidden>
-            <MorphMark className="size-72 text-ink" />
-          </div>
+          <button
+            type="button"
+            onClick={toggleSiteInvert}
+            className="group hidden cursor-pointer justify-self-end border-0 bg-transparent p-0 text-left lg:block"
+            aria-label="Don't push the button — invert site colors"
+          >
+            <MorphMark className="size-72 text-ink transition duration-300 group-hover:scale-[1.04] group-active:scale-95" />
+            <span className="mt-4 block max-w-[13rem] text-center font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-ink/55 transition group-hover:text-ink">
+              Don&apos;t push the button!
+            </span>
+          </button>
         </div>
       </div>
       <div className="relative h-[42vh] w-full overflow-hidden bg-ink">

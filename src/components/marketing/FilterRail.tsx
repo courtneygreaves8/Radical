@@ -66,72 +66,84 @@ export function FilterRail({
       )}
     >
       <div className="mx-auto max-w-7xl px-5 py-4 sm:px-8 sm:py-5">
-        <div className="flex items-center gap-4">
-          <div
-            ref={scrollerRef}
-            className="flex min-w-0 flex-1 gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            {filters.map((f) => {
-              const on = f.id === activeId
-              return (
-                <button
-                  key={f.id}
-                  type="button"
-                  data-active={on || undefined}
-                  onClick={() => onChange(f.id)}
-                  className={cn(
-                    'shrink-0 whitespace-nowrap border-2 px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.16em] transition sm:px-4 sm:text-[11px]',
-                    on
-                      ? ink
-                        ? 'border-lime bg-lime text-ink'
-                        : 'border-ink bg-ink text-lime'
-                      : ink
-                        ? 'border-paper/25 text-paper/70 hover:border-lime hover:text-lime'
-                        : 'border-ink/25 text-ink/70 hover:border-ink hover:text-ink'
-                  )}
-                >
-                  {f.label}
-                </button>
-              )
-            })}
-          </div>
+        <div
+          className={cn(
+            'border-2',
+            ink ? 'border-paper/25' : 'border-ink'
+          )}
+        >
+          {groups && groups.length > 0 ? (
+            <div
+              className={cn(
+                'flex flex-wrap items-center gap-x-6 gap-y-2 px-3 py-3 sm:px-4',
+                ink ? 'border-b border-paper/20' : 'border-b border-ink/20'
+              )}
+            >
+              {groups.map((g) => {
+                const on = g.id === activeGroupId
+                return (
+                  <button
+                    key={g.id}
+                    type="button"
+                    onClick={() => onGroupChange?.(g.id)}
+                    className={cn(
+                      'font-mono text-[10px] uppercase tracking-[0.2em] transition',
+                      on
+                        ? ink
+                          ? 'text-lime'
+                          : 'text-ink'
+                        : ink
+                          ? 'text-paper/40 hover:text-paper/70'
+                          : 'text-ink/40 hover:text-ink/70'
+                    )}
+                  >
+                    {g.label}
+                  </button>
+                )
+              })}
+            </div>
+          ) : null}
 
-          <p
-            className={cn(
-              'hidden shrink-0 font-mono text-[10px] uppercase tracking-[0.16em] lg:block',
-              ink ? 'text-paper/40' : 'text-ink/40'
-            )}
-          >
-            {hint}
-          </p>
+          <div className="flex items-center gap-4 px-3 py-3 sm:px-4">
+            <div
+              ref={scrollerRef}
+              className="flex min-w-0 flex-1 gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {filters.map((f) => {
+                const on = f.id === activeId
+                return (
+                  <button
+                    key={f.id}
+                    type="button"
+                    data-active={on || undefined}
+                    onClick={() => onChange(f.id)}
+                    className={cn(
+                      'shrink-0 whitespace-nowrap border-2 px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.16em] transition sm:px-4 sm:text-[11px]',
+                      on
+                        ? ink
+                          ? 'border-lime bg-lime text-ink'
+                          : 'border-ink bg-ink text-lime'
+                        : ink
+                          ? 'border-paper/25 text-paper/70 hover:border-lime hover:text-lime'
+                          : 'border-ink/25 text-ink/70 hover:border-ink hover:text-ink'
+                    )}
+                  >
+                    {f.label}
+                  </button>
+                )
+              })}
+            </div>
+
+            <p
+              className={cn(
+                'hidden shrink-0 font-mono text-[10px] uppercase tracking-[0.16em] lg:block',
+                ink ? 'text-paper/40' : 'text-ink/40'
+              )}
+            >
+              {hint}
+            </p>
+          </div>
         </div>
-
-        {groups && groups.length > 0 ? (
-          <div className="mt-3 flex flex-wrap items-end gap-x-6 gap-y-2 border-t border-current/20 pt-3">
-            {groups.map((g) => {
-              const on = g.id === activeGroupId
-              return (
-                <button
-                  key={g.id}
-                  type="button"
-                  onClick={() => onGroupChange?.(g.id)}
-                  className={cn(
-                    'font-mono text-[10px] uppercase tracking-[0.2em] transition',
-                    on
-                      ? ink
-                        ? 'text-lime'
-                        : 'text-ink'
-                      : ink
-                        ? 'text-paper/40 hover:text-paper/70'
-                        : 'text-ink/40 hover:text-ink/70'
-                  )}
-                >
-                  {g.label}
-                </button>
-              )
-            })}
-          </div>
-        ) : null}
       </div>
     </div>
   )

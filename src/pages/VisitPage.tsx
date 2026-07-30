@@ -4,7 +4,6 @@ import { GatherProof } from '@/components/marketing/GatherProof'
 import { MediaTabs } from '@/components/marketing/MediaTabs'
 import { Em, SectionIntro } from '@/components/marketing/SectionIntro'
 import { PageHero } from '@/components/shared/PageHero'
-import { urbanImages } from '@/lib/images'
 import { getLocalContent } from '@/lib/sanity/client'
 import { siteMeta } from '@/lib/nav'
 
@@ -40,24 +39,21 @@ export function VisitPage() {
             label: 'Arrive',
             title: 'Walk in expectant.',
             body: 'City Gates Centre is easy to find. Come early, grab a seat, and bring an open heart — not a spectator mindset.',
-            image: urbanImages.crossing,
-            video: '-C-cus6pJuo',
+            image: '/media/stack-street.jpg',
           },
           {
             id: 'worship',
             label: 'Worship',
             title: 'Presence over performance.',
             body: 'We meet to worship God — not entertain people. If you want comfortable and predictable, this is not that.',
-            image: urbanImages.alley,
-            video: '6sHl7kNHGgQ',
+            image: '/media/stack-dove.jpg',
           },
           {
             id: 'word',
             label: 'Word',
             title: 'Challenged to pursue God.',
             body: 'Full Gospel preaching. Real repentance. A dare to be used of God and make a difference.',
-            image: urbanImages.shaftesbury,
-            video: 'AV4zl5ZiefI',
+            image: '/media/evangelism-bible.jpg',
           },
         ]}
       />

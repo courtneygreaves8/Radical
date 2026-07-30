@@ -69,7 +69,7 @@ export function AccountPage() {
               />
             </label>
             {error ? (
-              <p className="text-sm font-medium text-red-700">{error}</p>
+              <p className="text-sm font-medium text-crimson">{error}</p>
             ) : null}
             {message ? (
               <p className="border-2 border-ink bg-lime px-3 py-2 text-sm font-medium">

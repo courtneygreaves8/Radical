@@ -44,13 +44,14 @@
 :root {
   --ink: #000000;
   --paper: #ffffff;
-  --lime: #c8f500;
+  /* Acid lime — still brutal, slightly grounded for long viewing */
+  --lime: #bfe000;
   --lime-foreground: #000000;
   --mute: #e8e8e8;
-  /* Extended brand accents */
-  --crimson: #da2c38;
+  /* Extended brand accents — electric blue; lime stays for text-on-ink */
+  --crimson: #0055ff;
   --navy: #0c1b33;
-  --flame: #f6511d;
+  --flame: #0055ff;
 
   --background: #ffffff;
   --foreground: #000000;
@@ -59,17 +60,17 @@
   --popover: #ffffff;
   --popover-foreground: #000000;
   --primary: #000000;
-  --primary-foreground: #c8f500;
+  --primary-foreground: #bfe000;
   --secondary: #e8e8e8;
   --secondary-foreground: #000000;
   --muted: #e8e8e8;
   --muted-foreground: #525252;
-  --accent: #c8f500;
+  --accent: #bfe000;
   --accent-foreground: #000000;
-  --destructive: #da2c38;
+  --destructive: #0055ff;
   --border: #000000;
   --input: #000000;
-  --ring: #c8f500;
+  --ring: #bfe000;
   --radius: 0;
 }
 
@@ -84,6 +85,11 @@
 
   body {
     @apply bg-paper font-sans text-ink antialiased;
+  }
+
+  /* Easter egg — HomeHero morph mark */
+  html.site-inverted {
+    filter: invert(1);
   }
 
   ::selection {

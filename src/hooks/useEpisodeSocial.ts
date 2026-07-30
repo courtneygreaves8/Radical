@@ -74,6 +74,15 @@ export function useEpisodeSocial(episodeId: string) {
   }, [episodeId])
 
   useEffect(() => {
+    // Preferences cookies only — skip persist until consented
+    try {
+      const raw = localStorage.getItem('radical-cookie-consent')
+      if (!raw) return
+      const parsed = JSON.parse(raw) as { preferences?: boolean }
+      if (!parsed.preferences) return
+    } catch {
+      return
+    }
     save(episodeId, state)
   }, [episodeId, state])
 

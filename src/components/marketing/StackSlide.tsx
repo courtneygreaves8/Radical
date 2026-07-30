@@ -29,14 +29,14 @@ const defaultSlab: Record<
   paper: 'lime',
   ink: 'lime',
   lime: 'ink',
-  navy: 'flame',
+  navy: 'lime',
 }
 
 const slabClass = {
   lime: 'bg-lime',
   ink: 'bg-ink',
   crimson: 'bg-crimson',
-  flame: 'bg-flame',
+  flame: 'bg-crimson',
   navy: 'bg-navy',
 } as const
 
@@ -88,7 +88,7 @@ export function StackSlide({
               tone === 'ink'
                 ? 'bg-lime'
                 : tone === 'navy'
-                  ? 'bg-flame'
+                  ? 'bg-lime'
                   : 'bg-ink'
             )}
           />

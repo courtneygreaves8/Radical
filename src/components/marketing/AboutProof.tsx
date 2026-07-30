@@ -8,6 +8,8 @@ import { cn } from '@/lib/utils'
 export type AboutStat = {
   value: string
   label: string
+  /** Accent the value — brand blue via crimson token */
+  accent?: 'crimson' | 'lime'
 }
 
 type AboutProofProps = {
@@ -41,7 +43,13 @@ export function AboutProof({
         <ul className="grid gap-8 border-b-2 border-ink pb-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {stats.map((s) => (
             <li key={s.label}>
-              <p className="type-display text-4xl tracking-tight sm:text-5xl">
+              <p
+                className={cn(
+                  'type-display text-4xl tracking-tight sm:text-5xl',
+                  s.accent === 'crimson' && 'text-crimson',
+                  s.accent === 'lime' && 'text-lime'
+                )}
+              >
                 {s.value}
               </p>
               <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink/50">

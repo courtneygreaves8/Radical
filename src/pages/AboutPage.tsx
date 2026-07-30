@@ -64,6 +64,7 @@ export function AboutPage() {
           {
             value: 'Ongoing',
             label: 'Funds raised for the field',
+            accent: 'crimson',
           },
           {
             value: '13',

@@ -84,11 +84,18 @@ export function PodcastShowPage() {
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-white/40">
           Episodes · Coming soon
         </p>
-        <div className="mt-6 flex flex-wrap gap-4">
-          {episodes.map((ep) => (
-            <MediaCard key={ep.id} episode={ep} />
-          ))}
-        </div>
+        {episodes.length > 0 ? (
+          <div className="mt-6 flex flex-wrap gap-4">
+            {episodes.map((ep) => (
+              <MediaCard key={ep.id} episode={ep} />
+            ))}
+          </div>
+        ) : (
+          <p className="mt-6 max-w-md text-sm leading-relaxed text-white/55">
+            No episodes listed here yet. When new drops publish, they will
+            appear in this show.
+          </p>
+        )}
       </div>
     </div>
   )

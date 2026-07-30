@@ -262,7 +262,6 @@ export function MorphMark({ className, interval = 2.8 }: MorphMarkProps) {
     <motion.svg
       viewBox="0 0 200 200"
       className={className}
-      aria-hidden
       overflow="visible"
       animate={reduceMotion ? undefined : { scale: [1, 1.025, 1] }}
       transition={

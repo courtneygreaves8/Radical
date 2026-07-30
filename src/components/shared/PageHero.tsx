@@ -22,7 +22,7 @@ const markTone = {
   lime: 'text-ink/[0.08]',
   ink: 'text-lime/[0.12]',
   paper: 'text-ink/[0.07]',
-  navy: 'text-flame/[0.14]',
+  navy: 'text-lime/[0.14]',
   crimson: 'text-paper/[0.12]',
 } as const
 

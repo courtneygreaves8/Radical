@@ -137,7 +137,6 @@ export function StaggerMediaGallery({
                       item.kind ??
                       comingSoonKindFromCategory(item.meta.split('·')[0])
                     }
-                    title={item.title}
                     className="absolute inset-0"
                   />
                 ) : (

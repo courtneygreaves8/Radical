@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 
+import { CinematicShowPreviews } from '@/components/media/CinematicShowPreviews'
 import { FeaturedHero } from '@/components/media/FeaturedHero'
 import { MediaRow } from '@/components/media/MediaRow'
 import {
@@ -32,7 +33,7 @@ const episodeSorts = [
 ]
 
 export function PodcastsPage() {
-  const featured = featuredEpisodes()[0] ?? continueWatching()[0]
+  const featuredEpisode = featuredEpisodes()[0] ?? continueWatching()[0]
   const rows = rowByCategory()
 
   const [mode, setMode] = useState<'shows' | 'episodes'>('shows')
@@ -83,7 +84,11 @@ export function PodcastsPage() {
 
   return (
     <div className="pb-16">
-      {featured ? <FeaturedHero episode={featured} /> : null}
+      {featuredEpisode ? (
+        <FeaturedHero episode={featuredEpisode} />
+      ) : (
+        <CinematicShowPreviews shows={podcastShows} />
+      )}
 
       <div className="flex items-center gap-2 border-b-2 border-ink bg-paper px-5 py-3 sm:px-8">
         {(
@@ -118,7 +123,7 @@ export function PodcastsPage() {
           onSortChange={setShowSort}
           watermark="Shows"
         />
-      ) : (
+      ) : episodeItems.length > 0 ? (
         <StaggerMediaGallery
           items={episodeItems}
           sorts={episodeSorts}
@@ -126,10 +131,23 @@ export function PodcastsPage() {
           onSortChange={setEpisodeSort}
           watermark="Podcasts"
         />
+      ) : (
+        <section className="border-b-2 border-ink bg-paper px-5 py-16 sm:px-8">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/45">
+            Episodes
+          </p>
+          <p className="mt-4 max-w-lg text-lg font-bold tracking-tight">
+            No episodes listed yet — shows are live; drops land here when
+            published.
+          </p>
+        </section>
       )}
 
       <div className="relative z-10 space-y-10 bg-black pt-10 sm:space-y-12 sm:pt-12">
-        <MediaRow title="Continue listening" episodes={continueWatching()} />
+        {continueWatching().length > 0 ? (
+          <MediaRow title="Continue listening" episodes={continueWatching()} />
+        ) : null}
+        <MediaRow title="All shows" shows={podcastShows} />
         {rows.map((row) =>
           row.episodes.length > 0 ? (
             <MediaRow

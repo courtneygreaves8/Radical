@@ -135,13 +135,13 @@ export function SponsorshipPage() {
             {IMPACT.map((item, i) => (
               <li key={item.id}>
                 <OffsetBlock
-                  offset={i === 1 ? 'flame' : i === 2 ? 'crimson' : 'navy'}
+                  offset={i === 1 ? 'lime' : i === 2 ? 'crimson' : 'navy'}
                   revealOnHover
                 >
                   <div
                     className={cn(
                       'flex min-h-[220px] flex-col border-2 border-ink p-6 sm:p-7',
-                      i === 1 ? 'bg-navy text-paper' : 'bg-paper text-ink'
+                      i === 1 ? 'bg-ink text-paper' : 'bg-paper text-ink'
                     )}
                   >
                     <p className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-50">
@@ -150,7 +150,7 @@ export function SponsorshipPage() {
                     <p
                       className={cn(
                         'type-display mt-4 text-5xl leading-none sm:text-6xl',
-                        i === 1 ? 'text-flame' : 'text-ink'
+                        i === 1 ? 'text-lime' : 'text-ink'
                       )}
                     >
                       {item.value}

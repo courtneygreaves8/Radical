@@ -17,7 +17,7 @@ export function GivePage() {
         body="Every gift fuels outreach, care, and long-term mission — from Norwich streets to partners overseas."
         headline={
           <>
-            Generosity <Em tone="flame">shapes</Em> the work — open hands for a
+            Generosity <Em>shapes</Em> the work — open hands for a
             city and nations that need Jesus.
           </>
         }

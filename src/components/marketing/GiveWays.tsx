@@ -154,13 +154,13 @@ export function GiveWays({ charityNumber, email, className }: GiveWaysProps) {
               charity.
             </p>
 
-            <blockquote className="mt-8 max-w-md border-l-2 border-flame pl-4">
+            <blockquote className="mt-8 max-w-md border-l-2 border-lime pl-4">
               <p className="text-base font-medium leading-snug text-paper sm:text-lg">
                 “Each of you should give what you have decided in your heart to
                 give, not reluctantly or under compulsion, for God loves a
                 cheerful giver.”
               </p>
-              <footer className="mt-3 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-flame">
+              <footer className="mt-3 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-lime">
                 2 Corinthians 9:7
               </footer>
             </blockquote>

@@ -29,7 +29,7 @@ function CtaLink({
   cta: SplitPanel['cta']
 }) {
   const className =
-    'inline-flex w-fit items-center gap-2 border-b-2 border-flame pb-1 text-sm font-bold uppercase tracking-wider text-flame transition hover:text-paper'
+    'inline-flex w-fit items-center gap-2 border-b-2 border-lime pb-1 text-sm font-bold uppercase tracking-wider text-lime transition hover:text-paper'
 
   if (cta.external) {
     return (
@@ -69,7 +69,7 @@ export function SplitProof({ left, right, className }: SplitProofProps) {
             name={left.mark}
             className={cn(
               'pointer-events-none absolute right-5 bottom-5 size-20 sm:right-6 sm:bottom-6 sm:size-24 lg:size-28',
-              left.markTone === 'paper' ? 'text-paper/80' : 'text-flame'
+              left.markTone === 'paper' ? 'text-paper/80' : 'text-lime'
             )}
           />
 

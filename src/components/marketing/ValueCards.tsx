@@ -109,7 +109,7 @@ export function ValueCards({
                     </p>
                     <GeoIcon
                       name={icon}
-                      className="absolute top-5 right-5 z-10 size-12 text-flame sm:size-14"
+                      className="absolute top-5 right-5 z-10 size-12 text-lime sm:size-14"
                     />
                     <div className="relative z-10 text-paper">
                       <span className="inline-block border-2 border-paper bg-paper px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-ink">
@@ -124,7 +124,7 @@ export function ValueCards({
                           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-paper/45">
                             {num} · Shape
                           </span>
-                          <span className="inline-flex items-center gap-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-flame">
+                          <span className="inline-flex items-center gap-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-lime">
                             {cta}
                             <ArrowUpRight className="size-3.5" />
                           </span>
@@ -135,7 +135,7 @@ export function ValueCards({
                 </OffsetBlock>
               ) : (
                 <OffsetBlock
-                  offset={card.tone === 'lime' ? 'navy' : 'flame'}
+                  offset={card.tone === 'lime' ? 'navy' : 'crimson'}
                   revealOnHover
                 >
                   <div

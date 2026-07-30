@@ -64,7 +64,7 @@ export function MissionsPage() {
         body="We take the gospel outside the building — supermarket streets, clubs, prisons, and partner nations. Shaping our city first, then the nations."
         headline={
           <>
-            Mission <Em tone="flame">shapes</Em> a street before it shapes a
+            Mission <Em>shapes</Em> a street before it shapes a
             nation — Norwich first, then the lost beyond.
           </>
         }
@@ -101,18 +101,6 @@ export function MissionsPage() {
             </p>
           </section>
         )}
-
-        <FilterRail
-          groups={[...missionGroups]}
-          activeGroupId={groupId}
-          onGroupChange={setGroupId}
-          filters={[...missionFilters]}
-          activeId={filterId}
-          onChange={setFilterId}
-          hint="Swipe or scroll to navigate"
-          tone="paper"
-          sticky
-        />
       </div>
 
       <section className="border-b-2 border-ink bg-paper">
