@@ -16,7 +16,6 @@ const missionGroups = [
 const missionFilters = [
   { id: 'all', label: 'All' },
   { id: 'uk', label: 'Local Norfolk' },
-  { id: 'hope-bus', label: 'Hope Bus' },
   { id: 'city', label: 'City & prisons' },
   { id: 'world', label: 'India & Africa' },
 ] as const
@@ -32,8 +31,6 @@ export function MissionsPage() {
         return missions.filter((m) => m.region === 'uk')
       case 'world':
         return missions.filter((m) => m.region === 'world')
-      case 'hope-bus':
-        return missions.filter((m) => m.id === 'm1')
       case 'city':
         return missions.filter((m) => m.id === 'm2')
       default:
@@ -53,7 +50,7 @@ export function MissionsPage() {
       <PageHero
         eyebrow="Local & global"
         title="Missions"
-        description="Hope Bus on Norfolk streets. Shaping Norwich locally — partners across India, Africa, and beyond."
+        description="Street outreach across Norfolk. Shaping Norwich locally — partners across India, Africa, and beyond."
         tone="paper"
         mark="star12"
       />

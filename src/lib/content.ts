@@ -149,9 +149,9 @@ export const missions: MissionStory[] = [
     id: 'm1',
     region: 'uk',
     number: '01',
-    title: 'Radical Hope Bus',
-    body: 'Outreach and evangelism across Norfolk on our double-decker Hope Bus — supermarket streets, clubs, and communities that need Jesus.',
-    image: peekSlideImages.busPreach,
+    title: 'Street outreach',
+    body: 'Outreach and evangelism across Norfolk — supermarket streets, clubs, and communities that need Jesus.',
+    image: peekSlideImages.outreachCrew,
   },
   {
     id: 'm2',

@@ -26,8 +26,6 @@ export const peekSlideImages = {
   prisons: '/media/mission-prisons.jpg',
   /** Outdoors with the Word — evangelism */
   bibleStreet: '/media/evangelism-bible.jpg',
-  /** Preaching on the bus — Hope Bus / street evangelism */
-  busPreach: '/media/evangelism-bus.jpg',
   /** Outdoor Word — street preaching / evangelism */
   outreachCrew: '/media/evangelism-crew.jpg',
   /** Street mural — city witness */

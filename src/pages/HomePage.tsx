@@ -47,9 +47,9 @@ export function HomePage() {
         <StackSlide
           index="04"
           title="Gather — worship, Word, then send."
-          body="We meet God, not a show. Hard preaching. Real repentance. Then we take it outside — shaping the city on Hope Bus nights, in prisons, on the streets, and with partners overseas."
+          body="We meet God, not a show. Hard preaching. Real repentance. Then we take it outside — shaping the city in prisons, on the streets, and with partners overseas."
           detail="Presence over performance"
-          image={peekSlideImages.busPreach}
+          image={peekSlideImages.outreachCrew}
           cta={{ label: 'See how we gather', href: '/visit' }}
           tone="paper"
         />
@@ -57,8 +57,8 @@ export function HomePage() {
         <StackSlide
           index="05"
           title="Shaping Norwich. Reaching nations."
-          body="Outreach that leaves the building. Discipleship that costs something. Hope Bus on Norfolk streets — and partners in India and Africa."
-          detail="Hope Bus · Worldwide partners"
+          body="Outreach that leaves the building. Discipleship that costs something. Street witness across Norfolk — and partners in India and Africa."
+          detail="Street outreach · Worldwide partners"
           image={peekSlideImages.outreachCrew}
           cta={{ label: 'See missions', href: '/missions' }}
           tone="navy"
@@ -88,7 +88,7 @@ export function HomePage() {
         <StackSlide
           index="08"
           title="Get involved"
-          body={`Join us ${siteMeta.visit.day} at ${siteMeta.visit.time}. Ride the Hope Bus. Walk The Jesus Way. Give to outreach and orphanage care — prefer in-person when you can.`}
+          body={`Join us ${siteMeta.visit.day} at ${siteMeta.visit.time}. Walk The Jesus Way. Give to outreach and orphanage care — prefer in-person when you can.`}
           detail="Visit · Outreach · Discipleship · Give"
           image={peekSlideImages.still}
           imagePosition="center center"

@@ -24,12 +24,12 @@ export function AboutPage() {
     },
     {
       id: 't2',
-      meta: 'Bus',
-      title: 'Hope Bus',
-      detailTitle: 'Double-decker witness',
+      meta: 'Streets',
+      title: 'Street witness',
+      detailTitle: 'Take it outside',
       detailBody:
-        'Outreach and evangelism across Norfolk on the Radical Hope Bus — supermarket streets, clubs, and communities that need Jesus.',
-      image: peekSlideImages.busPreach,
+        'Outreach and evangelism across Norfolk — supermarket streets, clubs, and communities that need Jesus.',
+      image: peekSlideImages.outreachCrew,
     },
     {
       id: 't3',
@@ -76,7 +76,7 @@ export function AboutPage() {
           },
         ]}
         headline="We believe a life changed by Jesus shapes more than a meeting — it reshapes the whole street."
-        body="Our team runs toward the broken with Full Gospel fire and Whole Bible grit. From Hope Bus nights to discipleship that costs something, we help people find Jesus and keep walking with Him — in Norwich and beyond."
+        body="Our team runs toward the broken with Full Gospel fire and Whole Bible grit. From street outreach to discipleship that costs something, we help people find Jesus and keep walking with Him — in Norwich and beyond."
         cta={{ label: 'Learn more', href: '/visit' }}
         image={peekSlideImages.field}
       />
@@ -136,7 +136,7 @@ export function AboutPage() {
             tone: 'lime',
             tag: 'Send',
             title: 'City & nations',
-            body: 'Hope Bus locally. Partners in India and Africa. Revival here.',
+            body: 'Street outreach locally. Partners in India and Africa. Revival here.',
             href: '/missions',
           },
         ]}

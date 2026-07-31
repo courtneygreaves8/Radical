@@ -107,8 +107,8 @@ export function EventsPage() {
         items={[
           {
             id: 'h1',
-            title: 'Hope Bus nights',
-            body: 'Street outreach across Norfolk — follow Radical Media and Sunday announcements for the next run.',
+            title: 'Street outreach',
+            body: 'Outreach across Norfolk — follow Radical Media and Sunday announcements for the next run.',
           },
           {
             id: 'h2',
