@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { Link } from 'react-router-dom'
 import {
   motion,
@@ -115,7 +115,10 @@ function HeroChrome({
   scrollCueOpacity?: ReturnType<typeof useTransform<number, number>>
 }) {
   return (
-    <>
+    <div className="relative flex h-full min-h-0 flex-1 flex-col">
+      <HeroCrossMark />
+
+      {/* Right — large mark, half off-screen */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[min(120vw,76rem)] items-center overflow-hidden"
@@ -128,7 +131,10 @@ function HeroChrome({
 
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-5 pt-8 sm:px-8 sm:pt-12 lg:px-10">
         <div className="flex items-center justify-between gap-3">
-          <p className="font-mono text-xs font-medium uppercase tracking-[0.3em]">
+          <p
+            data-hero-england
+            className="font-mono text-xs font-medium uppercase tracking-[0.3em]"
+          >
             Norwich · England
           </p>
           <ScrollCue className="lg:hidden" />
@@ -159,7 +165,97 @@ function HeroChrome({
           invertWhenVisible="#home-about"
         />
       </div>
-    </>
+    </div>
+  )
+}
+
+/**
+ * Left watermark cross (measured, not fragile CSS calc):
+ * 1. Thin arms
+ * 2. Half vertical stem on-screen at the hero’s left edge
+ * 3. Half horizontal arm on-screen — from left edge to the end of “England”
+ * 4. Horizontal bar sits in the gap between the header and that eyebrow
+ */
+function HeroCrossMark() {
+  const hostRef = useRef<HTMLDivElement>(null)
+  const [geom, setGeom] = useState<{
+    barY: number
+    barW: number
+    stemH: number
+    stemW: number
+    barH: number
+  } | null>(null)
+
+  useLayoutEffect(() => {
+    const host = hostRef.current
+    if (!host) return
+    const panel = host.parentElement
+    if (!panel) return
+
+    function measure() {
+      if (!panel) return
+      const england = panel.querySelector('[data-hero-england]')
+      if (!england) return
+      const p = panel.getBoundingClientRect()
+      const e = england.getBoundingClientRect()
+      if (p.width < 8 || e.width < 8) return
+
+      // Midpoint between hero top and eyebrow = slot under header / above England
+      const barY = Math.max((e.top - p.top) / 2, 12)
+      // Visible half of the horizontal arm: panel left → end of England
+      const barW = Math.max(e.right - p.left, 0)
+      const stemH = Math.min(p.height * 0.72, 580)
+      const stemW = Math.max(Math.min(p.width * 0.028, 42), 28)
+      const barH = Math.max(Math.min(stemW * 0.22, 10), 6)
+
+      setGeom({ barY, barW, stemH, stemW, barH })
+    }
+
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(panel)
+    window.addEventListener('resize', measure)
+    window.addEventListener('scroll', measure, true)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', measure)
+      window.removeEventListener('scroll', measure, true)
+    }
+  }, [])
+
+  return (
+    <div
+      ref={hostRef}
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+    >
+      {geom ? (
+        <>
+          {/* Horizontal — left edge → England, in header/England gap */}
+          <div
+            className="absolute bg-ink/10"
+            style={{
+              top: geom.barY,
+              left: 0,
+              width: geom.barW,
+              height: geom.barH,
+              transform: 'translateY(-50%)',
+            }}
+          />
+          {/* Vertical — half on-screen at left edge, crosses the bar */}
+          <div
+            className="absolute bg-ink/10"
+            style={{
+              top: geom.barY,
+              left: 0,
+              width: geom.stemW,
+              height: geom.stemH,
+              transform: 'translate(-50%, -50%)',
+            }}
+          />
+        </>
+      ) : null}
+    </div>
   )
 }
 

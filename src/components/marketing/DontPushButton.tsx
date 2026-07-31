@@ -223,7 +223,7 @@ export function DontPushButton({
               id={descId}
               className="mt-4 text-sm leading-relaxed text-ink/75 sm:text-base"
             >
-              One push and the whole page broke. Now imagine picking an apple —
+              One push and the whole page broke. Now imagine picking a fruit —
               one bite, and the whole human story cracked. We&apos;re all
               sinners. Soft hearts. Hard truth. Jesus is the only repair.
             </p>
