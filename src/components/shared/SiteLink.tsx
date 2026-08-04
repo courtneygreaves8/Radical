@@ -39,7 +39,7 @@ export function SiteLink({
       tabIndex={0}
       title={soonLabel}
       style={style}
-      className={cn('group/soon relative inline-flex cursor-default', className)}
+      className={cn('group/soon cursor-default', className)}
       onClick={(e) => {
         e.preventDefault()
         onClick?.(e)

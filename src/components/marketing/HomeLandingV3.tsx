@@ -630,7 +630,7 @@ function Narrative() {
                     <SiteLink
                       key={c.title}
                       to={c.href}
-                      className="group absolute inset-0 origin-bottom"
+                      className="group absolute inset-0 block origin-bottom size-full"
                       style={{
                         transform: `translate(${x}rem, ${y}rem) rotate(${fan}deg)`,
                         zIndex: i + 1,
