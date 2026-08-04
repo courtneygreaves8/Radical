@@ -82,8 +82,8 @@ export const mediaVideos: MediaVideo[] = [
       { text: 'THE JESUS' },
       { text: 'GYPSY WAY', highlight: true },
     ],
-    cutout: 'prayer',
-    fullBleed: heroImages.prayer,
+    cutout: 'look',
+    fullBleed: heroImages.stairs,
   },
   {
     id: 'leon',

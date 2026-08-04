@@ -75,7 +75,7 @@ export function StaggerMediaGallery({
 
   if (items.length === 0) {
     return (
-      <section className={cn('border-b-2 border-ink bg-paper px-5 py-16', className)}>
+      <section className={cn('border-b border-ink/10 bg-paper px-5 py-16', className)}>
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/45">
           Nothing in this view yet
         </p>
@@ -86,7 +86,7 @@ export function StaggerMediaGallery({
   return (
     <section
       className={cn(
-        'relative overflow-hidden border-b-2 border-ink bg-paper text-ink',
+        'relative overflow-hidden border-b border-ink/10 bg-paper text-ink',
         className
       )}
     >
@@ -172,7 +172,7 @@ export function StaggerMediaGallery({
       </div>
 
       {/* Bottom sorts + watermark */}
-      <div className="relative border-t-2 border-ink">
+      <div className="relative border-t border-ink/10">
         <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-x-5 gap-y-3 px-5 py-5 sm:px-8">
           {sorts.map((s) => {
             const on = s.id === activeSort

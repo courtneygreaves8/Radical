@@ -37,7 +37,7 @@ export function AccordionRail({
   return (
     <section
       className={cn(
-        'relative overflow-hidden border-b-2 border-ink',
+        'relative overflow-hidden border-b border-ink/10',
         ink ? 'bg-ink text-paper' : 'bg-paper text-ink',
         className
       )}

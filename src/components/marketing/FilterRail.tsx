@@ -59,7 +59,7 @@ export function FilterRail({
   return (
     <div
       className={cn(
-        'z-40 border-t-2 border-b-0 border-ink',
+        'z-40 border-t border-b-0 border-ink/10',
         sticky && 'sticky bottom-0',
         ink ? 'bg-ink text-paper' : 'bg-paper text-ink',
         className
@@ -68,8 +68,8 @@ export function FilterRail({
       <div className="mx-auto max-w-7xl px-5 py-4 sm:px-8 sm:py-5">
         <div
           className={cn(
-            'border-2',
-            ink ? 'border-paper/25' : 'border-ink'
+            'rounded-2xl border',
+            ink ? 'border-paper/20' : 'border-ink/10'
           )}
         >
           {groups && groups.length > 0 ? (
@@ -118,7 +118,7 @@ export function FilterRail({
                     data-active={on || undefined}
                     onClick={() => onChange(f.id)}
                     className={cn(
-                      'shrink-0 whitespace-nowrap border-2 px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.16em] transition sm:px-4 sm:text-[11px]',
+                      'shrink-0 whitespace-nowrap rounded-full border px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] transition sm:px-4 sm:text-[11px]',
                       on
                         ? ink
                           ? 'border-lime bg-lime text-lime-foreground'

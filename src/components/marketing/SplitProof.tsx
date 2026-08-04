@@ -59,9 +59,9 @@ function CtaLink({
  */
 export function SplitProof({ left, right, className }: SplitProofProps) {
   return (
-    <section className={cn('border-b-2 border-ink bg-ink text-paper', className)}>
+    <section className={cn('border-b border-ink/10 bg-ink text-paper', className)}>
       <div className="grid lg:grid-cols-2 lg:min-h-[520px]">
-        <div className="relative overflow-hidden border-b-2 border-ink lg:border-b-0 lg:border-r-2">
+        <div className="relative overflow-hidden border-b border-ink/10 lg:border-b-0 lg:border-r-2">
           <GeoIcon
             name="sunburst"
             className="pointer-events-none absolute -bottom-16 -left-16 size-64 text-paper/[0.07] sm:size-72 lg:size-80"

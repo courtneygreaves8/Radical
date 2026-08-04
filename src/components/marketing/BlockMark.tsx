@@ -32,7 +32,7 @@ export function BlockMark({
   return (
     <section
       className={cn(
-        'relative overflow-hidden border-b-2 border-ink bg-mute',
+        'relative overflow-hidden border-b border-ink/10 bg-mute',
         className
       )}
     >

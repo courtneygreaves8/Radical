@@ -75,7 +75,7 @@ export function GivePage() {
         ]}
       />
 
-      <div className="border-b-2 border-ink bg-paper px-5 py-10 sm:px-8">
+      <div className="border-b border-ink/10 bg-paper px-5 py-10 sm:px-8">
         <p className="mx-auto max-w-7xl font-mono text-xs text-ink/50">
           Charity number {charityNumber} · England & Wales · Questions?{' '}
           <a href={`mailto:${email}`} className="text-ink underline">

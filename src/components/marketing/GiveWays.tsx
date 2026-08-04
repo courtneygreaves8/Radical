@@ -125,11 +125,11 @@ function TrustMarks({ charityNumber }: { charityNumber: string }) {
 export function GiveWays({ charityNumber, email, className }: GiveWaysProps) {
   return (
     <section
-      className={cn('relative border-b-2 border-ink overflow-hidden', className)}
+      className={cn('relative border-b border-ink/10 overflow-hidden', className)}
     >
       <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
         {/* Copy + trust */}
-        <div className="relative overflow-hidden border-b-2 border-ink bg-ink text-paper lg:border-b-0 lg:border-r-2">
+        <div className="relative overflow-hidden border-b border-ink/10 bg-ink text-paper lg:border-b-0 lg:border-r-2">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-y-0 right-0 flex w-[min(90vw,34rem)] items-center overflow-hidden"

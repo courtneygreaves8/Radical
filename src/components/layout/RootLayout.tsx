@@ -3,6 +3,7 @@ import { Outlet, ScrollRestoration } from 'react-router-dom'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteHeader } from '@/components/layout/SiteHeader'
 import { PodcastVideoFrame } from '@/components/marketing/PodcastVideoFrame'
+import { WeAreRadicalBand } from '@/components/marketing/WeAreRadicalBand'
 import { MadeByBabe } from '@/components/shared/MadeByBabe'
 
 export function RootLayout() {
@@ -13,6 +14,7 @@ export function RootLayout() {
         <Outlet />
       </main>
       <PodcastVideoFrame />
+      <WeAreRadicalBand />
       <SiteFooter />
       <MadeByBabe />
       <ScrollRestoration getKey={(location) => location.key} />

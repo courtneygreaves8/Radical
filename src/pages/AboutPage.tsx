@@ -142,7 +142,7 @@ export function AboutPage() {
         ]}
       />
 
-      <section className="border-b-2 border-ink bg-paper">
+      <section className="border-b border-ink/10 bg-paper">
         <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/45">
             (04) Word

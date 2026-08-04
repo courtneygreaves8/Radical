@@ -5,36 +5,32 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const offsetMotion =
-  'hover:translate-x-[3px] hover:translate-y-[3px] active:translate-x-1.5 active:translate-y-1.5'
+  'hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-1 active:translate-y-1'
 
 const buttonVariants = cva(
   [
-    'inline-flex items-center justify-center gap-2 whitespace-nowrap font-sans text-sm font-bold uppercase tracking-wide',
-    'isolate transition-[box-shadow,background-color,color,transform] duration-200 disabled:pointer-events-none disabled:opacity-50',
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap font-sans text-[11px] font-bold uppercase tracking-[0.14em]',
+    'isolate rounded-full transition-[box-shadow,background-color,color,transform] duration-200 disabled:pointer-events-none disabled:opacity-50',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
     '[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-current',
   ].join(' '),
   {
     variants: {
       variant: {
-        // Black face / lime type → white + black stroke on hover; paper offset slab
         default:
-          'border-2 border-ink bg-ink text-lime hover:bg-paper hover:text-ink',
-        lime: 'border-2 border-ink bg-lime text-lime-foreground hover:bg-paper hover:text-ink',
-        outline: [
-          'border-2 border-ink bg-transparent text-ink hover:bg-paper hover:text-ink',
-          'offset-shadow-paper',
-          offsetMotion,
-        ].join(' '),
+          'border border-ink bg-ink text-paper hover:bg-[#140e0c]',
+        lime: 'border border-lime bg-lime text-lime-foreground hover:bg-[#c4572c]',
+        outline:
+          'border border-ink/20 bg-transparent text-ink hover:border-ink/40 hover:bg-paper',
         ghost: 'bg-transparent text-ink hover:bg-mute hover:text-ink',
         paper:
-          'border-2 border-ink bg-paper text-ink hover:bg-ink hover:text-lime',
+          'border border-paper/20 bg-paper text-ink hover:bg-white',
       },
       size: {
-        default: 'h-12 rounded-none px-7',
-        sm: 'h-10 rounded-none px-5 text-xs',
-        lg: 'h-14 rounded-none px-9 text-base',
-        icon: 'size-11 shrink-0 rounded-none',
+        default: 'h-11 px-6',
+        sm: 'h-9 px-4 text-[10px]',
+        lg: 'h-12 px-8 text-xs',
+        icon: 'size-11 shrink-0',
       },
       offset: {
         true: '',
@@ -55,7 +51,7 @@ const buttonVariants = cva(
       {
         variant: 'paper',
         offset: true,
-        className: `offset-shadow-paper ${offsetMotion}`,
+        className: `offset-shadow-ink ${offsetMotion}`,
       },
       {
         variant: 'ghost',

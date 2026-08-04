@@ -17,7 +17,7 @@ export function MediaLayout() {
             {!isHub ? (
               <Link
                 to="/podcasts"
-                className="flex size-9 items-center justify-center border border-white/20 text-white/80 transition hover:border-lime hover:text-lime"
+                className="flex size-9 items-center justify-center rounded-full border border-white/20 text-white/80 transition hover:border-lime hover:text-lime"
                 aria-label="Back to podcasts"
               >
                 <ArrowLeft className="size-4" />
@@ -32,7 +32,7 @@ export function MediaLayout() {
             )}
             <Link
               to="/podcasts"
-              className="type-display text-sm text-lime sm:text-base"
+              className="font-sans text-sm font-bold tracking-tight text-lime sm:text-base"
             >
               Radical Media
             </Link>

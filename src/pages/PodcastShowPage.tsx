@@ -24,7 +24,7 @@ export function PodcastShowPage() {
 
   return (
     <div className="pb-20">
-      <section className="relative min-h-[55vh] overflow-hidden border-b-2 border-ink">
+      <section className="relative min-h-[55vh] overflow-hidden border-b border-ink/10">
         {soon ? (
           <>
             <ComingSoonThumb

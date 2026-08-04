@@ -69,7 +69,7 @@ export function MissionsPage() {
         tone="ink"
       />
 
-      <div className="relative border-b-2 border-ink">
+      <div className="relative border-b border-ink/10">
         <FilterRail
           groups={[...missionGroups]}
           activeGroupId={groupId}
@@ -100,7 +100,7 @@ export function MissionsPage() {
         )}
       </div>
 
-      <section className="border-b-2 border-ink bg-paper">
+      <section className="border-b border-ink/10 bg-paper">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-14 sm:px-8 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/45">

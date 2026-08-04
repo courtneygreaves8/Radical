@@ -12,7 +12,7 @@
 
 .media-shell ::selection {
   background: var(--lime);
-  color: var(--ink);
+  color: var(--paper);
 }
 
 .media-fade-bottom {

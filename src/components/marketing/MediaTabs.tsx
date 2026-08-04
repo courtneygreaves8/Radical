@@ -61,7 +61,7 @@ export function MediaTabs({
   return (
     <section
       className={cn(
-        'border-b-2 border-ink',
+        'border-b border-ink/10',
         ink ? 'bg-ink text-paper' : 'bg-mute text-ink',
         className
       )}
@@ -91,7 +91,7 @@ export function MediaTabs({
               ink ? 'bg-ink' : 'bg-paper'
             )}
           >
-            <div className="flex flex-col justify-between border-b-2 border-ink p-6 sm:p-8 lg:border-b-0 lg:border-r-2 lg:p-10">
+            <div className="flex flex-col justify-between border-b border-ink/10 p-6 sm:p-8 lg:border-b-0 lg:border-r-2 lg:p-10">
               <p
                 className={cn(
                   'text-sm',

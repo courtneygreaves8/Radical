@@ -33,18 +33,20 @@ export function SignUpPage() {
   }
 
   return (
-    <div className="w-full max-w-md border-2 border-lime bg-paper p-6 text-ink offset-shadow-lime sm:p-8">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/50">
+    <div className="w-full max-w-md rounded-[1.5rem] bg-[var(--v3-cream,#faf4f0)] p-6 text-ink shadow-[0_18px_50px_rgba(30,21,18,0.1)] ring-1 ring-ink/10 sm:p-8">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ink/45">
         Create account
       </p>
-      <h1 className="type-display mt-3 text-3xl sm:text-4xl">Join Radical</h1>
-      <p className="mt-3 text-sm text-ink/70">
+      <h1 className="mt-3 font-sans text-3xl font-bold tracking-tight sm:text-4xl">
+        Join Radical
+      </h1>
+      <p className="mt-3 text-sm text-ink/65">
         Comment, react, and follow along with Radical Media.
       </p>
 
       <form onSubmit={onSubmit} className="mt-8 space-y-4">
         <label className="block">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-ink/50">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink/45">
             Name
           </span>
           <input
@@ -52,11 +54,11 @@ export function SignUpPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             autoComplete="name"
-            className="mt-1 h-12 w-full border-2 border-ink bg-mute px-3 outline-none focus:ring-2 focus:ring-lime"
+            className="mt-1.5 h-12 w-full rounded-full border border-ink/15 bg-mute px-4 outline-none transition focus:border-lime focus:ring-2 focus:ring-lime/30"
           />
         </label>
         <label className="block">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-ink/50">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink/45">
             Email
           </span>
           <input
@@ -65,11 +67,11 @@ export function SignUpPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="email"
-            className="mt-1 h-12 w-full border-2 border-ink bg-mute px-3 outline-none focus:ring-2 focus:ring-lime"
+            className="mt-1.5 h-12 w-full rounded-full border border-ink/15 bg-mute px-4 outline-none transition focus:border-lime focus:ring-2 focus:ring-lime/30"
           />
         </label>
         <label className="block">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-ink/50">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink/45">
             Password
           </span>
           <input
@@ -79,26 +81,20 @@ export function SignUpPage() {
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="new-password"
             minLength={8}
-            className="mt-1 h-12 w-full border-2 border-ink bg-mute px-3 outline-none focus:ring-2 focus:ring-lime"
+            className="mt-1.5 h-12 w-full rounded-full border border-ink/15 bg-mute px-4 outline-none transition focus:border-lime focus:ring-2 focus:ring-lime/30"
           />
-          <span className="mt-1 block font-mono text-[10px] text-ink/40">
+          <span className="mt-1.5 block text-[10px] text-ink/40">
             At least 8 characters
           </span>
         </label>
 
         {error ? (
-          <p className="border-2 border-ink bg-lime px-3 py-2 text-sm font-medium">
+          <p className="rounded-2xl bg-lime px-4 py-2.5 text-sm font-medium text-lime-foreground">
             {error}
           </p>
         ) : null}
 
-        <Button
-          type="submit"
-          variant="default"
-          offset
-          className="w-full"
-          disabled={loading}
-        >
+        <Button type="submit" variant="default" className="w-full" disabled={loading}>
           {loading ? 'Creating…' : 'Create account'}
         </Button>
       </form>
@@ -107,7 +103,7 @@ export function SignUpPage() {
         Already have an account?{' '}
         <Link
           to={`/sign-in${params.get('next') ? `?next=${encodeURIComponent(next)}` : ''}`}
-          className="font-bold text-ink underline"
+          className="font-bold text-lime"
         >
           Sign in
         </Link>

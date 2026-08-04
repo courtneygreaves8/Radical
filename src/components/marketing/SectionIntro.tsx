@@ -43,12 +43,12 @@ export function SectionIntro({
   id,
 }: SectionIntroProps) {
   const tones = {
-    ink: 'bg-ink text-paper border-ink',
-    paper: 'bg-paper text-ink border-ink',
-    lime: 'bg-lime text-lime-foreground border-ink',
-    navy: 'bg-navy text-paper border-ink',
+    ink: 'bg-ink text-paper',
+    paper: 'bg-paper text-ink',
+    lime: 'bg-lime text-lime-foreground',
+    navy: 'bg-navy text-paper',
   }
-  const dark = tone === 'ink' || tone === 'navy'
+  const dark = tone === 'ink' || tone === 'navy' || tone === 'lime'
   const muted = dark ? 'text-paper/55' : 'text-ink/55'
 
   const motif =
@@ -65,7 +65,7 @@ export function SectionIntro({
     <section
       id={id}
       className={cn(
-        'relative overflow-hidden border-b-2',
+        'relative overflow-hidden border-b border-ink/10',
         tones[tone],
         className
       )}
@@ -75,11 +75,11 @@ export function SectionIntro({
         tone={dark ? 'paper' : 'ink'}
         anchor={anchor}
         opacity={
-          tone === 'navy' ? 0.1 : tone === 'ink' ? 0.14 : tone === 'lime' ? 0.1 : 0.22
+          tone === 'navy' ? 0.1 : tone === 'ink' ? 0.12 : tone === 'lime' ? 0.14 : 0.1
         }
       />
       <div className="relative z-10 mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
-        <p className={cn('font-mono text-xs uppercase tracking-[0.2em]', muted)}>
+        <p className={cn('text-[10px] font-semibold uppercase tracking-[0.22em] sm:text-xs', muted)}>
           ({index}) {label}
         </p>
 
@@ -89,14 +89,13 @@ export function SectionIntro({
           </p>
 
           <div>
-            <h2 className="text-3xl font-medium leading-[1.15] tracking-tight text-balance sm:text-4xl lg:text-5xl">
+            <h2 className="font-sans text-3xl font-bold leading-[1.15] tracking-tight text-balance sm:text-4xl lg:text-5xl">
               {headline}
             </h2>
             {cta ? (
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Button
-                  variant={dark ? 'lime' : 'default'}
-                  offset
+                  variant={dark ? (tone === 'lime' ? 'paper' : 'lime') : 'default'}
                   asChild
                 >
                   {cta.href.startsWith('http') ||

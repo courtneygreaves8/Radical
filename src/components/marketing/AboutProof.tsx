@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 export type AboutStat = {
   value: string
   label: string
-  /** Accent the value — brand green (or blue after glitch) */
+  /** Accent the value — terracotta (or blue after glitch easter egg) */
   accent?: 'crimson' | 'lime'
 }
 
@@ -38,22 +38,22 @@ export function AboutProof({
 }: AboutProofProps) {
   return (
     <section
-      className={cn('border-b-2 border-ink bg-paper text-ink', className)}
+      className={cn('border-b border-ink/10 bg-paper text-ink', className)}
     >
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16">
-        <ul className="grid gap-8 border-b-2 border-ink pb-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <ul className="grid gap-8 border-b border-ink/10 pb-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {stats.map((s) => (
             <li key={s.label}>
               <p
                 className={cn(
-                  'type-display text-4xl tracking-tight sm:text-5xl',
+                  'font-sans text-4xl font-bold tracking-tight sm:text-5xl',
                   s.accent === 'crimson' && 'text-crimson',
                   s.accent === 'lime' && 'text-lime'
                 )}
               >
                 {s.value}
               </p>
-              <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink/50">
+              <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink/50">
                 {s.label}
               </p>
             </li>
@@ -61,7 +61,7 @@ export function AboutProof({
         </ul>
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-start lg:gap-14">
-          <p className="inline-flex w-fit border-2 border-ink bg-lime px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-lime-foreground">
+          <p className="inline-flex w-fit rounded-full bg-lime px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-lime-foreground">
             {label}
           </p>
           <div className="max-w-2xl">
@@ -73,7 +73,7 @@ export function AboutProof({
             </p>
             {cta ? (
               <div className="mt-8">
-                <Button variant="default" offset asChild>
+                <Button variant="default" asChild>
                   <Link to={cta.href}>
                     {cta.label}
                     <ArrowRight className="size-4" />
@@ -85,7 +85,7 @@ export function AboutProof({
         </div>
 
         <OffsetBlock offset="lime" className="mt-12 sm:mt-14">
-          <div className="photo-grain relative aspect-[16/9] overflow-hidden border-2 border-ink bg-ink sm:aspect-[21/9]">
+          <div className="photo-grain relative aspect-[16/9] overflow-hidden rounded-[1.25rem] bg-ink sm:aspect-[21/9]">
             <AppImage
               src={image}
               alt=""

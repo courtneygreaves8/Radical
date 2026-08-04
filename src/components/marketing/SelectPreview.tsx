@@ -43,7 +43,7 @@ export function SelectPreview({
   return (
     <section
       className={cn(
-        'border-b-2 border-ink',
+        'border-b border-ink/10',
         dark ? 'bg-ink text-paper' : 'bg-paper text-ink',
         className
       )}
@@ -64,7 +64,7 @@ export function SelectPreview({
         </div>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
-          <ul className="divide-y-2 divide-ink/20 border-y-2 border-ink/20">
+          <ul className="divide-y-2 divide-ink/20 border-y border-ink/10/20">
             {items.map((item) => {
               const selected = item.id === active?.id
               return (

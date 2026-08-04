@@ -42,7 +42,7 @@ export function AccountPage() {
         tone="ink"
       />
 
-      <section className="border-b-2 border-ink bg-paper">
+      <section className="border-b border-ink/10 bg-paper">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-8 lg:grid-cols-2">
           <form onSubmit={onSave} className="space-y-4 border-2 border-ink bg-mute p-6">
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/50">
@@ -72,7 +72,7 @@ export function AccountPage() {
               <p className="text-sm font-medium text-crimson">{error}</p>
             ) : null}
             {message ? (
-              <p className="border-2 border-ink bg-lime px-3 py-2 text-sm font-medium">
+              <p className="border border-ink/10 bg-lime px-3 py-2 text-sm font-medium text-lime-foreground">
                 {message}
               </p>
             ) : null}

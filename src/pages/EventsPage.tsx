@@ -56,7 +56,7 @@ export function EventsPage() {
         tone="lime"
       />
 
-      <section id="listings" className="border-b-2 border-ink bg-paper">
+      <section id="listings" className="border-b border-ink/10 bg-paper">
         <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
           {events.length === 0 ? (
             <div className="border-2 border-dashed border-ink/40 bg-mute p-10 text-center">
@@ -75,7 +75,7 @@ export function EventsPage() {
               {events.map((event) => (
                 <li
                   key={event.id}
-                  className="grid gap-4 bg-paper p-6 transition hover:bg-lime sm:grid-cols-[1fr_auto] sm:items-center"
+                  className="grid gap-4 bg-paper p-6 transition hover:bg-lime hover:text-lime-foreground sm:grid-cols-[1fr_auto] sm:items-center"
                 >
                   <div>
                     <p className="font-mono text-xs uppercase tracking-wider text-ink/50">

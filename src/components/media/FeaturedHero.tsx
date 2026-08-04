@@ -36,7 +36,7 @@ export function FeaturedHero({
   const primaryLabel = episode ? 'Preview' : 'Enter show'
 
   return (
-    <section className="relative min-h-[78vh] w-full overflow-hidden border-b-2 border-ink bg-ink sm:min-h-[88vh]">
+    <section className="relative min-h-[78vh] w-full overflow-hidden border-b border-ink/10 bg-ink sm:min-h-[88vh]">
       {/* Cinematic plate */}
       <motion.div
         className="absolute inset-0"

@@ -33,7 +33,7 @@ export function CookiesPage() {
         tone="lime"
       />
 
-      <section className="border-b-2 border-ink bg-paper">
+      <section className="border-b border-ink/10 bg-paper">
         <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/45">
             (02) Categories
@@ -57,7 +57,7 @@ export function CookiesPage() {
         </div>
       </section>
 
-      <section className="border-b-2 border-ink bg-ink text-paper">
+      <section className="border-b border-ink/10 bg-ink text-paper">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-14 sm:px-8 sm:flex-row sm:items-end sm:justify-between sm:py-16">
           <div className="max-w-xl">
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-paper/45">
@@ -83,7 +83,7 @@ export function CookiesPage() {
         </div>
       </section>
 
-      <section className="border-b-2 border-ink bg-paper">
+      <section className="border-b border-ink/10 bg-paper">
         <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/45">
             (04) Detail

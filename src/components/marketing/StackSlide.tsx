@@ -74,7 +74,7 @@ export function StackSlide({
     <article
       id={id}
       className={cn(
-        'flex w-full min-h-[calc(100dvh-4rem)] flex-col border-b-2 border-ink sm:min-h-[calc(100dvh-4.5rem)]',
+        'flex w-full min-h-[calc(100dvh-4rem)] flex-col border-b border-ink/10 sm:min-h-[calc(100dvh-4.5rem)]',
         tones[tone],
         className
       )}
@@ -212,7 +212,7 @@ export function StickyStack({
   const items = Array.isArray(children) ? children : [children]
 
   return (
-    <section className={cn('relative w-full border-b-2 border-ink', bg, className)}>
+    <section className={cn('relative w-full border-b border-ink/10', bg, className)}>
       <div className="w-full pb-10 sm:pb-12">
         {items.map((child, i) => (
           <div

@@ -42,41 +42,43 @@ export function PodcastVideoFrame() {
     .slice(0, 3)
 
   return (
-    <section className="relative overflow-hidden bg-[var(--v3-below,#f6efe9)] py-10">
-      {/* Orange rail + vertical title — desktop only; inset 40px top/bottom */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-10 bottom-10 left-0 z-0 hidden w-[min(52%,28rem)] items-center justify-center overflow-hidden rounded-r-[2rem] bg-gradient-to-br from-[#e8925a] via-[var(--v3-terra)] to-[#8f3a1c] lg:flex lg:w-[min(44%,34rem)] lg:rounded-r-[3rem]"
-      >
-        <p className="max-h-full origin-center rotate-180 py-3 font-sans text-[clamp(3rem,min(8.5vw,11vh),6.75rem)] font-bold uppercase italic leading-none tracking-tight text-white/[0.92] [writing-mode:vertical-rl]">
-          podcasts
-        </p>
-      </div>
-
+    <section className="relative overflow-x-clip bg-transparent py-[72px]">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-8 lg:px-10">
         {/* Mobile section label */}
         <p className="mb-4 font-sans text-3xl font-bold uppercase italic tracking-tight text-[var(--v3-terra)] sm:text-4xl lg:hidden">
           podcasts
         </p>
 
-        <div
-          className={cn(
-            'relative w-full overflow-hidden rounded-[1.5rem] bg-[var(--v3-ink)] text-[var(--v3-cream)] shadow-[0_28px_60px_-24px_rgba(30,21,18,0.45)]',
-            'sm:rounded-[2rem]',
-            'lg:ml-auto lg:min-h-[36rem] lg:w-[88%] lg:rounded-[2.25rem]'
-          )}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onFocusCapture={() => setPaused(true)}
-          onBlurCapture={(e) => {
-            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
-              setPaused(false)
-            }
-          }}
-        >
-          <div className="relative z-10 grid grid-cols-1 items-stretch gap-5 p-4 sm:gap-6 sm:p-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.75fr)] lg:gap-6 lg:p-7 xl:p-8">
+        {/* Orange rail tracks the card: +16px above & below */}
+        <div className="relative">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-4 -bottom-4 left-[calc(50%-50vw)] z-0 hidden w-[min(52vw,28rem)] items-center justify-center overflow-hidden rounded-r-[2rem] bg-gradient-to-br from-[#e8925a] via-[var(--v3-terra)] to-[#8f3a1c] lg:flex lg:w-[min(44vw,34rem)] lg:rounded-r-[3rem]"
+          >
+            <p className="max-h-full origin-center rotate-180 py-3 font-sans text-[clamp(3rem,min(8.5vw,11vh),6.75rem)] font-bold uppercase italic leading-none tracking-tight text-white/[0.92] [writing-mode:vertical-rl]">
+              podcasts
+            </p>
+          </div>
+
+          <div
+            className={cn(
+              'relative z-10 w-full overflow-hidden rounded-[1.5rem] bg-[var(--v3-ink)] text-[var(--v3-cream)] shadow-[0_28px_60px_-24px_rgba(30,21,18,0.45)]',
+              'sm:rounded-[2rem]',
+              /* Fixed desktop height so slide swaps don’t reflow the orange rail */
+              'lg:ml-auto lg:h-[36rem] lg:w-[88%] lg:rounded-[2.25rem]'
+            )}
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocusCapture={() => setPaused(true)}
+            onBlurCapture={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                setPaused(false)
+              }
+            }}
+          >
+          <div className="relative z-10 grid h-full grid-cols-1 items-stretch gap-5 p-4 sm:gap-6 sm:p-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.75fr)] lg:gap-6 lg:p-7 xl:p-8">
             <div className="flex min-h-0 flex-col">
-              <p className="mb-3 text-sm leading-relaxed text-[var(--v3-cream)]/70 sm:mb-5 sm:max-w-[36ch] sm:text-[15px]">
+              <p className="mb-3 line-clamp-2 min-h-[2.75rem] text-sm leading-relaxed text-[var(--v3-cream)]/70 sm:mb-5 sm:min-h-[3rem] sm:max-w-[36ch] sm:text-[15px]">
                 {active.tagline}
               </p>
 
@@ -84,7 +86,7 @@ export function PodcastVideoFrame() {
                 href={`https://www.youtube.com/watch?v=${active.youtubeId}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative aspect-[16/10] w-full overflow-hidden rounded-[1.15rem] ring-1 ring-white/10 sm:aspect-[16/9] sm:rounded-[1.4rem] lg:aspect-auto lg:min-h-[22rem] lg:flex-1"
+                className="group relative aspect-[16/10] w-full overflow-hidden rounded-[1.15rem] ring-1 ring-white/10 sm:aspect-[16/9] sm:rounded-[1.4rem] lg:aspect-auto lg:min-h-0 lg:flex-1"
                 aria-label={`Open ${active.title} on YouTube`}
               >
                 <PodcastThumbArt item={active} />
@@ -93,7 +95,7 @@ export function PodcastVideoFrame() {
                 </span>
               </a>
 
-              <div className="mt-4 flex flex-col gap-2.5 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
+              <div className="mt-4 flex shrink-0 flex-col gap-2.5 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
                 <Link
                   to="/podcasts"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--v3-cream)] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--v3-ink)] transition hover:bg-white sm:justify-start sm:py-2.5"
@@ -114,7 +116,7 @@ export function PodcastVideoFrame() {
                 </a>
               </div>
 
-              <div className="mt-4 flex items-center gap-2 sm:mt-6">
+              <div className="mt-4 flex shrink-0 items-center gap-2 sm:mt-6">
                 <button
                   type="button"
                   onClick={() => go(-1)}
@@ -189,6 +191,7 @@ export function PodcastVideoFrame() {
               </ul>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>

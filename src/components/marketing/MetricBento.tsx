@@ -32,7 +32,7 @@ export function MetricBento({
   className,
 }: MetricBentoProps) {
   return (
-    <section className={cn('border-b-2 border-ink bg-paper', className)}>
+    <section className={cn('border-b border-ink/10 bg-paper', className)}>
       <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14">
         {index || label ? (
           <p className="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-ink/45">

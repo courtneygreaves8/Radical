@@ -11,19 +11,19 @@ type PageHeroProps = {
 }
 
 const toneShell = {
-  lime: 'bg-lime text-lime-foreground border-ink',
-  ink: 'bg-ink text-paper border-ink',
-  paper: 'bg-paper text-ink border-ink',
-  navy: 'bg-navy text-paper border-ink',
-  crimson: 'bg-crimson text-ink border-ink',
+  lime: 'bg-lime text-lime-foreground',
+  ink: 'bg-ink text-paper',
+  paper: 'bg-paper text-ink',
+  navy: 'bg-navy text-paper',
+  crimson: 'bg-crimson text-lime-foreground',
 } as const
 
 const markTone = {
-  lime: 'text-ink/[0.08]',
-  ink: 'text-lime/[0.12]',
+  lime: 'text-paper/[0.18]',
+  ink: 'text-lime/[0.14]',
   paper: 'text-ink/[0.07]',
   navy: 'text-lime/[0.14]',
-  crimson: 'text-ink/[0.1]',
+  crimson: 'text-paper/[0.16]',
 } as const
 
 const defaultMark: Record<keyof typeof toneShell, GeoIconName> = {
@@ -42,11 +42,12 @@ export function PageHero({
   mark,
 }: PageHeroProps) {
   const motif = mark ?? defaultMark[tone]
+  const onDark = tone === 'ink' || tone === 'navy' || tone === 'lime' || tone === 'crimson'
 
   return (
     <section
       className={cn(
-        'relative overflow-hidden border-b-2',
+        'relative overflow-hidden border-b border-ink/10',
         toneShell[tone]
       )}
     >
@@ -67,24 +68,20 @@ export function PageHero({
       <div className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28 lg:py-32">
         <p
           className={cn(
-            'font-mono text-[10px] font-bold uppercase tracking-[0.28em] sm:text-xs',
-            tone === 'ink' || tone === 'navy'
-              ? 'text-paper/50'
-              : 'text-ink/55'
+            'text-[10px] font-semibold uppercase tracking-[0.22em] sm:text-xs',
+            onDark ? 'text-paper/55' : 'text-ink/45'
           )}
         >
           {eyebrow}
         </p>
-        <h1 className="type-display mt-5 max-w-[14ch] text-[clamp(2.75rem,9vw,6.5rem)] leading-[0.92] tracking-tight text-balance">
+        <h1 className="mt-5 max-w-[14ch] font-sans text-[clamp(2.5rem,8vw,5.5rem)] font-bold uppercase leading-[0.95] tracking-tight text-balance">
           {title}
         </h1>
         {description ? (
           <p
             className={cn(
               'mt-7 max-w-md text-base leading-relaxed sm:mt-8 sm:text-lg',
-              tone === 'ink' || tone === 'navy'
-                ? 'text-paper/65'
-                : 'text-ink/70'
+              onDark ? 'text-paper/70' : 'text-ink/65'
             )}
           >
             {description}

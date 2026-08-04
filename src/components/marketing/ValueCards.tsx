@@ -43,7 +43,7 @@ export function ValueCards({
   return (
     <section
       className={cn(
-        'relative overflow-hidden border-b-2 border-ink bg-paper',
+        'relative overflow-hidden border-b border-ink/10 bg-paper',
         className
       )}
     >

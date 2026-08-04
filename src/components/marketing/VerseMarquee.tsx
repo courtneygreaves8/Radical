@@ -61,7 +61,7 @@ export function VerseMarquee({
     <section
       aria-label="Scripture"
       className={cn(
-        'overflow-hidden border-b-2 border-ink transition-colors duration-500',
+        'overflow-hidden border-b border-ink/10 transition-colors duration-500',
         inverted ? 'bg-lime' : 'bg-ink',
         className
       )}

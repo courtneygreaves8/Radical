@@ -55,7 +55,7 @@ export function ExpertisePanel({
   }, [filtered.length, category])
 
   return (
-    <section className={cn('border-b-2 border-ink bg-mute', className)}>
+    <section className={cn('border-b border-ink/10 bg-mute', className)}>
       <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14">
         <div className="border-2 border-ink bg-ink text-paper">
           <div className="grid gap-8 border-b-2 border-paper/15 p-6 sm:p-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12 lg:p-10">

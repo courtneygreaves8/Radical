@@ -27,57 +27,65 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-ink: var(--ink);
-  --color-paper: var(--paper);
-  --color-lime: var(--lime);
-  --color-lime-foreground: var(--lime-foreground);
+  /* Brand surfaces — point utilities at V3 tokens */
+  --color-ink: var(--v3-ink);
+  --color-paper: var(--v3-below);
+  --color-lime: var(--v3-terra);
+  --color-lime-foreground: var(--v3-cream);
   --color-mute: var(--mute);
-  --color-crimson: var(--crimson);
-  --color-navy: var(--navy);
-  --color-flame: var(--flame);
+  --color-crimson: var(--v3-terra);
+  --color-navy: var(--v3-ink);
+  --color-flame: var(--v3-terra);
 
-  --radius-sm: 0;
-  --radius-md: 0;
-  --radius-lg: 0;
-  --radius-xl: 0;
-  --radius-2xl: 0;
-  --radius-3xl: 0;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 1.75rem;
 }
 
 :root {
-  --ink: #000000;
-  --paper: #ffffff;
-  /* Brand primary — baby blue (token still `lime`) */
-  --lime: #9ec9ff;
-  --lime-foreground: #000000;
-  --mute: #e8e8e8;
-  --crimson: #9ec9ff;
-  --navy: #0c1b33;
-  --flame: #9ec9ff;
+  /* Editorial brand */
+  --v3-cream: #faf4f0;
+  --v3-below: #f6efe9;
+  --v3-terra: #d86637;
+  --v3-ink: #1e1512;
 
-  --background: #ffffff;
-  --foreground: #000000;
-  --card: #ffffff;
-  --card-foreground: #000000;
-  --popover: #ffffff;
-  --popover-foreground: #000000;
-  --primary: #000000;
-  --primary-foreground: #9ec9ff;
-  --secondary: #e8e8e8;
-  --secondary-foreground: #000000;
-  --muted: #e8e8e8;
-  --muted-foreground: #525252;
-  --accent: #9ec9ff;
-  --accent-foreground: #000000;
-  --destructive: #0033aa;
-  --border: #000000;
-  --input: #000000;
-  --ring: #9ec9ff;
-  --radius: 0;
+  /* Legacy token names → V3 (existing classes keep working) */
+  --ink: var(--v3-ink);
+  --paper: var(--v3-below);
+  --lime: var(--v3-terra);
+  --lime-foreground: var(--v3-cream);
+  --mute: #efe6df;
+  --crimson: var(--v3-terra);
+  --navy: var(--v3-ink);
+  --flame: var(--v3-terra);
+
+  --background: var(--v3-below);
+  --foreground: var(--v3-ink);
+  --card: var(--v3-cream);
+  --card-foreground: var(--v3-ink);
+  --popover: var(--v3-cream);
+  --popover-foreground: var(--v3-ink);
+  --primary: var(--v3-ink);
+  --primary-foreground: var(--v3-cream);
+  --secondary: #efe6df;
+  --secondary-foreground: var(--v3-ink);
+  --muted: #efe6df;
+  --muted-foreground: #6b5a52;
+  --accent: var(--v3-terra);
+  --accent-foreground: var(--v3-cream);
+  --destructive: #8f3a1c;
+  --border: var(--v3-ink);
+  --input: var(--v3-ink);
+  --ring: var(--v3-terra);
+  --radius: 0.75rem;
 }
 
-/* After morph glitch — dark electric blue */
+/* After morph glitch — dark electric blue (easter egg) */
 html.site-deep {
+  --v3-terra: #0066ff;
   --lime: #0066ff;
   --lime-foreground: #ffffff;
   --crimson: #0066ff;
@@ -335,7 +343,7 @@ html.site-amen-flash body::after {
 
   ::selection {
     background: var(--lime);
-    color: var(--ink);
+    color: var(--paper);
   }
 }
 
@@ -564,15 +572,7 @@ html.landing-v1-coral {
   --secondary: #e8e0d6;
 }
 
-/* Landing V3 tokens — also used by editorial nav */
-:root {
-  --v3-cream: #faf4f0;
-  --v3-below: #f6efe9;
-  --v3-terra: #d86637;
-  /* Warm espresso — dark enough for contrast, soft with terracotta */
-  --v3-ink: #1e1512;
-}
-
+/* Landing V3 tokens — defined above in :root; keep scoped aliases for .landing-v3 */
 .landing-v3 {
   --v3-cream: #faf4f0;
   --v3-below: #f6efe9;

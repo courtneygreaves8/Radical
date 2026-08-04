@@ -82,7 +82,7 @@ export function BeliefsPage() {
         }))}
       />
 
-      <section className="border-b-2 border-ink bg-ink text-paper">
+      <section className="border-b border-ink/10 bg-ink text-paper">
         <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-paper/45">

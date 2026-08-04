@@ -135,7 +135,7 @@ export function DontPushButton({
           <span className="relative block border-2 border-ink bg-lime px-3 py-2.5 text-lime-foreground">
             <span
               aria-hidden
-              className="absolute -bottom-2 left-1/2 size-3 -translate-x-1/2 rotate-45 border-r-2 border-b-2 border-ink bg-lime"
+              className="absolute -bottom-2 left-1/2 size-3 -translate-x-1/2 rotate-45 border-r-2 border-b border-ink/10 bg-lime"
             />
             <span className="relative z-10 block text-center font-mono text-[10px] font-bold uppercase tracking-[0.18em] leading-snug">
               Don&apos;t push
@@ -161,7 +161,7 @@ export function DontPushButton({
           <span className="relative block border-2 border-ink bg-lime px-3.5 py-3 text-lime-foreground">
             <span
               aria-hidden
-              className="absolute -bottom-2 left-1/2 size-3 -translate-x-1/2 rotate-45 border-r-2 border-b-2 border-ink bg-lime"
+              className="absolute -bottom-2 left-1/2 size-3 -translate-x-1/2 rotate-45 border-r-2 border-b border-ink/10 bg-lime"
             />
             <span className="relative z-10 block text-center font-mono text-[10px] font-bold uppercase tracking-[0.12em] leading-snug">
               Only Jesus can restore

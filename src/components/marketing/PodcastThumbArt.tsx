@@ -26,8 +26,9 @@ export function PodcastThumbArt({
       <img
         src={item.fullBleed}
         alt=""
-        className="absolute inset-0 size-full object-cover"
+        className="absolute inset-0 size-full object-cover object-center"
         draggable={false}
+        decoding="async"
       />
       <div
         aria-hidden

@@ -28,7 +28,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
   if (!slide) return null
 
   return (
-    <section className="relative border-b-2 border-ink bg-ink">
+    <section className="relative border-b border-ink/10 bg-ink">
       <div className="photo-grain relative aspect-[16/10] min-h-[280px] w-full overflow-hidden sm:aspect-[21/9] sm:min-h-[360px]">
         <AnimatePresence mode="wait">
           <motion.div
@@ -96,7 +96,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
         </div>
       </div>
 
-      <div className="flex gap-1 border-t-2 border-ink bg-paper px-5 py-2 sm:px-8">
+      <div className="flex gap-1 border-t border-ink/10 bg-paper px-5 py-2 sm:px-8">
         {slides.map((s, i) => (
           <button
             key={s.id}

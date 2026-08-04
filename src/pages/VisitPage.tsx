@@ -79,7 +79,7 @@ export function VisitPage() {
         subject="Visit enquiry"
       />
 
-      <section className="border-b-2 border-ink bg-paper">
+      <section className="border-b border-ink/10 bg-paper">
         <div className="min-h-[320px] border-b-0 bg-ink sm:min-h-[420px]">
           <iframe
             title="Map to Radical Church"

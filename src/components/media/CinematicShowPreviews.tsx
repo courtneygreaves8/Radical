@@ -96,7 +96,7 @@ export function CinematicShowPreviews({
       ) : null}
 
       {/* Peek strip — next shows */}
-      <div className="border-b-2 border-ink bg-ink">
+      <div className="border-b border-ink/10 bg-ink">
         <div className="mx-auto flex max-w-[1600px] gap-3 overflow-x-auto px-4 py-4 sm:gap-4 sm:px-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {shows.map((s, i) => (
             <Link

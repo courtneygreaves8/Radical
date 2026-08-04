@@ -121,7 +121,7 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-ink bg-lime text-lime-foreground">
+    <header className="sticky top-0 z-50 border-b border-ink/10 bg-lime text-lime-foreground">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:h-[4.5rem] sm:px-8">
         <Link
           to="/"
@@ -173,7 +173,7 @@ export function SiteHeader() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t-2 border-ink bg-ink lg:hidden"
+            className="overflow-hidden border-t border-ink/10 bg-ink lg:hidden"
           >
             <nav className="flex flex-col gap-1 px-5 py-6">
               {primaryNav.map((item) => (

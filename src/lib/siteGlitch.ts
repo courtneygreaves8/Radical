@@ -5,13 +5,21 @@ const GLITCH_MS = 1100
 const AMEN_FLASH_MS = 1100
 const DEEP_STORAGE_KEY = 'radical-site-deep'
 
-/** Primary brand — baby blue */
-const PRIMARY = {
-  lime: '#9ec9ff',
-  limeForeground: '#000000',
-} as const
+/** Inline props the glitch easter egg may set — cleared for primary so globals.css wins */
+const BRAND_PROPS = [
+  '--v3-terra',
+  '--lime',
+  '--lime-foreground',
+  '--accent',
+  '--accent-foreground',
+  '--primary-foreground',
+  '--ring',
+  '--crimson',
+  '--flame',
+  '--destructive',
+] as const
 
-/** After morph click — dark electric blue */
+/** After morph click — dark electric blue (easter egg only) */
 const DEEP = {
   lime: '#0066ff',
   limeForeground: '#ffffff',
@@ -22,7 +30,19 @@ let amenTimer: number | null = null
 
 function applyBrand(tone: 'primary' | 'deep') {
   const root = document.documentElement
-  const c = tone === 'deep' ? DEEP : PRIMARY
+
+  if (tone === 'primary') {
+    /* Clear inline overrides — editorial cream/terra lives in globals.css :root */
+    for (const prop of BRAND_PROPS) {
+      root.style.removeProperty(prop)
+    }
+    root.classList.remove('site-baby', DEEP_CLASS)
+    root.dataset.brand = 'editorial'
+    return
+  }
+
+  const c = DEEP
+  root.style.setProperty('--v3-terra', c.lime)
   root.style.setProperty('--lime', c.lime)
   root.style.setProperty('--lime-foreground', c.limeForeground)
   root.style.setProperty('--accent', c.lime)
@@ -33,13 +53,9 @@ function applyBrand(tone: 'primary' | 'deep') {
   root.style.setProperty('--flame', c.lime)
   root.style.setProperty('--destructive', '#0033aa')
 
-  root.classList.remove('site-baby', DEEP_CLASS)
-  if (tone === 'deep') {
-    root.classList.add(DEEP_CLASS)
-    root.dataset.brand = 'deep'
-  } else {
-    root.dataset.brand = 'baby'
-  }
+  root.classList.remove('site-baby')
+  root.classList.add(DEEP_CLASS)
+  root.dataset.brand = 'deep'
 }
 
 export function isSiteDeep(): boolean {
@@ -63,7 +79,7 @@ export function isSiteBlue(): boolean {
   return isSiteDeep()
 }
 
-/** Restore deep-blue shift if unlocked this session; else primary baby blue. */
+/** Restore deep-blue shift if unlocked this session; else editorial brand from CSS. */
 export function restoreSiteBlueIfNeeded() {
   if (typeof document === 'undefined') return
   try {
@@ -113,7 +129,7 @@ export function triggerSiteGlitch(durationMs = GLITCH_MS) {
   return durationMs
 }
 
-/** Heavenly flash — then brand returns to baby blue. */
+/** Heavenly flash — then brand returns to editorial primary. */
 export function triggerAmenFlash(durationMs = AMEN_FLASH_MS) {
   const root = document.documentElement
   root.classList.remove(GLITCH_CLASS)

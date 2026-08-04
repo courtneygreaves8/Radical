@@ -131,7 +131,7 @@ export function PeekCarousel({
   const sidePad = `${((1 - SLIDE_FRAC) / 2) * 100}%`
 
   return (
-    <section className={cn('border-b-2 border-ink bg-mute', className)}>
+    <section className={cn('border-b border-ink/10 bg-mute', className)}>
       <div className="py-14 sm:py-16">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/45">
@@ -140,7 +140,7 @@ export function PeekCarousel({
         </div>
 
         <div
-          className="relative mt-8 border-y-2 border-ink bg-paper py-5 sm:py-7"
+          className="relative mt-8 border-y border-ink/10 bg-paper py-5 sm:py-7"
           onMouseEnter={() => setHovering(true)}
           onMouseLeave={() => setHovering(false)}
           onMouseMove={onMove}

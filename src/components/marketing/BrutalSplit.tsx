@@ -66,7 +66,7 @@ export function BrutalSplit({
       title: 'DNA',
       node: (
         <div className="flex flex-col gap-8 p-6 sm:p-8 lg:min-h-[38vh] lg:p-10">
-          <div className="flex items-end justify-between gap-4 border-b-2 border-ink pb-4">
+          <div className="flex items-end justify-between gap-4 border-b border-ink/10 pb-4">
             <p className="type-display text-5xl text-ink sm:text-6xl">02</p>
             <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink/45">
               What we run on
@@ -95,7 +95,7 @@ export function BrutalSplit({
       title: 'Invite',
       node: (
         <div className="flex flex-col justify-between gap-10 p-6 sm:p-8 lg:min-h-[36vh] lg:p-10">
-          <div className="flex items-end justify-between gap-4 border-b-2 border-ink pb-4">
+          <div className="flex items-end justify-between gap-4 border-b border-ink/10 pb-4">
             <p className="type-display text-5xl text-ink sm:text-6xl">03</p>
             <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink/45">
               Next step
@@ -120,7 +120,7 @@ export function BrutalSplit({
   ]
 
   return (
-    <section className={cn('border-b-2 border-ink bg-lime', className)}>
+    <section className={cn('border-b border-ink/10 bg-lime', className)}>
       <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14">
         <div className="relative">
           {cards.map((card, i) => (

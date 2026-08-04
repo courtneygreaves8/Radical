@@ -90,7 +90,7 @@ export function PodcastsPage() {
         <CinematicShowPreviews shows={podcastShows} />
       )}
 
-      <div className="flex items-center gap-2 border-b-2 border-ink bg-paper px-5 py-3 sm:px-8">
+      <div className="flex items-center gap-2 border-b border-ink/10 bg-paper px-5 py-3 sm:px-8">
         {(
           [
             { id: 'shows', label: 'Shows' },
@@ -132,7 +132,7 @@ export function PodcastsPage() {
           watermark="Podcasts"
         />
       ) : (
-        <section className="border-b-2 border-ink bg-paper px-5 py-16 sm:px-8">
+        <section className="border-b border-ink/10 bg-paper px-5 py-16 sm:px-8">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/45">
             Episodes
           </p>

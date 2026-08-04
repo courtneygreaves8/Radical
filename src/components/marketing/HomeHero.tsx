@@ -92,7 +92,7 @@ export function HomeHero() {
             borderRightWidth: sideBorder,
             borderTopWidth: sideBorder,
           }}
-          className="relative flex flex-col overflow-hidden border-b-2 border-ink bg-lime text-lime-foreground"
+          className="relative flex flex-col overflow-hidden border-b border-ink/10 bg-lime text-lime-foreground"
         >
           <HeroChrome scrollCueOpacity={scrollCueOpacity} />
         </motion.div>
@@ -103,7 +103,7 @@ export function HomeHero() {
 
 function StaticHero() {
   return (
-    <section className="relative flex min-h-[calc(100dvh-4rem)] flex-col overflow-hidden border-b-2 border-ink bg-lime text-lime-foreground sm:min-h-[calc(100dvh-4.5rem)]">
+    <section className="relative flex min-h-[calc(100dvh-4rem)] flex-col overflow-hidden border-b border-ink/10 bg-lime text-lime-foreground sm:min-h-[calc(100dvh-4.5rem)]">
       <HeroChrome />
     </section>
   )
@@ -156,7 +156,7 @@ function HeroChrome({
 
       <div className="relative z-30 mt-auto">
         <VerseMarquee
-          className="border-b-0 border-t-2 border-ink"
+          className="border-b-0 border-t border-ink/10"
           invertWhenVisible="#home-about"
         />
       </div>

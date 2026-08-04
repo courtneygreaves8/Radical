@@ -94,7 +94,7 @@ export function ProcessGrid({
   return (
     <section
       className={cn(
-        'relative overflow-hidden border-b-2',
+        'relative overflow-hidden border-b border-ink/10',
         tones.section,
         className
       )}

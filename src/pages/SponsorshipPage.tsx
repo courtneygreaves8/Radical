@@ -48,7 +48,7 @@ export function SponsorshipPage() {
       />
 
       {/* Hero proof — photo + loud £30 */}
-      <section className="relative overflow-hidden border-b-2 border-ink bg-ink text-paper">
+      <section className="relative overflow-hidden border-b border-ink/10 bg-ink text-paper">
         <div className="grid lg:grid-cols-2">
           <OffsetBlock offset="lime" className="m-5 sm:m-8 lg:m-10">
             <div className="photo-grain relative aspect-[4/5] overflow-hidden border-2 border-ink sm:aspect-[5/6] lg:aspect-auto lg:min-h-[520px]">
@@ -118,7 +118,7 @@ export function SponsorshipPage() {
       />
 
       {/* Impact strip */}
-      <section className="relative overflow-hidden border-b-2 border-ink bg-paper">
+      <section className="relative overflow-hidden border-b border-ink/10 bg-paper">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-y-0 right-0 flex w-[min(90vw,36rem)] items-center overflow-hidden"
@@ -220,7 +220,7 @@ export function SponsorshipPage() {
       />
 
       {/* Closing CTA band */}
-      <section className="relative overflow-hidden border-b-2 border-ink bg-lime text-lime-foreground">
+      <section className="relative overflow-hidden border-b border-ink/10 bg-lime text-lime-foreground">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-y-0 left-0 flex w-[min(90vw,34rem)] items-center overflow-hidden"

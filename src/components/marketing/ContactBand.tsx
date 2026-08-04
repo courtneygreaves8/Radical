@@ -25,7 +25,7 @@ export function ContactBand({
     <section
       id={id}
       className={cn(
-        'relative overflow-hidden border-b-2 border-ink bg-ink text-paper',
+        'relative overflow-hidden border-b border-ink/10 bg-ink text-paper',
         className
       )}
     >

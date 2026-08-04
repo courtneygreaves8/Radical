@@ -5,15 +5,18 @@ import { siteMeta } from '@/lib/nav'
 
 export function AuthLayout() {
   return (
-    <div className="relative flex min-h-dvh flex-col overflow-x-clip bg-ink text-paper">
-      <header className="border-b-2 border-lime">
+    <div className="relative flex min-h-dvh flex-col overflow-x-clip bg-[var(--v3-below,#f6efe9)] text-ink">
+      <header className="border-b border-ink/10 bg-[var(--v3-cream,#faf4f0)]">
         <div className="mx-auto flex h-16 max-w-lg items-center justify-between px-5">
-          <Link to="/" className="type-display text-sm text-lime">
+          <Link
+            to="/"
+            className="font-sans text-sm font-bold tracking-tight text-ink"
+          >
             {siteMeta.name}
           </Link>
           <Link
             to="/podcasts"
-            className="font-mono text-xs uppercase tracking-wider text-paper/50 hover:text-lime"
+            className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/45 transition hover:text-lime"
           >
             Media
           </Link>

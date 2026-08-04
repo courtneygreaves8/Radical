@@ -21,13 +21,6 @@ export function SiteFooter() {
         <FooterMap />
 
         <footer className="relative isolate overflow-hidden rounded-[1.5rem] bg-[var(--v3-ink)] text-[var(--v3-cream)] sm:rounded-[2rem] lg:rounded-[2.25rem]">
-          <p
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 -bottom-6 z-0 hidden justify-center font-sans text-[clamp(4.5rem,14vw,11rem)] font-bold leading-none tracking-tight text-[var(--v3-cream)]/[0.05] select-none sm:flex"
-          >
-            RADICAL
-          </p>
-
           <div
             className={cn(
               'relative z-10 px-5 pb-7 sm:px-8 sm:pb-10 lg:px-10',
