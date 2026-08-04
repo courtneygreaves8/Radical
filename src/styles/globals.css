@@ -214,7 +214,8 @@ html.site-amen-flash body::after {
   }
 
   body {
-    @apply bg-paper font-sans text-ink antialiased;
+    @apply font-sans text-ink antialiased;
+    background-color: var(--v3-below, #f6efe9);
   }
 
   /* Easter egg — HomeHero “don’t push” site glitch */

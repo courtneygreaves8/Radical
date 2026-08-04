@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { useId, useRef, useState } from 'react'
+import { useId, useRef, useState, useSyncExternalStore } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, Plus } from 'lucide-react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
@@ -13,9 +13,21 @@ import { cn } from '@/lib/utils'
 
 /** Shared horizontal + vertical rhythm for below-fold sections */
 const v3PadX = 'px-5 sm:px-8 lg:px-10'
-const v3SectionY = 'my-[120px]'
+const v3SectionY = 'my-16 sm:my-24 lg:my-[120px]'
 const v3GridGap = 'gap-4 sm:gap-5'
-const v3SplitGap = 'gap-10 lg:gap-12'
+const v3SplitGap = 'gap-8 sm:gap-10 lg:gap-12'
+
+function useIsDesktop() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia('(min-width: 1024px)')
+      mq.addEventListener('change', onChange)
+      return () => mq.removeEventListener('change', onChange)
+    },
+    () => window.matchMedia('(min-width: 1024px)').matches,
+    () => false
+  )
+}
 
 /**
  * Landing V3 — editorial cream + terracotta grid (FEMMEFIT-inspired).
@@ -77,10 +89,10 @@ function Hero() {
   return (
     <section className="relative overflow-x-clip bg-[var(--v3-cream)]">
       <div className={cn('relative', band)}>
-        {/* Left-edge watermark — hugs band height; only right half on-screen */}
+        {/* Left-edge watermark — desktop/tablet; crowded on small screens */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 z-0 flex items-center overflow-hidden"
+          className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden items-center overflow-hidden sm:flex"
         >
           <GeoIcon
             name="asterisk6"
@@ -108,11 +120,11 @@ function Hero() {
               </p>
             </div>
 
-            <div className="relative z-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-              <blockquote className="flex max-w-md items-start gap-4 sm:gap-5">
+            <div className="relative z-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+              <blockquote className="flex max-w-md items-start gap-3 sm:gap-5">
                 <GeoIcon
                   name="rings"
-                  className="mt-0.5 size-9 shrink-0 text-white/30 transition-colors duration-500 group-hover/hero:text-white/55 sm:size-11"
+                  className="mt-0.5 size-8 shrink-0 text-white/30 transition-colors duration-500 group-hover/hero:text-white/55 sm:size-11"
                 />
                 <div className="min-w-0">
                   <p className="font-sans text-[15px] leading-snug text-white/75 transition-colors duration-500 group-hover/hero:text-white/95 sm:text-base md:text-lg">
@@ -125,7 +137,7 @@ function Hero() {
                 </div>
               </blockquote>
 
-              <div className="flex flex-wrap gap-2.5 sm:shrink-0 sm:justify-end sm:gap-3">
+              <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:shrink-0 sm:flex-row sm:flex-wrap sm:justify-end sm:gap-3">
                 <HeroCta to="/visit" label="This Sunday" variant="cream" />
                 <HeroCta to="/about" label="Learn more" variant="ghost" />
               </div>
@@ -284,7 +296,7 @@ function HeroThumb({
       {card}
       <CircleTextBadge
         inkHot={sealInkHot}
-        className="absolute top-0 right-0 z-20 size-72 -translate-y-1/2 translate-x-1/2"
+        className="absolute top-0 right-0 z-20 size-36 -translate-y-[28%] translate-x-[18%] sm:size-52 sm:-translate-y-1/2 sm:translate-x-1/3 lg:size-72 lg:translate-x-1/2"
       />
     </div>
   )
@@ -316,7 +328,7 @@ function CircleTextBadge({
     <div
       aria-hidden
       className={cn(
-        'pointer-events-auto relative size-72',
+        'pointer-events-auto relative',
         !inkHot &&
           '[--seal-bg:var(--v3-cream)] [--seal-fg:var(--v3-terra)] hover:[--seal-bg:var(--v3-terra)] hover:[--seal-fg:var(--v3-cream)]',
         className
@@ -425,7 +437,7 @@ function GrowMark({
 function Quote() {
   return (
     <section className={v3SectionY}>
-      <p className="mx-auto max-w-4xl font-sans text-[clamp(1.75rem,4.2vw,2.85rem)] font-bold leading-[1.22] tracking-tight text-[var(--v3-ink)] [text-indent:2.5rem] sm:[text-indent:3.5rem] lg:[text-indent:4.5rem]">
+      <p className="mx-auto max-w-4xl font-sans text-[clamp(1.55rem,4.2vw,2.85rem)] font-bold leading-[1.22] tracking-tight text-[var(--v3-ink)] [text-indent:1.25rem] sm:[text-indent:3.5rem] lg:[text-indent:4.5rem]">
         A <span className="text-[var(--v3-terra)]">church</span> that runs
         toward the broken immediately becomes dearer to the{' '}
         <span className="text-[var(--v3-terra)]">city</span>. Soft hearts. Hard
@@ -438,15 +450,18 @@ function Quote() {
 
 function FeatureRow() {
   const reduceMotion = useReducedMotion()
+  const isDesktop = useIsDesktop()
   const startHere = {
     href: '/visit',
     body: 'City Gates · Sunday 10:30',
   }
   const sideTiles = [{ label: 'Missions', href: '/missions' }]
 
+  /* Float only earns its keep on wide layouts */
+  const floatOn = isDesktop && !reduceMotion
   const floatEase = [0.45, 0.05, 0.55, 0.95] as const
-  const sideFloat = reduceMotion ? undefined : { y: [0, -9, 0, 7, 0] }
-  const midFloat = reduceMotion ? undefined : { y: [0, 9, 0, -7, 0] }
+  const sideFloat = floatOn ? { y: [0, -9, 0, 7, 0] } : undefined
+  const midFloat = floatOn ? { y: [0, 9, 0, -7, 0] } : undefined
   const sideTransition = {
     duration: 6.2,
     repeat: Infinity,
@@ -550,7 +565,10 @@ function FeatureRow() {
 function Narrative() {
   const ref = useRef<HTMLElement>(null)
   const reduceMotion = useReducedMotion()
+  const isDesktop = useIsDesktop()
   const inView = useInView(ref, { amount: 0.35, once: false })
+  /* Cream-on-orange wash only reads beside the strip (desktop) */
+  const washActive = isDesktop && inView
   const caps = [
     {
       title: 'Presence',
@@ -572,37 +590,51 @@ function Narrative() {
   return (
     <section
       ref={ref}
-      className="relative -mx-5 sm:-mx-8 lg:-mx-10"
+      className={cn(
+        'relative -mx-5 overflow-x-clip sm:-mx-8 lg:-mx-10',
+        v3SectionY
+      )}
     >
-      {/* Same burnt-orange wash as hero ink hover — fades in on scroll */}
-      <div
-        aria-hidden
-        className={cn(
-          'pointer-events-none absolute inset-0 bg-gradient-to-br from-[#e07a42] via-[var(--v3-terra)] to-[#8f3a1c]',
-          inView ? 'opacity-100' : 'opacity-0',
-          !reduceMotion && 'transition-opacity duration-700 ease-out'
-        )}
-      />
-      <div
-        className={cn(
-          v3SectionY,
-          'relative z-10 px-5 sm:px-8 lg:px-10'
-        )}
-      >
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+        {/*
+          Orange strip — desktop signature wash behind the headline.
+          Hidden on small screens (text stays ink; cards stay readable).
+        */}
+        <div
+          aria-hidden
+          className={cn(
+            'pointer-events-none absolute top-0 z-0 hidden lg:block',
+            '-left-2 sm:-left-3 lg:-left-4',
+            'right-[calc(50%-50vw)]',
+            'h-[28rem]',
+            'rounded-tl-[1.5rem] rounded-bl-[clamp(7rem,28vw,14rem)]',
+            'bg-gradient-to-br from-[#e8925a] via-[var(--v3-terra)] to-[#8f3a1c]',
+            washActive ? 'opacity-100' : 'opacity-0',
+            !reduceMotion && 'transition-opacity duration-700 ease-out'
+          )}
+        />
+
         <div
           className={cn(
-            'mx-auto grid max-w-7xl items-start lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]',
+            'relative z-10 grid items-start lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]',
             v3SplitGap
           )}
         >
-          <div className="relative mx-auto w-full max-w-[40rem] pb-8 sm:max-w-[46rem] sm:pb-10 lg:mx-0 lg:max-w-none">
+          <div className="relative mx-auto w-full max-w-[22rem] pb-10 sm:max-w-[40rem] sm:pb-12 lg:mx-0 lg:max-w-none lg:pb-10">
+            {/* Mobile: gentle stack. Desktop: fanned cards. */}
             <div className="flex justify-center lg:justify-start lg:pl-2">
-              <div className="relative aspect-[3/4] w-[16.5rem] origin-top -rotate-[15deg] sm:w-[19rem] lg:w-[21.5rem]">
+              <div
+                className={cn(
+                  'relative aspect-[3/4] w-[14.5rem] origin-top sm:w-[19rem] lg:w-[21.5rem]',
+                  'max-lg:rotate-0 lg:-rotate-[15deg]'
+                )}
+              >
                 {caps.map((c, i) => {
                   const fromCenter = i - (caps.length - 1) / 2
-                  const fan = fromCenter * 18
-                  const x = fromCenter * 5.5
-                  const y = Math.abs(fromCenter) * 0.55
+                  /* Tighter fan on small screens so cards stay in frame */
+                  const fan = fromCenter * (isDesktop ? 18 : 10)
+                  const x = fromCenter * (isDesktop ? 5.5 : 2.75)
+                  const y = Math.abs(fromCenter) * (isDesktop ? 0.55 : 0.35)
                   return (
                     <Link
                       key={c.title}
@@ -613,14 +645,14 @@ function Narrative() {
                         zIndex: i + 1,
                       }}
                     >
-                      <div className="relative h-full overflow-hidden rounded-[1.35rem] bg-white shadow-[0_22px_50px_rgba(30,21,18,0.16)] ring-1 ring-[var(--v3-ink)]/10 sm:rounded-[1.6rem]">
+                      <div className="relative h-full overflow-hidden rounded-[1.2rem] bg-white shadow-[0_18px_40px_rgba(30,21,18,0.14)] ring-1 ring-[var(--v3-ink)]/10 sm:rounded-[1.6rem] sm:shadow-[0_22px_50px_rgba(30,21,18,0.16)]">
                         <AppImage
                           alt=""
                           className="absolute inset-0 size-full bg-[var(--v3-ink)]/[0.04]"
                           iconClassName="size-10 text-[var(--v3-terra)]/40 sm:size-12"
                         />
-                        <div className="relative z-10 border-b border-[var(--v3-ink)]/10 px-4 py-3.5 pr-12 sm:px-5 sm:py-4 sm:pr-14">
-                          <span className="absolute top-3 right-3 z-10 flex size-8 items-center justify-center rounded-full bg-white text-[var(--v3-ink)] shadow-sm transition group-hover:bg-[var(--v3-terra)] group-hover:text-white sm:top-3.5 sm:right-3.5 sm:size-9">
+                        <div className="relative z-10 border-b border-[var(--v3-ink)]/10 px-3.5 py-3 pr-11 sm:px-5 sm:py-4 sm:pr-14">
+                          <span className="absolute top-2.5 right-2.5 z-10 flex size-7 items-center justify-center rounded-full bg-white text-[var(--v3-ink)] shadow-sm transition group-hover:bg-[var(--v3-terra)] group-hover:text-white sm:top-3.5 sm:right-3.5 sm:size-9">
                             <Plus className="size-3.5 sm:size-4" strokeWidth={2.5} />
                           </span>
                           <p className="font-sans text-xs font-bold uppercase tracking-wider text-[var(--v3-ink)] sm:text-sm">
@@ -640,16 +672,16 @@ function Narrative() {
 
           <h2
             className={cn(
-              'max-w-xl font-sans text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold leading-[1.15] tracking-tight lg:ml-auto lg:text-right',
+              'max-w-xl py-8 font-sans text-[clamp(1.55rem,4.2vw,2.75rem)] font-bold leading-[1.15] tracking-tight sm:py-14 lg:ml-auto lg:pt-16 lg:pb-24 lg:text-right',
               !reduceMotion && 'transition-colors duration-700 ease-out',
-              inView ? 'text-[var(--v3-cream)]' : 'text-[var(--v3-ink)]'
+              washActive ? 'text-[var(--v3-cream)]' : 'text-[var(--v3-ink)]'
             )}
           >
             When they write that a city was shaped for good — they mean{' '}
             <span
               className={cn(
                 !reduceMotion && 'transition-colors duration-700 ease-out',
-                inView ? 'text-white' : 'text-[var(--v3-terra)]'
+                washActive ? 'text-white' : 'text-[var(--v3-terra)]'
               )}
             >
               Jesus
@@ -658,7 +690,7 @@ function Narrative() {
             <span
               className={cn(
                 !reduceMotion && 'transition-colors duration-700 ease-out',
-                inView ? 'text-white' : 'text-[var(--v3-terra)]'
+                washActive ? 'text-white' : 'text-[var(--v3-terra)]'
               )}
             >
               famous
@@ -684,7 +716,7 @@ function HeroCta({
     <Link
       to={to}
       className={cn(
-        'group inline-flex items-center gap-3 rounded-full py-1.5 pr-1.5 pl-5 text-[11px] font-bold uppercase tracking-[0.16em] transition sm:gap-3.5 sm:py-2 sm:pr-2 sm:pl-6 sm:text-xs',
+        'group inline-flex w-full items-center justify-center gap-3 rounded-full py-2.5 pr-2 pl-5 text-[11px] font-bold uppercase tracking-[0.16em] transition sm:w-auto sm:justify-start sm:gap-3.5 sm:py-2 sm:pr-2 sm:pl-6 sm:text-xs',
         variant === 'dark' &&
           'bg-[var(--v3-ink)] text-[var(--v3-cream)] ring-1 ring-white/15 hover:bg-[var(--v3-cream)] hover:text-[var(--v3-ink)]',
         variant === 'cream' &&
