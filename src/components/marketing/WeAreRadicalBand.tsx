@@ -1,8 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 
-import { SunriseMark } from '@/components/marketing/SunriseMark'
-
 const wordSpring = {
   type: 'spring' as const,
   stiffness: 70,
@@ -10,16 +8,8 @@ const wordSpring = {
   mass: 0.9,
 }
 
-const sunSpring = {
-  type: 'spring' as const,
-  stiffness: 48,
-  damping: 20,
-  mass: 1.05,
-}
-
 /**
- * “WE ARE” / “RADICAL” meet in the middle, then a Radical sunrise
- * rises and settles on top of the footer (2s after the words meet).
+ * “WE ARE” / “RADICAL” spring in from opposite sides and meet in the middle.
  */
 export function WeAreRadicalBand() {
   const ref = useRef<HTMLElement>(null)
@@ -30,13 +20,12 @@ export function WeAreRadicalBand() {
   })
 
   const meet = inView || Boolean(reduceMotion)
-  const sunDelay = reduceMotion ? 0 : meet ? 2 : 0
 
   return (
     <section
       ref={ref}
       aria-label="We are Radical"
-      className="relative z-[1] -mb-16 overflow-x-clip bg-transparent pt-20 pb-[min(42vw,18rem)] sm:-mb-24 sm:pt-28 sm:pb-[min(36vw,20rem)] lg:pt-32"
+      className="relative z-[1] overflow-x-clip bg-transparent py-20 sm:py-28 lg:py-32"
     >
       <h2 className="sr-only">We are Radical</h2>
 
@@ -63,29 +52,6 @@ export function WeAreRadicalBand() {
           RADICAL
         </motion.p>
       </div>
-
-      {/* Sunrise — delayed after words meet; rests on the footer top */}
-      <motion.div
-        aria-hidden
-        initial={false}
-        animate={
-          meet
-            ? { y: 0, opacity: 0.17 }
-            : { y: '110%', opacity: 0 }
-        }
-        transition={{
-          ...sunSpring,
-          delay: sunDelay,
-          opacity: {
-            duration: reduceMotion ? 0 : 0.7,
-            ease: 'easeOut',
-            delay: sunDelay,
-          },
-        }}
-        className="pointer-events-none absolute bottom-0 left-1/2 z-0 w-[min(160vw,68rem)] -translate-x-1/2 text-[var(--v3-terra)] sm:w-[min(130vw,76rem)]"
-      >
-        <SunriseMark rays={15} className="w-full" />
-      </motion.div>
     </section>
   )
 }
