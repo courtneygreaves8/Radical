@@ -35,24 +35,14 @@ function useIsDesktop() {
  */
 export function HomeLandingV3() {
   return (
-    <div className="landing-v3 relative text-[var(--v3-ink)]">
+    <div className="landing-v3 relative bg-[var(--v3-below)] text-[var(--v3-ink)]">
       <div className="overflow-x-clip">
         <Hero />
       </div>
-      {/*
-        Keep cream continuous with the page — no full-height z-layer/shadow
-        (that painted a hard “line” above podcasts). Overlap shadow is top-only.
-      */}
-      <div className="relative rounded-t-[1.35rem] bg-[var(--v3-below)] sm:rounded-t-[2.25rem] lg:rounded-t-[2.75rem]">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-20 rounded-t-[inherit] shadow-[0_-14px_40px_rgba(30,21,18,0.12)]"
-        />
-        <div className={cn(v3PadX, 'relative z-[1] flex flex-col pb-2 sm:pb-4')}>
-          <Quote />
-          <FeatureRow />
-          <Narrative />
-        </div>
+      {/* Continuous page bg — no elevated panel/shadow (those drew full-width seams) */}
+      <div className={cn(v3PadX, 'relative flex flex-col pb-2 sm:pb-4')}>
+        <QuoteFeaturesBand />
+        <Narrative />
       </div>
     </div>
   )
@@ -97,7 +87,7 @@ function Hero() {
   const [inkHot, setInkHot] = useState(false)
 
   return (
-    <section className="relative overflow-x-clip bg-[var(--v3-cream)]">
+    <section className="relative overflow-x-clip bg-[var(--v3-below)]">
       <div className={cn('relative', band)}>
         {/* Left-edge watermark — desktop/tablet; crowded on small screens */}
         <div
@@ -447,9 +437,41 @@ function GrowMark({
   )
 }
 
+function QuoteFeaturesBand() {
+  return (
+    <div className="relative overflow-hidden">
+      {/* Soft dashed geometric rings — clipped so they never bleed into the marquee */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+      >
+        {/* Left — behind Give */}
+        <div
+          className={cn(
+            'absolute top-[calc(42%+160px)] left-[-8%] size-[min(58vw,22rem)] -translate-y-1/2 rounded-full',
+            'border border-dashed border-[var(--v3-ink)]/20 sm:left-[-2%] sm:size-[min(42vw,24rem)] lg:top-[calc(48%+160px)] lg:left-[2%] lg:size-[26rem]'
+          )}
+        />
+        {/* Right — larger, behind quote end + Missions */}
+        <div
+          className={cn(
+            'absolute top-0 right-[-28%] size-[min(95vw,36rem)] rounded-full',
+            'border border-dashed border-[var(--v3-ink)]/20 sm:right-[-18%] sm:size-[min(70vw,40rem)] lg:right-[-8%] lg:size-[44rem]'
+          )}
+        />
+      </div>
+
+      <div className="relative z-[1]">
+        <Quote />
+        <FeatureRow />
+      </div>
+    </div>
+  )
+}
+
 function Quote() {
   return (
-    <section className={cn(v3SectionY, v3PadX)}>
+    <section className={v3SectionY}>
       <p className="mx-auto max-w-4xl font-sans text-[clamp(1.25rem,5.5vw,2.85rem)] font-bold leading-[1.22] tracking-tight text-[var(--v3-ink)] [text-indent:0.75rem] sm:[text-indent:3.5rem] lg:[text-indent:4.5rem]">
         A church that runs toward the{' '}
         <span className="text-[var(--v3-terra)]">broken</span> will{' '}
@@ -489,7 +511,7 @@ function FeatureRow() {
   }
 
   return (
-    <section className={cn('relative z-10', v3SectionY, v3PadX)}>
+    <section className={cn('relative z-10 pt-[80px]', v3SectionY)}>
       <div
         className={cn(
           'mx-auto grid max-w-7xl items-stretch sm:grid-cols-2 lg:grid-cols-4',

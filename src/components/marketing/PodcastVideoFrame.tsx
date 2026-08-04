@@ -60,7 +60,7 @@ export function PodcastVideoFrame() {
 
           <div
             className={cn(
-              'relative z-10 w-full overflow-hidden rounded-[1.5rem] bg-[var(--v3-ink)] text-[var(--v3-cream)] shadow-[0_28px_60px_-24px_rgba(30,21,18,0.45)]',
+              'relative z-10 w-full overflow-hidden rounded-[1.5rem] bg-[var(--v3-ink)] text-[var(--v3-cream)]',
               'sm:rounded-[2rem]',
               'lg:ml-auto lg:h-[36rem] lg:w-[88%] lg:rounded-[2.25rem]'
             )}

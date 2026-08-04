@@ -26,7 +26,7 @@ export function MadeByBabe() {
 
   return (
     <>
-      <aside className="pointer-events-none fixed top-1/2 right-0 z-40 hidden -translate-y-1/2 sm:block">
+      <aside className="pointer-events-none fixed top-1/2 right-[7px] z-40 hidden -translate-y-1/2 sm:block">
         <div className="pointer-events-auto origin-center translate-x-[calc(50%-0.85rem)] -rotate-90">
           <button
             type="button"
