@@ -54,7 +54,12 @@ export function HomeLandingV3() {
 }
 
 function Marquee() {
-  const phrases = ['SHAPE THE CITY', 'FOR JESUS']
+  const phrases = [
+    "NORWICH'S FEARLESS CHURCH",
+    'GRITTY',
+    'REAL',
+    'SHAPING THE CITY',
+  ]
   const strip = (
     <div className="flex shrink-0 items-center" aria-hidden>
       {Array.from({ length: 8 }, (_, i) => (
@@ -113,10 +118,14 @@ function Hero() {
             />
             <div className="relative z-10 min-w-0">
               <h1 className="max-w-2xl font-sans text-[clamp(1.5rem,3.2vw,2.65rem)] font-bold uppercase leading-[1.05] tracking-tight text-white">
-                Faith that shapes a city is influenced by the Cross.
+                Norwich&apos;s Fearless Church.
               </h1>
+              <p className="mt-2 font-sans text-[clamp(0.95rem,1.8vw,1.2rem)] font-bold uppercase tracking-[0.14em] text-white/70 transition-colors duration-500 group-hover/hero:text-white/90">
+                Gritty. Real. Shaping the city.
+              </p>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/55 transition-colors duration-500 group-hover/hero:text-white/85 sm:mt-4 sm:text-[15px]">
-                {siteMeta.missionSupport} Helping shape Norwich — for Jesus.
+                Fearlessly shaping Norwich for Jesus&apos; Return — a people who
+                stand up, speak up, and will not stay quiet about His name.
               </p>
             </div>
 
@@ -128,18 +137,17 @@ function Hero() {
                 />
                 <div className="min-w-0">
                   <p className="font-sans text-[15px] leading-snug text-white/75 transition-colors duration-500 group-hover/hero:text-white/95 sm:text-base md:text-lg">
-                    “You are the light of the world. A city set on a hill cannot
-                    be hidden.”
+                    “For many are called, but few are chosen.”
                   </p>
                   <cite className="mt-2.5 block text-[11px] font-semibold not-italic uppercase tracking-[0.18em] text-white/40 transition-colors duration-500 group-hover/hero:text-white/65">
-                    Matthew 5:14
+                    Matthew 22:14
                   </cite>
                 </div>
               </blockquote>
 
               <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:shrink-0 sm:flex-row sm:flex-wrap sm:justify-end sm:gap-3">
-                <HeroCta to="/visit" label="This Sunday" variant="cream" />
-                <HeroCta to="/about" label="Learn more" variant="ghost" />
+                <HeroCta to="/visit" label="Dare to visit" variant="cream" />
+                <HeroCta to="/about" label="Our story" variant="ghost" />
               </div>
             </div>
           </div>
@@ -438,11 +446,12 @@ function Quote() {
   return (
     <section className={v3SectionY}>
       <p className="mx-auto max-w-4xl font-sans text-[clamp(1.55rem,4.2vw,2.85rem)] font-bold leading-[1.22] tracking-tight text-[var(--v3-ink)] [text-indent:1.25rem] sm:[text-indent:3.5rem] lg:[text-indent:4.5rem]">
-        A <span className="text-[var(--v3-terra)]">church</span> that runs
-        toward the broken immediately becomes dearer to the{' '}
-        <span className="text-[var(--v3-terra)]">city</span>. Soft hearts. Hard
-        discipleship. Helping shape Norwich — for{' '}
-        <span className="text-[var(--v3-terra)]">Jesus</span>.
+        A church that runs toward the{' '}
+        <span className="text-[var(--v3-terra)]">broken</span> will{' '}
+        <span className="text-[var(--v3-terra)]">shape</span> a city. Soft
+        hearts. Hard discipleship. We meet to worship God — not entertain
+        people — and we shape Norwich for{' '}
+        <span className="text-[var(--v3-terra)]">Jesus&apos; Return</span>.
       </p>
     </section>
   )
@@ -453,7 +462,7 @@ function FeatureRow() {
   const isDesktop = useIsDesktop()
   const startHere = {
     href: '/visit',
-    body: 'City Gates · Sunday 10:30',
+    body: 'City Gates · Sunday 10:30 — come hungry.',
   }
   const sideTiles = [{ label: 'Missions', href: '/missions' }]
 
@@ -521,12 +530,12 @@ function FeatureRow() {
                 Start here
               </p>
               <h3 className="mt-3 font-sans text-xl font-bold uppercase leading-tight tracking-tight sm:mt-4 sm:text-2xl">
-                Come expectant this Sunday.
+                We dare you to visit.
               </h3>
               <p className="mt-2 text-sm text-white/80 sm:mt-3">{startHere.body}</p>
             </div>
             <Pill to={startHere.href} tone="light" className="mt-6 self-start sm:mt-8">
-              Learn more
+              This Sunday
               <CircleArrow dark />
             </Pill>
           </div>
@@ -662,10 +671,9 @@ function Narrative() {
           </div>
 
           <h2 className="max-w-xl py-8 font-sans text-[clamp(1.55rem,4.2vw,2.75rem)] font-bold leading-[1.15] tracking-tight text-[var(--v3-ink)] sm:py-14 lg:ml-auto lg:py-0 lg:text-right">
-            When they write that a city was shaped for good — they mean{' '}
-            <span className="text-[var(--v3-terra)]">Jesus</span> made{' '}
-            <span className="text-[var(--v3-terra)]">famous</span> on these
-            streets.
+            God wants revival in this county — and we refuse to sit it out.
+            Fearlessly shaping these streets for{' '}
+            <span className="text-[var(--v3-terra)]">Jesus&apos; Return</span>.
           </h2>
         </div>
       </div>

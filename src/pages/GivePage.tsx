@@ -60,7 +60,7 @@ export function GivePage() {
           {
             id: 's4',
             title: 'Lives change',
-            body: 'Street outreach, orphanage care, fields and irrigation — Jesus made famous.',
+            body: 'Street outreach, orphanage care, fields and irrigation — shaping lives for Jesus.',
           },
           {
             id: 's5',

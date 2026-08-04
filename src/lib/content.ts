@@ -83,13 +83,13 @@ export const carouselSlides: CarouselSlide[] = [
 
 export const aboutCopy = {
   eyebrow: 'Who we are',
-  title: 'Helping shape the city.',
-  lead: 'Radical Church is a community of believers helping shape Norwich — for Jesus.',
+  title: 'We believe in being Radical.',
+  lead: "Radical Church is a community of believers that simply love Jesus — fearlessly shaping Norwich for His Return.",
   body: [
-    'Our mission is simple: help shape the city in Jesus’ name. Loving Jesus, loving each other, and loving the lost.',
-    'We believe in the power of God to transform lives, and especially feel called to the broken and marginalised. Full Gospel. Whole Bible. Soft hearts, hard discipleship — Jesus made famous on these streets.',
+    'Our mission is clear: loving Jesus, loving each other, and loving the lost. We believe in the power of God to transform lives, and we feel especially called to the broken and the marginalised.',
+    'Full Gospel. Whole Bible. Soft hearts, hard discipleship. Fearlessly shaping Norwich for Jesus\' Return — and the nations beyond.',
     'When we meet together we meet to worship God — not entertain people. If you are looking for comfortable seats and predictable meetings where you are not challenged to pursue God, this is not the fellowship for you.',
-    'If you are looking to be used of God, work hard, be challenged and help shape this city — then we dare you to come and visit.',
+    'If you are looking to be used of God, work hard, be challenged, and make a difference — then we dare you to come and visit.',
   ],
   signOff: 'Pastor Matt and team.',
 }
@@ -128,7 +128,7 @@ export const beliefs: BeliefItem[] = [
   {
     id: 'b6',
     group: 'City',
-    title: 'Make Jesus famous in Norwich',
+    title: "Shape Norwich for Jesus' Return",
     body: 'Take it outside the church to the streets and clubs. Bless other churches. With faith, greater things can be done in this city. We are Radical.',
   },
 ]

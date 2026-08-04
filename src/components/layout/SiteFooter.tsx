@@ -16,11 +16,11 @@ export function SiteFooter() {
   const year = new Date().getFullYear()
 
   return (
-    <div className="bg-[var(--v3-below,#f6efe9)] px-4 pt-2 pb-4 sm:px-8 sm:pt-6 sm:pb-8 lg:px-10 lg:pb-10">
+    <div className="relative z-0 bg-[var(--v3-below,#f6efe9)] px-4 pt-2 pb-4 sm:px-8 sm:pt-6 sm:pb-8 lg:px-10 lg:pb-10">
       <div className="relative mx-auto mt-16 max-w-7xl sm:mt-24 lg:mt-32">
         <FooterMap />
 
-        <footer className="relative isolate overflow-hidden rounded-[1.5rem] bg-[var(--v3-ink)] text-[var(--v3-cream)] sm:rounded-[2rem] lg:rounded-[2.25rem]">
+        <footer className="relative isolate z-[1] overflow-hidden rounded-[1.5rem] bg-[var(--v3-ink)] text-[var(--v3-cream)] sm:rounded-[2rem] lg:rounded-[2.25rem]">
           <div
             className={cn(
               'relative z-10 px-5 pb-7 sm:px-8 sm:pb-10 lg:px-10',
@@ -35,8 +35,9 @@ export function SiteFooter() {
                   className="size-7 text-[var(--v3-terra)] sm:size-8"
                 />
                 <p className="mt-4 text-sm leading-relaxed text-[var(--v3-cream)]/60 sm:text-[15px]">
-                  Helping shape Norwich — for Jesus. Soft hearts, hard
-                  discipleship, and a city that needs Him.
+                  Norwich&apos;s Fearless Church — gritty, real, shaping the
+                  city. Soft hearts for the broken, hard discipleship for the
+                  hungry.
                 </p>
                 <SiteLink
                   to="/visit"

@@ -44,10 +44,10 @@ export function isLiveHref(href: string) {
 
 export const siteMeta = {
   name: 'Radical Church',
-  /** Primary brand line — pairs with geo shapes across the site */
-  mission: 'Helping shape the city — for Jesus',
+  /** Primary brand line — loud, unashamed, shape-forward */
+  mission: "Norwich's Fearless Church — gritty, real, shaping the city",
   missionSupport:
-    'Loving Jesus, loving each other, and loving the lost across Norwich.',
+    'Loving Jesus, loving each other, and loving the lost. Full Gospel. Whole Bible.',
   email: 'radicalchurchuk@gmail.com',
   charityNumber: '1174903',
   visit: {

@@ -35,7 +35,7 @@ export function AboutPage() {
       id: 't3',
       meta: 'City',
       title: 'Norwich fire',
-      detailTitle: 'Make Jesus famous here',
+      detailTitle: "Shape this city for Jesus' Return",
       detailBody:
         'God is wanting to bring revival to our county. We want to be part of a move of God in our generation and region.',
       image: peekSlideImages.bibleStreet,
