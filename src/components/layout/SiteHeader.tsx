@@ -23,10 +23,10 @@ export function SiteHeader() {
   if (editorial) {
     return (
       <header className="sticky top-0 z-50 border-b border-[var(--v3-ink,#1e1512)]/8 bg-[var(--v3-cream,#faf4f0)] text-[var(--v3-ink,#1e1512)]">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:h-[4.5rem] sm:px-8 lg:px-10">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:h-[4.5rem] sm:px-8 lg:px-10">
           <Link
             to="/"
-            className="font-sans text-lg font-bold tracking-tight sm:text-xl"
+            className="font-sans text-base font-bold tracking-tight sm:text-xl"
             onClick={() => setOpen(false)}
           >
             {siteMeta.name}
@@ -75,7 +75,7 @@ export function SiteHeader() {
               exit={{ height: 0, opacity: 0 }}
               className="overflow-hidden border-t border-[var(--v3-ink,#1e1512)]/10 bg-[var(--v3-cream,#faf4f0)] lg:hidden"
             >
-              <nav className="flex flex-col gap-1 px-5 py-6">
+              <nav className="flex flex-col gap-1 px-4 py-5 sm:px-5 sm:py-6">
                 {primaryNav.map((item) => (
                   <SiteLink
                     key={item.href}
@@ -91,10 +91,12 @@ export function SiteHeader() {
                   <SiteLink
                     to="/visit"
                     onClick={() => setOpen(false)}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--v3-ink,#1e1512)] px-5 py-3 text-xs font-bold uppercase tracking-[0.14em] text-white"
+                    className="inline-flex w-full items-center justify-between gap-3 rounded-full bg-[var(--v3-ink,#1e1512)] py-2 pr-1.5 pl-4 text-[11px] font-bold uppercase tracking-[0.14em] text-white"
                   >
-                    This Sunday · 10:30
-                    <ArrowUpRight className="size-4" />
+                    <span>This Sunday · 10:30</span>
+                    <span className="flex size-7 items-center justify-center rounded-full bg-white text-[var(--v3-ink,#1e1512)]">
+                      <ArrowUpRight className="size-3.5" strokeWidth={2.5} />
+                    </span>
                   </SiteLink>
                 </div>
               </nav>

@@ -16,19 +16,20 @@ export function SiteFooter() {
   const year = new Date().getFullYear()
 
   return (
-    <div className="relative z-0 bg-[var(--v3-below,#f6efe9)] px-4 pt-2 pb-4 sm:px-8 sm:pt-6 sm:pb-8 lg:px-10 lg:pb-10">
-      <div className="relative mx-auto mt-16 max-w-7xl sm:mt-24 lg:mt-32">
+    <div className="relative z-0 bg-[var(--v3-below,#f6efe9)] px-3 pt-1 pb-3 sm:px-8 sm:pt-6 sm:pb-8 lg:px-10 lg:pb-10">
+      <div className="relative mx-auto mt-16 max-w-7xl sm:mt-28 lg:mt-36">
+        <MapInvite />
         <FooterMap />
 
-        <footer className="relative isolate z-[1] overflow-hidden rounded-[1.5rem] bg-[var(--v3-ink)] text-[var(--v3-cream)] sm:rounded-[2rem] lg:rounded-[2.25rem]">
+        <footer className="relative isolate z-[1] overflow-hidden rounded-[1.25rem] bg-[var(--v3-ink)] text-[var(--v3-cream)] sm:rounded-[2rem] lg:rounded-[2.25rem]">
           <div
             className={cn(
-              'relative z-10 px-5 pb-7 sm:px-8 sm:pb-10 lg:px-10',
+              'relative z-10 px-4 pb-6 sm:px-8 sm:pb-10 lg:px-10',
               /* Map clearance: modest on mobile, roomy on desktop */
-              'pt-28 sm:pt-40 lg:pt-14 lg:pr-[min(24rem,42%)]'
+              'pt-24 sm:pt-40 lg:pt-14 lg:pr-[min(24rem,42%)]'
             )}
           >
-            <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-14">
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-14">
               <div className="max-w-xs shrink-0">
                 <GeoIcon
                   name="asterisk6"
@@ -41,9 +42,14 @@ export function SiteFooter() {
                 </p>
                 <SiteLink
                   to="/visit"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--v3-cream)] px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--v3-ink)] transition hover:bg-white"
+                  className="mt-5 inline-flex w-full max-w-xs items-center justify-between gap-3 rounded-full bg-[var(--v3-cream)] py-2 pr-1.5 pl-4 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--v3-ink)] transition hover:bg-white sm:mt-6 sm:w-auto sm:min-w-[14rem]"
                 >
-                  This Sunday · {siteMeta.visit.time}
+                  <span className="min-w-0 truncate">
+                    This Sunday · {siteMeta.visit.time}
+                  </span>
+                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[var(--v3-ink)] text-[var(--v3-cream)]">
+                    <ArrowUpRight className="size-3.5" strokeWidth={2.5} />
+                  </span>
                 </SiteLink>
                 <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--v3-cream)]/35">
                   {siteMeta.visit.venue}
@@ -108,6 +114,45 @@ export function SiteFooter() {
             </div>
           </div>
         </footer>
+      </div>
+    </div>
+  )
+}
+
+function MapInvite() {
+  return (
+    <div
+      aria-hidden
+      className={cn(
+        'pointer-events-none absolute z-30 text-[var(--v3-terra)]',
+        /* Sit just above / left of the tilted map card */
+        'top-[-32px] right-[min(78%,15.5rem)] -translate-y-[108%] sm:right-[21rem] sm:-translate-y-[118%] lg:right-[23rem] lg:-translate-y-[125%]'
+      )}
+    >
+      <div className="relative -rotate-[8deg] sm:-rotate-[10deg]">
+        <p className="font-hand max-w-[10.5rem] text-[1.05rem] leading-snug tracking-tight sm:max-w-[13rem] sm:text-[1.25rem] lg:text-[1.35rem]">
+          Join us Sunday @ {siteMeta.visit.time}
+        </p>
+        {/* 90° curve — runs right then down into the map */}
+        <svg
+          viewBox="0 0 88 78"
+          className="absolute top-[72%] left-[78%] h-[3.25rem] w-[3.75rem] sm:left-[82%] sm:h-[4.25rem] sm:w-[4.75rem] lg:h-[4.75rem] lg:w-[5.25rem]"
+          fill="none"
+        >
+          <path
+            d="M8 10 C 58 10, 74 18, 74 62"
+            stroke="currentColor"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+          />
+          <path
+            d="M64 52 L74 64 L84 52"
+            stroke="currentColor"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </div>
     </div>
   )

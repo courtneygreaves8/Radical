@@ -83,7 +83,7 @@ export const mediaVideos: MediaVideo[] = [
       { text: 'GYPSY WAY', highlight: true },
     ],
     cutout: 'look',
-    fullBleed: heroImages.stairs,
+    fullBleed: heroImages.stairsPortrait,
   },
   {
     id: 'leon',

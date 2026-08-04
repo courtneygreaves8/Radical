@@ -12,10 +12,10 @@ import { siteMeta } from '@/lib/nav'
 import { cn } from '@/lib/utils'
 
 /** Shared horizontal + vertical rhythm for below-fold sections */
-const v3PadX = 'px-5 sm:px-8 lg:px-10'
-const v3SectionY = 'my-16 sm:my-24 lg:my-[120px]'
-const v3GridGap = 'gap-4 sm:gap-5'
-const v3SplitGap = 'gap-8 sm:gap-10 lg:gap-12'
+const v3PadX = 'px-4 sm:px-8 lg:px-10'
+const v3SectionY = 'my-10 sm:my-20 lg:my-[120px]'
+const v3GridGap = 'gap-3 sm:gap-5'
+const v3SplitGap = 'gap-6 sm:gap-10 lg:gap-12'
 
 function useIsDesktop() {
   return useSyncExternalStore(
@@ -35,15 +35,20 @@ function useIsDesktop() {
  */
 export function HomeLandingV3() {
   return (
-    <div className="landing-v3 relative overflow-x-clip text-[var(--v3-ink)]">
-      <Hero />
-      <div
-        className={cn(
-          'relative z-20 rounded-t-[1.75rem] bg-[var(--v3-below)] sm:rounded-t-[2.25rem] lg:rounded-t-[2.75rem]',
-          'shadow-[0_-12px_36px_rgba(30,21,18,0.1)]'
-        )}
-      >
-        <div className={cn(v3PadX, 'flex flex-col')}>
+    <div className="landing-v3 relative text-[var(--v3-ink)]">
+      <div className="overflow-x-clip">
+        <Hero />
+      </div>
+      {/*
+        Keep cream continuous with the page — no full-height z-layer/shadow
+        (that painted a hard “line” above podcasts). Overlap shadow is top-only.
+      */}
+      <div className="relative rounded-t-[1.35rem] bg-[var(--v3-below)] sm:rounded-t-[2.25rem] lg:rounded-t-[2.75rem]">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-20 rounded-t-[inherit] shadow-[0_-14px_40px_rgba(30,21,18,0.12)]"
+        />
+        <div className={cn(v3PadX, 'relative z-[1] flex flex-col pb-2 sm:pb-4')}>
           <Quote />
           <FeatureRow />
           <Narrative />
@@ -64,10 +69,10 @@ function Marquee() {
     <div className="flex shrink-0 items-center" aria-hidden>
       {Array.from({ length: 8 }, (_, i) => (
         <span key={i} className="flex items-center">
-          <span className="font-sans text-[clamp(1.15rem,2.8vw,2rem)] font-bold uppercase tracking-[0.2em]">
+          <span className="font-sans text-[clamp(0.95rem,4vw,2rem)] font-bold uppercase tracking-[0.14em] sm:tracking-[0.2em]">
             {phrases[i % phrases.length]}
           </span>
-          <span className="inline-flex w-10 shrink-0 items-center justify-center text-[clamp(1.15rem,2.8vw,2rem)] font-bold sm:w-14">
+          <span className="inline-flex w-7 shrink-0 items-center justify-center text-[clamp(0.95rem,4vw,2rem)] font-bold sm:w-14">
             ·
           </span>
         </span>
@@ -76,7 +81,7 @@ function Marquee() {
   )
 
   return (
-    <div className="w-full overflow-hidden bg-[var(--v3-terra)] py-4 text-white sm:py-5 md:py-6">
+    <div className="w-full overflow-hidden bg-[var(--v3-terra)] py-3 text-white sm:py-5 md:py-6">
       <div className="flex w-max animate-[v3-marquee_32s_linear_infinite] whitespace-nowrap will-change-transform">
         {strip}
         {strip}
@@ -86,9 +91,9 @@ function Marquee() {
 }
 
 function Hero() {
-  /* Shape height = hero band height; content fills that band */
+  /* Desktop locks to a band; mobile sizes to content */
   const band =
-    'min-h-[min(70dvh,36rem)] sm:min-h-[min(76dvh,44rem)] lg:h-[min(82dvh,50rem)] lg:min-h-0'
+    'lg:h-[min(82dvh,50rem)] lg:min-h-0 sm:min-h-[min(76dvh,44rem)]'
   const [inkHot, setInkHot] = useState(false)
 
   return (
@@ -105,10 +110,10 @@ function Hero() {
           />
         </div>
 
-        <div className="relative z-10 mx-auto grid h-full w-full max-w-7xl grid-cols-1 gap-4 px-5 py-5 sm:gap-5 sm:px-8 sm:py-6 lg:grid-cols-3 lg:grid-rows-[minmax(0,0.9fr)_minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-5 lg:px-10 lg:py-7">
+        <div className="relative z-10 mx-auto grid h-full w-full max-w-7xl grid-cols-2 gap-3 px-4 py-4 sm:gap-5 sm:px-8 sm:py-6 lg:grid-cols-3 lg:grid-rows-[minmax(0,0.9fr)_minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-5 lg:px-10 lg:py-7">
           {/* Ink copy — burnt orange gradient on hover */}
           <div
-            className="group/hero relative flex flex-col justify-between gap-6 overflow-hidden rounded-[1.5rem] bg-[var(--v3-ink)] px-6 py-7 text-white transition-colors duration-500 sm:rounded-[1.75rem] sm:px-8 sm:py-8 lg:col-span-2 lg:row-span-2 lg:rounded-[2rem] lg:px-10 lg:py-9"
+            className="group/hero relative col-span-2 flex flex-col justify-between gap-5 overflow-hidden rounded-[1.25rem] bg-[var(--v3-ink)] px-5 py-5 text-white transition-colors duration-500 sm:gap-6 sm:rounded-[1.75rem] sm:px-8 sm:py-8 lg:col-span-2 lg:row-span-2 lg:rounded-[2rem] lg:px-10 lg:py-9"
             onMouseEnter={() => setInkHot(true)}
             onMouseLeave={() => setInkHot(false)}
           >
@@ -117,35 +122,35 @@ function Hero() {
               className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#e07a42] via-[var(--v3-terra)] to-[#8f3a1c] opacity-0 transition-opacity duration-500 ease-out group-hover/hero:opacity-100"
             />
             <div className="relative z-10 min-w-0">
-              <h1 className="max-w-2xl font-sans text-[clamp(1.5rem,3.2vw,2.65rem)] font-bold uppercase leading-[1.05] tracking-tight text-white">
+              <h1 className="max-w-2xl font-sans text-[clamp(1.35rem,6.2vw,2.65rem)] font-bold uppercase leading-[1.05] tracking-tight text-white">
                 Norwich&apos;s Fearless Church.
               </h1>
-              <p className="mt-2 font-sans text-[clamp(0.95rem,1.8vw,1.2rem)] font-bold uppercase tracking-[0.14em] text-white/70 transition-colors duration-500 group-hover/hero:text-white/90">
+              <p className="mt-1.5 font-sans text-[clamp(0.8rem,3.4vw,1.2rem)] font-bold uppercase tracking-[0.12em] text-white/70 transition-colors duration-500 group-hover/hero:text-white/90 sm:mt-2 sm:tracking-[0.14em]">
                 Gritty. Real. Shaping the city.
               </p>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/55 transition-colors duration-500 group-hover/hero:text-white/85 sm:mt-4 sm:text-[15px]">
+              <p className="mt-2.5 max-w-xl text-[13px] leading-relaxed text-white/55 transition-colors duration-500 group-hover/hero:text-white/85 sm:mt-4 sm:text-[15px]">
                 Fearlessly shaping Norwich for Jesus&apos; Return — a people who
                 stand up, speak up, and will not stay quiet about His name.
               </p>
             </div>
 
-            <div className="relative z-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-              <blockquote className="flex max-w-md items-start gap-3 sm:gap-5">
+            <div className="relative z-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+              <blockquote className="flex max-w-md items-start gap-2.5 sm:gap-5">
                 <GeoIcon
                   name="rings"
-                  className="mt-0.5 size-8 shrink-0 text-white/30 transition-colors duration-500 group-hover/hero:text-white/55 sm:size-11"
+                  className="mt-0.5 size-7 shrink-0 text-white/30 transition-colors duration-500 group-hover/hero:text-white/55 sm:size-11"
                 />
                 <div className="min-w-0">
-                  <p className="font-sans text-[15px] leading-snug text-white/75 transition-colors duration-500 group-hover/hero:text-white/95 sm:text-base md:text-lg">
+                  <p className="font-sans text-sm leading-snug text-white/75 transition-colors duration-500 group-hover/hero:text-white/95 sm:text-base md:text-lg">
                     “For many are called, but few are chosen.”
                   </p>
-                  <cite className="mt-2.5 block text-[11px] font-semibold not-italic uppercase tracking-[0.18em] text-white/40 transition-colors duration-500 group-hover/hero:text-white/65">
+                  <cite className="mt-2 block text-[10px] font-semibold not-italic uppercase tracking-[0.18em] text-white/40 transition-colors duration-500 group-hover/hero:text-white/65 sm:mt-2.5 sm:text-[11px]">
                     Matthew 22:14
                   </cite>
                 </div>
               </blockquote>
 
-              <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:shrink-0 sm:flex-row sm:flex-wrap sm:justify-end sm:gap-3">
+              <div className="flex w-full flex-col gap-2 sm:w-auto sm:min-w-[13.5rem] sm:shrink-0 sm:gap-3">
                 <HeroCta to="/visit" label="Dare to visit" variant="cream" />
                 <HeroCta to="/about" label="Our story" variant="ghost" />
               </div>
@@ -153,16 +158,16 @@ function Hero() {
           </div>
 
           {/* Service times — centered between ink block & seal; nudged down 22px */}
-          <aside className="flex flex-col justify-end gap-1 px-1 pb-1 pt-2 lg:col-start-3 lg:row-start-1 lg:justify-end lg:px-0 lg:pr-36 lg:pb-0 lg:pt-0 lg:mb-[-4px]">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--v3-ink)]/45">
+          <aside className="col-span-2 flex flex-col justify-end gap-0.5 px-0.5 pt-1 sm:gap-1 sm:px-1 sm:pb-1 sm:pt-2 lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:mb-[-4px] lg:justify-end lg:px-0 lg:pr-36 lg:pt-0 lg:pb-0">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--v3-ink)]/45 sm:text-[11px]">
               Service times
             </p>
-            <p className="font-sans text-xl font-bold uppercase leading-tight tracking-tight text-[var(--v3-ink)] sm:text-2xl">
+            <p className="font-sans text-lg font-bold uppercase leading-tight tracking-tight text-[var(--v3-ink)] sm:text-2xl">
               {siteMeta.visit.day}
               <span className="text-[var(--v3-terra)]"> · </span>
               {siteMeta.visit.time}
             </p>
-            <p className="mt-1 text-sm font-medium text-[var(--v3-ink)]/70">
+            <p className="mt-0.5 text-sm font-medium text-[var(--v3-ink)]/70 sm:mt-1">
               {siteMeta.visit.venue}
             </p>
             <p className="text-xs leading-relaxed text-[var(--v3-ink)]/45">
@@ -177,17 +182,17 @@ function Hero() {
             src={heroSlots.sunday}
             badge
             sealInkHot={inkHot}
-            className="min-h-[16rem] lg:col-start-3 lg:row-span-2 lg:row-start-2 lg:min-h-0"
+            className="col-span-2 min-h-[11.5rem] sm:min-h-[16rem] lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-2 lg:min-h-0"
           />
 
-          {/* Cards 1 + 2 — bottom row under copy */}
+          {/* Cards 1 + 2 — side-by-side on mobile */}
           <HeroThumb
             to="/about"
             heading="About us"
             src={heroSlots.about}
             finish="natural"
             variant="card"
-            className="min-h-[14rem] lg:col-start-1 lg:row-start-3 lg:min-h-0"
+            className="min-h-[9.5rem] sm:min-h-[14rem] lg:col-start-1 lg:row-start-3 lg:min-h-0"
           />
           <HeroThumb
             to="/missions"
@@ -195,7 +200,7 @@ function Hero() {
             src={heroSlots.city}
             finish="bw-grain"
             variant="card"
-            className="min-h-[14rem] lg:col-start-2 lg:row-start-3 lg:min-h-0"
+            className="min-h-[9.5rem] sm:min-h-[14rem] lg:col-start-2 lg:row-start-3 lg:min-h-0"
           />
         </div>
       </div>
@@ -418,9 +423,9 @@ function GrowMark({
     <span
       aria-hidden
       className={cn(
-        'relative flex size-8 shrink-0 items-center justify-center overflow-hidden sm:size-9',
+        'relative flex size-7 shrink-0 items-center justify-center overflow-hidden sm:size-9',
         'rounded-full transition-[width,height,background-color,color] duration-300 ease-out',
-        'group-hover:size-11 sm:group-hover:size-12',
+        'group-hover:size-10 sm:group-hover:size-12',
         tone === 'light' &&
           'bg-white text-[var(--v3-ink)] group-hover:bg-[var(--v3-terra)] group-hover:text-white',
         tone === 'ink' &&
@@ -444,8 +449,8 @@ function GrowMark({
 
 function Quote() {
   return (
-    <section className={v3SectionY}>
-      <p className="mx-auto max-w-4xl font-sans text-[clamp(1.55rem,4.2vw,2.85rem)] font-bold leading-[1.22] tracking-tight text-[var(--v3-ink)] [text-indent:1.25rem] sm:[text-indent:3.5rem] lg:[text-indent:4.5rem]">
+    <section className={cn(v3SectionY, v3PadX)}>
+      <p className="mx-auto max-w-4xl font-sans text-[clamp(1.25rem,5.5vw,2.85rem)] font-bold leading-[1.22] tracking-tight text-[var(--v3-ink)] [text-indent:0.75rem] sm:[text-indent:3.5rem] lg:[text-indent:4.5rem]">
         A church that runs toward the{' '}
         <span className="text-[var(--v3-terra)]">broken</span> will{' '}
         <span className="text-[var(--v3-terra)]">shape</span> a city. Soft
@@ -484,7 +489,7 @@ function FeatureRow() {
   }
 
   return (
-    <section className={cn('relative z-10', v3SectionY)}>
+    <section className={cn('relative z-10', v3SectionY, v3PadX)}>
       <div
         className={cn(
           'mx-auto grid max-w-7xl items-stretch sm:grid-cols-2 lg:grid-cols-4',
@@ -498,7 +503,7 @@ function FeatureRow() {
         >
           <SiteLink
             to="/give"
-            className="group relative z-[1] block min-h-[280px] overflow-hidden rounded-[1.75rem] sm:rounded-[2rem]"
+            className="group relative z-[1] block min-h-[220px] overflow-hidden rounded-[1.35rem] sm:min-h-[280px] sm:rounded-[2rem]"
           >
             <AppImage
               alt=""
@@ -515,13 +520,13 @@ function FeatureRow() {
         </motion.div>
 
         <motion.article
-          className="relative z-0 flex min-h-[280px] flex-row gap-4 overflow-hidden rounded-[1.75rem] bg-[var(--v3-terra)] p-6 text-white sm:col-span-2 sm:gap-5 sm:rounded-[2rem] sm:p-7 lg:col-span-2"
+          className="relative z-0 flex min-h-[220px] flex-col gap-4 overflow-hidden rounded-[1.35rem] bg-[var(--v3-terra)] p-5 text-white sm:min-h-[280px] sm:col-span-2 sm:flex-row sm:gap-5 sm:rounded-[2rem] sm:p-7 lg:col-span-2"
           animate={midFloat}
           transition={midTransition}
         >
           <AppImage
             alt=""
-            className="aspect-square w-[42%] max-w-[11.5rem] shrink-0 self-stretch overflow-hidden rounded-[1.15rem] bg-white/20 text-white/50 sm:max-w-none sm:rounded-[1.35rem]"
+            className="aspect-[16/10] w-full shrink-0 overflow-hidden rounded-[1.05rem] bg-white/20 text-white/50 sm:aspect-square sm:w-[42%] sm:max-w-none sm:self-stretch sm:rounded-[1.35rem]"
             iconClassName="size-8 text-white/55 sm:size-10"
           />
           <div className="flex min-w-0 flex-1 flex-col justify-between py-0.5">
@@ -534,8 +539,8 @@ function FeatureRow() {
               </h3>
               <p className="mt-2 text-sm text-white/80 sm:mt-3">{startHere.body}</p>
             </div>
-            <Pill to={startHere.href} tone="light" className="mt-6 self-start sm:mt-8">
-              This Sunday
+            <Pill to={startHere.href} tone="light" className="mt-5 sm:mt-8">
+              <span>This Sunday</span>
               <CircleArrow dark />
             </Pill>
           </div>
@@ -550,7 +555,7 @@ function FeatureRow() {
           >
             <SiteLink
               to={t.href}
-              className="group relative z-[1] block min-h-[280px] overflow-hidden rounded-[1.75rem] sm:rounded-[2rem]"
+              className="group relative z-[1] block min-h-[220px] overflow-hidden rounded-[1.35rem] sm:min-h-[280px] sm:rounded-[2rem]"
             >
               <AppImage
                 alt=""
@@ -595,21 +600,15 @@ function Narrative() {
   ]
 
   return (
-    <section
-      ref={ref}
-      className={cn(
-        'relative -mx-5 overflow-x-clip sm:-mx-8 lg:-mx-10',
-        v3SectionY
-      )}
-    >
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+    <section ref={ref} className={cn('relative mt-10 mb-0 sm:mt-20 lg:mt-[120px]')}>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-8 lg:px-10">
         <div
           className={cn(
             'relative z-10 grid items-center lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]',
             v3SplitGap
           )}
         >
-          <div className="relative mx-auto w-full max-w-[22rem] pb-10 sm:max-w-[40rem] sm:pb-12 lg:mx-0 lg:max-w-none lg:pb-0">
+          <div className="relative mx-auto w-full max-w-[18rem] pb-10 sm:max-w-[40rem] sm:pb-16 lg:mx-0 lg:max-w-none lg:pb-8">
             <div className="relative flex justify-center lg:justify-start lg:pl-2">
               {/* Landscape orange — sits behind the fan only */}
               <div
@@ -617,7 +616,7 @@ function Narrative() {
                 className={cn(
                   'pointer-events-none absolute top-1/2 left-1/2 z-0 -translate-x-[42%] -translate-y-1/2',
                   'aspect-[16/10] w-[min(118%,28rem)] sm:w-[min(125%,34rem)] lg:w-[min(130%,38rem)]',
-                  'rounded-[1.5rem] sm:rounded-[2rem]',
+                  'rounded-[1.25rem] sm:rounded-[2rem]',
                   'bg-gradient-to-br from-[#e8925a] via-[var(--v3-terra)] to-[#8f3a1c]',
                   inView ? 'opacity-100' : 'opacity-0',
                   !reduceMotion && 'transition-opacity duration-700 ease-out'
@@ -626,7 +625,7 @@ function Narrative() {
 
               <div
                 className={cn(
-                  'relative z-10 aspect-[3/4] w-[14.5rem] origin-top sm:w-[19rem] lg:w-[21.5rem]',
+                  'relative z-10 aspect-[3/4] w-[12.5rem] origin-top sm:w-[19rem] lg:w-[21.5rem]',
                   'max-lg:rotate-0 lg:-rotate-[15deg]'
                 )}
               >
@@ -645,7 +644,7 @@ function Narrative() {
                         zIndex: i + 1,
                       }}
                     >
-                      <div className="relative h-full overflow-hidden rounded-[1.2rem] bg-white shadow-[0_18px_40px_rgba(30,21,18,0.14)] ring-1 ring-[var(--v3-ink)]/10 sm:rounded-[1.6rem] sm:shadow-[0_22px_50px_rgba(30,21,18,0.16)]">
+                      <div className="relative h-full overflow-hidden rounded-[1.2rem] bg-white ring-1 ring-[var(--v3-ink)]/10 sm:rounded-[1.6rem]">
                         <AppImage
                           alt=""
                           className="absolute inset-0 size-full bg-[var(--v3-ink)]/[0.04]"
@@ -670,7 +669,7 @@ function Narrative() {
             </div>
           </div>
 
-          <h2 className="max-w-xl py-8 font-sans text-[clamp(1.55rem,4.2vw,2.75rem)] font-bold leading-[1.15] tracking-tight text-[var(--v3-ink)] sm:py-14 lg:ml-auto lg:py-0 lg:text-right">
+          <h2 className="max-w-xl py-5 font-sans text-[clamp(1.3rem,5.8vw,2.75rem)] font-bold leading-[1.15] tracking-tight text-[var(--v3-ink)] sm:py-14 lg:ml-auto lg:py-0 lg:text-right">
             God wants revival in this county — and we refuse to sit it out.
             Fearlessly shaping these streets for{' '}
             <span className="text-[var(--v3-terra)]">Jesus&apos; Return</span>.
@@ -694,7 +693,7 @@ function HeroCta({
     <SiteLink
       to={to}
       className={cn(
-        'group inline-flex w-full items-center justify-center gap-3 rounded-full py-2.5 pr-2 pl-5 text-[11px] font-bold uppercase tracking-[0.16em] transition sm:w-auto sm:justify-start sm:gap-3.5 sm:py-2 sm:pr-2 sm:pl-6 sm:text-xs',
+        'group inline-flex w-full items-center justify-between gap-3 rounded-full py-2 pl-4 pr-1.5 text-[11px] font-bold uppercase tracking-[0.14em] transition sm:min-w-[12.5rem] sm:py-1.5 sm:pl-5 sm:text-xs sm:tracking-[0.16em]',
         variant === 'dark' &&
           'bg-[var(--v3-ink)] text-[var(--v3-cream)] ring-1 ring-white/15 hover:bg-[var(--v3-cream)] hover:text-[var(--v3-ink)]',
         variant === 'cream' &&
@@ -703,7 +702,7 @@ function HeroCta({
           'bg-white/10 text-[var(--v3-cream)] ring-1 ring-white/25 hover:bg-white/15'
       )}
     >
-      {label}
+      <span className="min-w-0 truncate text-left">{label}</span>
       <GrowMark
         tone={variant === 'cream' ? 'ink' : 'inverse'}
         className={cn(
@@ -719,7 +718,7 @@ function CircleArrow({ dark }: { dark?: boolean }) {
   return (
     <span
       className={cn(
-        'ml-1 flex size-6 items-center justify-center rounded-full',
+        'flex size-7 shrink-0 items-center justify-center rounded-full sm:size-6',
         dark ? 'bg-[var(--v3-ink)] text-white' : 'bg-white/15 text-white'
       )}
     >
@@ -743,7 +742,7 @@ function Pill({
     <SiteLink
       to={to}
       className={cn(
-        'inline-flex items-center gap-1 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-[0.14em] transition',
+        'inline-flex w-full items-center justify-between gap-3 rounded-full py-2 pr-1.5 pl-4 text-[11px] font-bold uppercase tracking-[0.14em] transition sm:w-auto sm:min-w-[11rem] sm:py-1.5 sm:pr-1.5 sm:pl-5 sm:text-xs',
         tone === 'dark' &&
           'bg-[var(--v3-ink)] text-white hover:bg-[#140e0c]',
         tone === 'light' &&

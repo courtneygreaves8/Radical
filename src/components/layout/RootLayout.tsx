@@ -2,6 +2,7 @@ import { Outlet, ScrollRestoration } from 'react-router-dom'
 
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteHeader } from '@/components/layout/SiteHeader'
+import { BlogJournalBand } from '@/components/marketing/BlogJournalBand'
 import { PodcastVideoFrame } from '@/components/marketing/PodcastVideoFrame'
 import { WeAreRadicalBand } from '@/components/marketing/WeAreRadicalBand'
 import { MadeByBabe } from '@/components/shared/MadeByBabe'
@@ -14,6 +15,7 @@ export function RootLayout() {
         <Outlet />
       </main>
       <PodcastVideoFrame />
+      <BlogJournalBand />
       <WeAreRadicalBand />
       <SiteFooter />
       <MadeByBabe />
