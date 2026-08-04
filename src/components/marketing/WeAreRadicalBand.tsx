@@ -1,26 +1,34 @@
 import { useRef } from 'react'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
-
-const wordSpring = {
-  type: 'spring' as const,
-  stiffness: 80,
-  damping: 22,
-  mass: 0.85,
-}
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion'
 
 /**
- * “WE ARE” / “RADICAL” spring in from opposite sides and meet in the middle —
- * then stay centered (animation runs once).
+ * “WE ARE” slides in from the left, “RADICAL” from the right —
+ * driven by scroll as the band enters the viewport, meeting in the middle.
  */
 export function WeAreRadicalBand() {
   const ref = useRef<HTMLElement>(null)
   const reduceMotion = useReducedMotion()
-  const inView = useInView(ref, {
-    amount: 0.4,
-    once: true,
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'center center'],
   })
 
-  const meet = inView || Boolean(reduceMotion)
+  const xLeft = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduceMotion ? ['0vw', '0vw'] : ['-80vw', '0vw']
+  )
+  const xRight = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduceMotion ? ['0vw', '0vw'] : ['80vw', '0vw']
+  )
 
   return (
     <section
@@ -33,22 +41,15 @@ export function WeAreRadicalBand() {
       <div className="relative z-10 flex flex-col items-center justify-center gap-0.5 px-4 sm:gap-2 sm:px-0">
         <motion.p
           aria-hidden
-          initial={reduceMotion ? false : { x: '-70vw' }}
-          animate={{ x: meet ? 0 : '-70vw' }}
-          transition={wordSpring}
-          className="w-full text-center font-sans text-[clamp(2.35rem,14vw,11rem)] font-bold uppercase leading-none tracking-[-0.04em] text-[var(--v3-ink)]"
+          style={{ x: xLeft }}
+          className="w-full text-center font-sans text-[clamp(2.35rem,14vw,11rem)] font-bold uppercase leading-none tracking-[-0.04em] text-[var(--v3-ink)] will-change-transform"
         >
           WE ARE
         </motion.p>
         <motion.p
           aria-hidden
-          initial={reduceMotion ? false : { x: '70vw' }}
-          animate={{ x: meet ? 0 : '70vw' }}
-          transition={{
-            ...wordSpring,
-            delay: reduceMotion ? 0 : 0.05,
-          }}
-          className="w-full text-center font-sans text-[clamp(2.35rem,14vw,11rem)] font-bold uppercase leading-none tracking-[-0.04em] text-[var(--v3-terra)]"
+          style={{ x: xRight }}
+          className="w-full text-center font-sans text-[clamp(2.35rem,14vw,11rem)] font-bold uppercase leading-none tracking-[-0.04em] text-[var(--v3-terra)] will-change-transform"
         >
           RADICAL
         </motion.p>

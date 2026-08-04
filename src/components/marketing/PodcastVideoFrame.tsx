@@ -42,7 +42,7 @@ export function PodcastVideoFrame() {
     .slice(0, 3)
 
   return (
-    <section className="relative mt-[80px] overflow-x-clip bg-transparent pt-6 pb-10 sm:pt-10 sm:pb-14 lg:pt-12 lg:pb-[72px]">
+    <section className="relative mt-[160px] overflow-x-clip bg-transparent pt-6 pb-10 sm:pt-10 sm:pb-14 lg:pt-12 lg:pb-[72px]">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-8 lg:px-10">
         <p className="mb-3 font-sans text-2xl font-bold uppercase italic tracking-tight text-[var(--v3-terra)] sm:mb-4 sm:text-4xl lg:hidden">
           podcasts
