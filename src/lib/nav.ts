@@ -28,6 +28,20 @@ export const footerNav = {
   ],
 } as const
 
+/** Only the landing page is live for now — other routes show “Coming soon”. */
+export function isLiveHref(href: string) {
+  if (
+    href.startsWith('mailto:') ||
+    href.startsWith('http://') ||
+    href.startsWith('https://') ||
+    href.startsWith('tel:')
+  ) {
+    return true
+  }
+  const path = href.split(/[?#]/)[0] || '/'
+  return path === '/' || path === ''
+}
+
 export const siteMeta = {
   name: 'Radical Church',
   /** Primary brand line — pairs with geo shapes across the site */

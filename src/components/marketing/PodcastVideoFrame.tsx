@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react'
 
 import { PodcastThumbArt } from '@/components/marketing/PodcastThumbArt'
+import { SiteLink } from '@/components/shared/SiteLink'
 import { mediaVideos, type MediaVideo } from '@/lib/mediaVideos'
 import { cn } from '@/lib/utils'
 
@@ -96,7 +96,7 @@ export function PodcastVideoFrame() {
               </a>
 
               <div className="mt-4 flex shrink-0 flex-col gap-2.5 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
-                <Link
+                <SiteLink
                   to="/podcasts"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--v3-cream)] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--v3-ink)] transition hover:bg-white sm:justify-start sm:py-2.5"
                 >
@@ -105,7 +105,7 @@ export function PodcastVideoFrame() {
                     aria-hidden
                   />
                   All podcasts
-                </Link>
+                </SiteLink>
                 <a
                   href={`https://www.youtube.com/watch?v=${active.youtubeId}`}
                   target="_blank"

@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { AuthMenu } from '@/components/auth/AuthMenu'
-import { Button } from '@/components/ui/button'
+import { SiteLink } from '@/components/shared/SiteLink'
 import { useLandingVersion } from '@/lib/landingVersion'
 import { primaryNav, siteMeta } from '@/lib/nav'
-import { cn } from '@/lib/utils'
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
@@ -35,26 +34,19 @@ export function SiteHeader() {
 
           <nav className="hidden items-center gap-1 lg:flex">
             {primaryNav.map((item) => (
-              <NavLink
+              <SiteLink
                 key={item.href}
                 to={item.href}
-                className={({ isActive }) =>
-                  cn(
-                    'px-3 py-2 text-[13px] font-medium tracking-wide transition',
-                    isActive
-                      ? 'text-[var(--v3-terra,#d86637)]'
-                      : 'text-[var(--v3-ink,#1e1512)]/70 hover:text-[var(--v3-ink,#1e1512)]'
-                  )
-                }
+                className="px-3 py-2 text-[13px] font-medium tracking-wide text-[var(--v3-ink,#1e1512)]/70 transition hover:text-[var(--v3-ink,#1e1512)]"
               >
                 {item.label}
-              </NavLink>
+              </SiteLink>
             ))}
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
             <AuthMenu tone="light" variant="editorial" />
-            <Link
+            <SiteLink
               to="/visit"
               className="inline-flex items-center gap-2 rounded-full bg-[var(--v3-ink,#1e1512)] py-1.5 pr-1.5 pl-4 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--v3-cream,#faf4f0)] transition hover:bg-[#140e0c]"
             >
@@ -62,7 +54,7 @@ export function SiteHeader() {
               <span className="flex size-7 items-center justify-center rounded-full bg-white text-[var(--v3-ink,#1e1512)]">
                 <ArrowUpRight className="size-3.5" strokeWidth={2.5} />
               </span>
-            </Link>
+            </SiteLink>
           </div>
 
           <button
@@ -85,32 +77,25 @@ export function SiteHeader() {
             >
               <nav className="flex flex-col gap-1 px-5 py-6">
                 {primaryNav.map((item) => (
-                  <NavLink
+                  <SiteLink
                     key={item.href}
                     to={item.href}
                     onClick={() => setOpen(false)}
-                    className={({ isActive }) =>
-                      cn(
-                        'rounded-xl px-3 py-3 font-sans text-lg font-bold tracking-tight',
-                        isActive
-                          ? 'bg-[var(--v3-terra,#d86637)] text-white'
-                          : 'text-[var(--v3-ink,#1e1512)] hover:bg-black/5'
-                      )
-                    }
+                    className="rounded-xl px-3 py-3 font-sans text-lg font-bold tracking-tight text-[var(--v3-ink,#1e1512)] hover:bg-black/5"
                   >
                     {item.label}
-                  </NavLink>
+                  </SiteLink>
                 ))}
                 <div className="mt-4 flex flex-col gap-3">
                   <AuthMenu tone="light" variant="editorial" />
-                  <Link
+                  <SiteLink
                     to="/visit"
                     onClick={() => setOpen(false)}
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--v3-ink,#1e1512)] px-5 py-3 text-xs font-bold uppercase tracking-[0.14em] text-white"
                   >
                     This Sunday · 10:30
                     <ArrowUpRight className="size-4" />
-                  </Link>
+                  </SiteLink>
                 </div>
               </nav>
             </motion.div>
@@ -133,28 +118,24 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-1 lg:flex">
           {primaryNav.map((item) => (
-            <NavLink
+            <SiteLink
               key={item.href}
               to={item.href}
-              className={({ isActive }) =>
-                cn(
-                  'px-3 py-2 font-mono text-xs font-medium uppercase tracking-wider transition',
-                  isActive
-                    ? 'bg-ink text-lime'
-                    : 'text-lime-foreground hover:bg-ink/10'
-                )
-              }
+              className="px-3 py-2 font-mono text-xs font-medium uppercase tracking-wider text-lime-foreground transition hover:bg-ink/10"
             >
               {item.label}
-            </NavLink>
+            </SiteLink>
           ))}
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
           <AuthMenu tone="light" />
-          <Button variant="default" size="sm" offset asChild>
-            <Link to="/visit">This Sunday</Link>
-          </Button>
+          <SiteLink
+            to="/visit"
+            className="inline-flex h-10 items-center rounded-full bg-ink px-5 text-[11px] font-bold uppercase tracking-[0.14em] text-lime"
+          >
+            This Sunday
+          </SiteLink>
         </div>
 
         <button
@@ -177,29 +158,24 @@ export function SiteHeader() {
           >
             <nav className="flex flex-col gap-1 px-5 py-6">
               {primaryNav.map((item) => (
-                <NavLink
+                <SiteLink
                   key={item.href}
                   to={item.href}
                   onClick={() => setOpen(false)}
-                  className={({ isActive }) =>
-                    cn(
-                      'px-3 py-3 font-sans text-lg font-bold uppercase tracking-tight',
-                      isActive
-                        ? 'bg-lime text-lime-foreground'
-                        : 'text-paper hover:bg-lime/20'
-                    )
-                  }
+                  className="px-3 py-3 font-sans text-lg font-bold uppercase tracking-tight text-paper hover:bg-lime/20"
                 >
                   {item.label}
-                </NavLink>
+                </SiteLink>
               ))}
               <div className="mt-4 flex flex-col gap-3">
                 <AuthMenu tone="dark" />
-                <Button variant="lime" offset asChild>
-                  <Link to="/visit" onClick={() => setOpen(false)}>
-                    This Sunday · 10:30
-                  </Link>
-                </Button>
+                <SiteLink
+                  to="/visit"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center justify-center rounded-full bg-lime px-5 py-3 text-xs font-bold uppercase tracking-[0.14em] text-lime-foreground"
+                >
+                  This Sunday · 10:30
+                </SiteLink>
               </div>
             </nav>
           </motion.div>

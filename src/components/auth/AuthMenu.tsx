@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
 import { UserRound } from 'lucide-react'
 
+import { SiteLink } from '@/components/shared/SiteLink'
 import { useAuth } from '@/contexts/AuthContext'
 import { cn } from '@/lib/utils'
 
@@ -24,19 +24,18 @@ export function AuthMenu({
   if (user) {
     if (editorial) {
       return (
-        <Link
+        <SiteLink
           to="/account"
           className="inline-flex max-w-[10rem] items-center gap-2 truncate rounded-full border border-[var(--v3-ink,#1e1512)]/12 bg-white px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--v3-ink,#1e1512)] transition hover:border-[var(--v3-ink,#1e1512)]/25"
-          title={user.email}
         >
           <UserRound className="size-3.5 shrink-0" />
           <span className="truncate">{user.name.split(' ')[0]}</span>
-        </Link>
+        </SiteLink>
       )
     }
 
     return (
-      <Link
+      <SiteLink
         to="/account"
         className={cn(
           'inline-flex max-w-[10rem] items-center gap-2 truncate border-2 px-3 py-2 font-mono text-xs font-bold uppercase tracking-wider transition-[box-shadow,background-color,color,transform] duration-200',
@@ -45,36 +44,35 @@ export function AuthMenu({
             ? 'border-white/25 text-white offset-shadow-paper hover:border-lime hover:text-lime'
             : 'border-ink bg-paper text-ink offset-shadow-paper hover:bg-ink hover:text-lime'
         )}
-        title={user.email}
       >
         <UserRound className="size-3.5 shrink-0" />
         <span className="truncate">{user.name.split(' ')[0]}</span>
-      </Link>
+      </SiteLink>
     )
   }
 
   if (editorial) {
     return (
       <div className="flex items-center gap-2">
-        <Link
+        <SiteLink
           to="/sign-in"
           className="hidden px-2 py-2 text-[12px] font-medium tracking-wide text-[var(--v3-ink,#1e1512)]/55 transition hover:text-[var(--v3-ink,#1e1512)] sm:inline"
         >
           Sign in
-        </Link>
-        <Link
+        </SiteLink>
+        <SiteLink
           to="/sign-up"
           className="inline-flex items-center rounded-full border border-[var(--v3-ink,#1e1512)]/12 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--v3-ink,#1e1512)] transition hover:border-[var(--v3-ink,#1e1512)]/30 hover:bg-[var(--v3-ink,#1e1512)] hover:text-[var(--v3-cream,#faf4f0)]"
         >
           Join
-        </Link>
+        </SiteLink>
       </div>
     )
   }
 
   return (
     <div className="flex items-center gap-2">
-      <Link
+      <SiteLink
         to="/sign-in"
         className={cn(
           'hidden px-2 py-2 font-mono text-xs font-bold uppercase tracking-wider transition sm:inline',
@@ -84,8 +82,8 @@ export function AuthMenu({
         )}
       >
         Sign in
-      </Link>
-      <Link
+      </SiteLink>
+      <SiteLink
         to="/sign-up"
         className={cn(
           'inline-flex items-center gap-2 border-2 px-3 py-2 font-mono text-xs font-bold uppercase tracking-wider transition-[box-shadow,background-color,color,transform] duration-200',
@@ -97,7 +95,7 @@ export function AuthMenu({
         )}
       >
         Join
-      </Link>
+      </SiteLink>
     </div>
   )
 }

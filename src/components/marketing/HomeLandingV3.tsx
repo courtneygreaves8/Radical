@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react'
 import { useId, useRef, useState, useSyncExternalStore } from 'react'
-import { Link } from 'react-router-dom'
 import { ArrowUpRight, Plus } from 'lucide-react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 
 import { AppImage } from '@/components/shared/AppImage'
+import { SiteLink } from '@/components/shared/SiteLink'
 import { GeoIcon } from '@/components/marketing/geo/GeoIcons'
 import { MorphMark } from '@/components/marketing/MorphMark'
 import { heroSlots } from '@/lib/images'
@@ -220,7 +220,7 @@ function HeroThumb({
 
   if (variant === 'card') {
     return (
-      <Link
+      <SiteLink
         to={to}
         className={cn(
           'group relative flex h-full min-h-[inherit] flex-col overflow-hidden rounded-[1.35rem] bg-white p-3 shadow-[0_12px_36px_rgba(30,21,18,0.08)] ring-1 ring-[var(--v3-ink)]/8 sm:rounded-[1.6rem] sm:p-3.5 lg:rounded-[1.75rem] lg:p-4',
@@ -243,12 +243,12 @@ function HeroThumb({
           </p>
           <GrowMark tone="ink" />
         </div>
-      </Link>
+      </SiteLink>
     )
   }
 
   const card = (
-    <Link
+    <SiteLink
       to={to}
       className={cn(
         'group relative block h-full min-h-[inherit] overflow-hidden rounded-[1.35rem] sm:rounded-[1.6rem] lg:rounded-[1.75rem]',
@@ -286,7 +286,7 @@ function HeroThumb({
         </p>
         <GrowMark tone={hasPhoto ? 'inverse' : 'light'} />
       </div>
-    </Link>
+    </SiteLink>
   )
 
   if (!badge) return card
@@ -487,7 +487,7 @@ function FeatureRow() {
           animate={sideFloat}
           transition={sideTransition}
         >
-          <Link
+          <SiteLink
             to="/give"
             className="group relative z-[1] block min-h-[280px] overflow-hidden rounded-[1.75rem] sm:rounded-[2rem]"
           >
@@ -502,7 +502,7 @@ function FeatureRow() {
             <span className="absolute right-4 bottom-4 left-4 z-10 font-sans text-sm font-bold uppercase tracking-wider text-[var(--v3-ink)]">
               Give
             </span>
-          </Link>
+          </SiteLink>
         </motion.div>
 
         <motion.article
@@ -539,7 +539,7 @@ function FeatureRow() {
             animate={sideFloat}
             transition={{ ...sideTransition, delay: 0.35 }}
           >
-            <Link
+            <SiteLink
               to={t.href}
               className="group relative z-[1] block min-h-[280px] overflow-hidden rounded-[1.75rem] sm:rounded-[2rem]"
             >
@@ -554,7 +554,7 @@ function FeatureRow() {
               <span className="absolute right-4 bottom-4 left-4 z-10 font-sans text-sm font-bold uppercase tracking-wider text-[var(--v3-ink)]">
                 {t.label}
               </span>
-            </Link>
+            </SiteLink>
           </motion.div>
         ))}
       </div>
@@ -567,8 +567,6 @@ function Narrative() {
   const reduceMotion = useReducedMotion()
   const isDesktop = useIsDesktop()
   const inView = useInView(ref, { amount: 0.35, once: false })
-  /* Cream-on-orange wash only reads beside the strip (desktop) */
-  const washActive = isDesktop && inView
   const caps = [
     {
       title: 'Presence',
@@ -596,47 +594,40 @@ function Narrative() {
       )}
     >
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        {/*
-          Orange strip — desktop signature wash behind the headline.
-          Hidden on small screens (text stays ink; cards stay readable).
-        */}
-        <div
-          aria-hidden
-          className={cn(
-            'pointer-events-none absolute top-0 z-0 hidden lg:block',
-            '-left-2 sm:-left-3 lg:-left-4',
-            'right-[calc(50%-50vw)]',
-            'h-[28rem]',
-            'rounded-tl-[1.5rem] rounded-bl-[clamp(7rem,28vw,14rem)]',
-            'bg-gradient-to-br from-[#e8925a] via-[var(--v3-terra)] to-[#8f3a1c]',
-            washActive ? 'opacity-100' : 'opacity-0',
-            !reduceMotion && 'transition-opacity duration-700 ease-out'
-          )}
-        />
-
         <div
           className={cn(
-            'relative z-10 grid items-start lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]',
+            'relative z-10 grid items-center lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]',
             v3SplitGap
           )}
         >
-          <div className="relative mx-auto w-full max-w-[22rem] pb-10 sm:max-w-[40rem] sm:pb-12 lg:mx-0 lg:max-w-none lg:pb-10">
-            {/* Mobile: gentle stack. Desktop: fanned cards. */}
-            <div className="flex justify-center lg:justify-start lg:pl-2">
+          <div className="relative mx-auto w-full max-w-[22rem] pb-10 sm:max-w-[40rem] sm:pb-12 lg:mx-0 lg:max-w-none lg:pb-0">
+            <div className="relative flex justify-center lg:justify-start lg:pl-2">
+              {/* Landscape orange — sits behind the fan only */}
+              <div
+                aria-hidden
+                className={cn(
+                  'pointer-events-none absolute top-1/2 left-1/2 z-0 -translate-x-[42%] -translate-y-1/2',
+                  'aspect-[16/10] w-[min(118%,28rem)] sm:w-[min(125%,34rem)] lg:w-[min(130%,38rem)]',
+                  'rounded-[1.5rem] sm:rounded-[2rem]',
+                  'bg-gradient-to-br from-[#e8925a] via-[var(--v3-terra)] to-[#8f3a1c]',
+                  inView ? 'opacity-100' : 'opacity-0',
+                  !reduceMotion && 'transition-opacity duration-700 ease-out'
+                )}
+              />
+
               <div
                 className={cn(
-                  'relative aspect-[3/4] w-[14.5rem] origin-top sm:w-[19rem] lg:w-[21.5rem]',
+                  'relative z-10 aspect-[3/4] w-[14.5rem] origin-top sm:w-[19rem] lg:w-[21.5rem]',
                   'max-lg:rotate-0 lg:-rotate-[15deg]'
                 )}
               >
                 {caps.map((c, i) => {
                   const fromCenter = i - (caps.length - 1) / 2
-                  /* Tighter fan on small screens so cards stay in frame */
                   const fan = fromCenter * (isDesktop ? 18 : 10)
                   const x = fromCenter * (isDesktop ? 5.5 : 2.75)
                   const y = Math.abs(fromCenter) * (isDesktop ? 0.55 : 0.35)
                   return (
-                    <Link
+                    <SiteLink
                       key={c.title}
                       to={c.href}
                       className="group absolute inset-0 origin-bottom"
@@ -663,39 +654,18 @@ function Narrative() {
                           </p>
                         </div>
                       </div>
-                    </Link>
+                    </SiteLink>
                   )
                 })}
               </div>
             </div>
           </div>
 
-          <h2
-            className={cn(
-              'max-w-xl py-8 font-sans text-[clamp(1.55rem,4.2vw,2.75rem)] font-bold leading-[1.15] tracking-tight sm:py-14 lg:ml-auto lg:pt-16 lg:pb-24 lg:text-right',
-              !reduceMotion && 'transition-colors duration-700 ease-out',
-              washActive ? 'text-[var(--v3-cream)]' : 'text-[var(--v3-ink)]'
-            )}
-          >
+          <h2 className="max-w-xl py-8 font-sans text-[clamp(1.55rem,4.2vw,2.75rem)] font-bold leading-[1.15] tracking-tight text-[var(--v3-ink)] sm:py-14 lg:ml-auto lg:py-0 lg:text-right">
             When they write that a city was shaped for good — they mean{' '}
-            <span
-              className={cn(
-                !reduceMotion && 'transition-colors duration-700 ease-out',
-                washActive ? 'text-white' : 'text-[var(--v3-terra)]'
-              )}
-            >
-              Jesus
-            </span>{' '}
-            made{' '}
-            <span
-              className={cn(
-                !reduceMotion && 'transition-colors duration-700 ease-out',
-                washActive ? 'text-white' : 'text-[var(--v3-terra)]'
-              )}
-            >
-              famous
-            </span>{' '}
-            on these streets.
+            <span className="text-[var(--v3-terra)]">Jesus</span> made{' '}
+            <span className="text-[var(--v3-terra)]">famous</span> on these
+            streets.
           </h2>
         </div>
       </div>
@@ -713,7 +683,7 @@ function HeroCta({
   variant: 'dark' | 'cream' | 'ghost'
 }) {
   return (
-    <Link
+    <SiteLink
       to={to}
       className={cn(
         'group inline-flex w-full items-center justify-center gap-3 rounded-full py-2.5 pr-2 pl-5 text-[11px] font-bold uppercase tracking-[0.16em] transition sm:w-auto sm:justify-start sm:gap-3.5 sm:py-2 sm:pr-2 sm:pl-6 sm:text-xs',
@@ -733,7 +703,7 @@ function HeroCta({
             'group-hover:bg-[var(--v3-ink)] group-hover:text-[var(--v3-cream)]'
         )}
       />
-    </Link>
+    </SiteLink>
   )
 }
 
@@ -762,7 +732,7 @@ function Pill({
   className?: string
 }) {
   return (
-    <Link
+    <SiteLink
       to={to}
       className={cn(
         'inline-flex items-center gap-1 rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-[0.14em] transition',
@@ -778,6 +748,6 @@ function Pill({
       )}
     >
       {children}
-    </Link>
+    </SiteLink>
   )
 }

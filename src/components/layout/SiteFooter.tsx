@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 
 import { GeoIcon } from '@/components/marketing/geo/GeoIcons'
+import { SiteLink } from '@/components/shared/SiteLink'
 import { footerNav, siteMeta } from '@/lib/nav'
 import { cn } from '@/lib/utils'
 
@@ -38,12 +38,12 @@ export function SiteFooter() {
                   Helping shape Norwich — for Jesus. Soft hearts, hard
                   discipleship, and a city that needs Him.
                 </p>
-                <Link
+                <SiteLink
                   to="/visit"
                   className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--v3-cream)] px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--v3-ink)] transition hover:bg-white"
                 >
                   This Sunday · {siteMeta.visit.time}
-                </Link>
+                </SiteLink>
                 <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--v3-cream)]/35">
                   {siteMeta.visit.venue}
                 </p>
@@ -58,12 +58,12 @@ export function SiteFooter() {
                   </p>
                   <ul className="mt-4 space-y-2.5">
                     <li>
-                      <Link
+                      <SiteLink
                         to="/podcasts"
                         className="text-sm text-[var(--v3-cream)]/70 transition hover:text-[var(--v3-terra)]"
                       >
                         Radical Media
-                      </Link>
+                      </SiteLink>
                     </li>
                     {legalLinks.map((item) => (
                       <li key={item.href}>
@@ -75,12 +75,12 @@ export function SiteFooter() {
                             {item.label}
                           </a>
                         ) : (
-                          <Link
+                          <SiteLink
                             to={item.href}
                             className="text-sm text-[var(--v3-cream)]/70 transition hover:text-[var(--v3-terra)]"
                           >
                             {item.label}
-                          </Link>
+                          </SiteLink>
                         )}
                       </li>
                     ))}
@@ -162,12 +162,12 @@ function FooterCol({
       <ul className="mt-4 space-y-2.5">
         {links.map((item) => (
           <li key={item.href}>
-            <Link
+            <SiteLink
               to={item.href}
               className="text-sm text-[var(--v3-cream)]/70 transition hover:text-[var(--v3-terra)]"
             >
               {item.label}
-            </Link>
+            </SiteLink>
           </li>
         ))}
       </ul>
