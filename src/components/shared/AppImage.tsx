@@ -1,25 +1,67 @@
+import type { CSSProperties } from 'react'
 import { ImageIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
 type AppImageProps = {
-  /** Kept for call-site compatibility — not rendered while placeholders are on */
   src?: string
   alt?: string
   className?: string
-  /** Icon size hint */
+  /** Icon size hint (stub mode only) */
   iconClassName?: string
+  /** Extra classes on the <img> (e.g. object-position) */
+  imgClassName?: string
+  /** Inline styles on the <img> */
+  imgStyle?: CSSProperties
+  /**
+   * Grey icon block by default. Pass `stub={false}` with `src` to show a
+   * photo (see `finish`).
+   */
+  stub?: boolean
+  /**
+   * `bw-grain` — greyscale + grain.
+   * `grain` — color kept, grain overlay.
+   * `natural` — source as-is.
+   */
+  finish?: 'bw-grain' | 'grain' | 'natural'
 }
 
 /**
- * Temporary site-wide media placeholder — grey block + centered image icon.
- * Swap back to a real <img> when assets are ready; keep the same call sites.
+ * Media slot — grey stub by default; optional photo when assets aren't final.
  */
 export function AppImage({
+  src,
   alt = '',
   className,
   iconClassName,
+  imgClassName,
+  imgStyle,
+  stub = true,
+  finish = 'bw-grain',
 }: AppImageProps) {
+  if (!stub && src) {
+    return (
+      <div className={cn('relative overflow-hidden bg-mute', className)}>
+        <div
+          className={cn(
+            'absolute inset-0 overflow-hidden',
+            finish === 'bw-grain' && 'photo-grain photo-bw',
+            finish === 'grain' && 'photo-grain'
+          )}
+        >
+          <img
+            src={src}
+            alt={alt}
+            className={cn('size-full object-cover', imgClassName)}
+            style={imgStyle}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div
       role="img"

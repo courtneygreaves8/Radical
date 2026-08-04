@@ -9,13 +9,32 @@ const offsetMotion =
 
 type AuthMenuProps = {
   tone?: 'light' | 'dark'
+  /** Soft pills for V3 editorial header (default: brutalist) */
+  variant?: 'brutal' | 'editorial'
 }
 
-export function AuthMenu({ tone = 'light' }: AuthMenuProps) {
+export function AuthMenu({
+  tone = 'light',
+  variant = 'brutal',
+}: AuthMenuProps) {
   const { user } = useAuth()
   const dark = tone === 'dark'
+  const editorial = variant === 'editorial'
 
   if (user) {
+    if (editorial) {
+      return (
+        <Link
+          to="/account"
+          className="inline-flex max-w-[10rem] items-center gap-2 truncate rounded-full border border-[var(--v3-ink,#1e1512)]/12 bg-white px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--v3-ink,#1e1512)] transition hover:border-[var(--v3-ink,#1e1512)]/25"
+          title={user.email}
+        >
+          <UserRound className="size-3.5 shrink-0" />
+          <span className="truncate">{user.name.split(' ')[0]}</span>
+        </Link>
+      )
+    }
+
     return (
       <Link
         to="/account"
@@ -31,6 +50,25 @@ export function AuthMenu({ tone = 'light' }: AuthMenuProps) {
         <UserRound className="size-3.5 shrink-0" />
         <span className="truncate">{user.name.split(' ')[0]}</span>
       </Link>
+    )
+  }
+
+  if (editorial) {
+    return (
+      <div className="flex items-center gap-2">
+        <Link
+          to="/sign-in"
+          className="hidden px-2 py-2 text-[12px] font-medium tracking-wide text-[var(--v3-ink,#1e1512)]/55 transition hover:text-[var(--v3-ink,#1e1512)] sm:inline"
+        >
+          Sign in
+        </Link>
+        <Link
+          to="/sign-up"
+          className="inline-flex items-center rounded-full border border-[var(--v3-ink,#1e1512)]/12 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--v3-ink,#1e1512)] transition hover:border-[var(--v3-ink,#1e1512)]/30 hover:bg-[var(--v3-ink,#1e1512)] hover:text-[var(--v3-cream,#faf4f0)]"
+        >
+          Join
+        </Link>
+      </div>
     )
   }
 

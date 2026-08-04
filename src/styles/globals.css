@@ -6,6 +6,9 @@
   --font-brutal: "Anton", "Impact", "Haettenschweiler", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
+  /* Page content containers */
+  --container-7xl: 1280px;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -436,9 +439,8 @@ html.site-amen-flash body::after {
     }
   }
 
-  /* Cool B&W documentary + TV static — all site photography */
-  .photo-bw,
-  .photo-grain img {
+  /* Cool B&W documentary — only when photo-bw is set */
+  .photo-bw img {
     filter: grayscale(1) contrast(1.22) brightness(0.88);
   }
 
@@ -534,5 +536,54 @@ html.site-amen-flash body::after {
     .photo-grain::after {
       opacity: 0.3;
     }
+  }
+}
+
+/* Landing V2 — sand + coral (Design-to-Web inspired) */
+.landing-v2 {
+  --v2-sand: #f3eee6;
+  --v2-coral: #e85a3c;
+  --v2-ink: #1a1a1a;
+}
+
+/* V1 layout + V2 palette trial */
+html.landing-v1-coral {
+  --lime: #e85a3c;
+  --lime-foreground: #ffffff;
+  --paper: #f3eee6;
+  --background: #f3eee6;
+  --mute: #e8e0d6;
+  --muted: #e8e0d6;
+  --crimson: #e85a3c;
+  --flame: #e85a3c;
+  --accent: #e85a3c;
+  --accent-foreground: #ffffff;
+  --primary-foreground: #e85a3c;
+  --ring: #e85a3c;
+  --secondary: #e8e0d6;
+}
+
+/* Landing V3 tokens — also used by editorial nav */
+:root {
+  --v3-cream: #faf4f0;
+  --v3-below: #f6efe9;
+  --v3-terra: #d86637;
+  /* Warm espresso — dark enough for contrast, soft with terracotta */
+  --v3-ink: #1e1512;
+}
+
+.landing-v3 {
+  --v3-cream: #faf4f0;
+  --v3-below: #f6efe9;
+  --v3-terra: #d86637;
+  --v3-ink: #1e1512;
+}
+
+@keyframes v3-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }

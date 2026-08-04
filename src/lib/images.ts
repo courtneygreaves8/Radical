@@ -37,3 +37,78 @@ export const urbanImages = {
 } as const
 
 export type UrbanImageKey = keyof typeof urbanImages
+
+/** Temporary people placeholders — rendered B&W + grain in CSS. */
+export const peopleImages = {
+  /** Friends laughing outdoors */
+  friends: `https://images.unsplash.com/photo-1529156069898-49953e39b3ac?${q}`,
+  /** Community / group gathering */
+  gathering: `https://images.unsplash.com/photo-1511632765486-a01980e01a18?${q}`,
+  /** Hands raised / worship energy */
+  raised: `https://images.unsplash.com/photo-1517457373958-b7bdd4587205?${q}`,
+  /** Street walk / city people */
+  street: `https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?${q}`,
+  /** Close portrait */
+  portrait: `https://images.unsplash.com/photo-1534528741775-53994a69daeb?${q}`,
+  /** Man portrait */
+  portraitMan: `https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?${q}`,
+  /** Crowd movement B&W */
+  crowd: `https://images.unsplash.com/photo-1639754755492-73849e638f12?${q}`,
+  /** Group reunion B&W */
+  group: `https://images.unsplash.com/photo-1729855727292-84f31a2304a8?${q}`,
+  /** Man in crowd B&W */
+  manCrowd: `https://images.unsplash.com/photo-1718184310601-eb098434ea99?${q}`,
+} as const
+
+export type PeopleImageKey = keyof typeof peopleImages
+
+/** V3 hero — local Unsplash picks kept for later. */
+export const heroImages = {
+  /** Low-angle step / shoe */
+  step: '/hero/step.jpg',
+  /** Looking out at sky */
+  sky: '/hero/sky.jpg',
+  /** Beanie portrait looking down */
+  look: '/hero/look.jpg',
+  /** Seated on stairs */
+  stairs: '/hero/stairs.jpg',
+  /** Beanie + hand gesture */
+  gesture: '/hero/gesture.jpg',
+  /** Elder beard portrait */
+  elder: '/hero/elder.jpg',
+  /** Prayer card portrait */
+  prayer: '/hero/prayer.jpg',
+  /** Pray hat / worship */
+  pray: '/hero/pray.jpg',
+  /** Worship / prayer crowd */
+  worship: '/hero/worship.jpg',
+  /** Prayer hands portrait */
+  hands: '/hero/hands.jpg',
+  /** Choose Love trio (color) */
+  chooseLove: '/hero/choose-love.jpg',
+  /** Shout / night lights (color) */
+  shout: '/hero/shout.jpg',
+  /** Dusk silhouette (color) */
+  dusk: '/hero/dusk.jpg',
+  /** Prayer / profile portrait (B&W) */
+  prayerProfile: '/hero/prayer-profile.png',
+  /** Low-angle look-down portrait (rotated) */
+  lowAngle: '/hero/low-angle.png',
+  /** Stairs / glasses portrait */
+  stairsPortrait: '/hero/stairs-portrait.png',
+  /** Beard + wood slat ceiling */
+  woodSlat: '/hero/wood-slat.png',
+} as const
+
+/**
+ * Current V3 hero assignment — keep these three for later.
+ * Hero UI uses grey stubs for now; wire `src` back from here when ready.
+ */
+export const heroSlots = {
+  /** Bottom-left — About us (low-angle portrait) */
+  about: heroImages.lowAngle,
+  /** Bottom-middle — Radical · Norwich (wood slat portrait, card style) */
+  city: heroImages.woodSlat,
+  /** Tall right — This Sunday (prayer profile B&W) */
+  sunday: heroImages.prayerProfile,
+} as const
