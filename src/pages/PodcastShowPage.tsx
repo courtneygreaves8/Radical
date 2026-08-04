@@ -7,6 +7,7 @@ import {
   isComingSoonCover,
 } from '@/components/media/ComingSoonThumb'
 import { MediaCard } from '@/components/media/MediaCard'
+import { AppImage } from '@/components/shared/AppImage'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { Button } from '@/components/ui/button'
 import { episodesForShow, getShow } from '@/lib/podcasts'
@@ -35,10 +36,10 @@ export function PodcastShowPage() {
           </>
         ) : (
           <>
-            <img
+            <AppImage
               src={show.backdrop}
               alt=""
-              className="photo-bw absolute inset-0 size-full object-cover"
+              className="absolute inset-0 size-full"
             />
             <div className="absolute inset-0 z-[2] media-fade-left" />
             <div className="absolute inset-0 z-[2] media-fade-bottom" />

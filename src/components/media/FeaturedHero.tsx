@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Headphones, Info, Play } from 'lucide-react'
 
+import { AppImage } from '@/components/shared/AppImage'
 import { Button } from '@/components/ui/button'
 import type { PodcastEpisode, PodcastShow } from '@/lib/podcasts'
 import { getShowById } from '@/lib/podcasts'
@@ -43,10 +44,10 @@ export function FeaturedHero({
         animate={{ scale: 1 }}
         transition={{ duration: 8, ease: [0.22, 1, 0.36, 1] }}
       >
-        <img
+        <AppImage
           src={backdrop}
           alt=""
-          className="photo-bw absolute inset-0 size-full object-cover"
+          className="absolute inset-0 size-full"
         />
       </motion.div>
 

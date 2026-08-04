@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Play } from 'lucide-react'
 
+import { AppImage } from '@/components/shared/AppImage'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
@@ -180,16 +181,10 @@ export function PeekCarousel({
                         active ? 'opacity-100' : 'opacity-50'
                       )}
                     >
-                      <img
+                      <AppImage
                         src={slide.image}
                         alt=""
-                        className="photo-bw absolute inset-0 size-full object-cover"
-                        style={
-                          slide.imagePosition
-                            ? { objectPosition: slide.imagePosition }
-                            : undefined
-                        }
-                        draggable={false}
+                        className="absolute inset-0 size-full"
                       />
                       <div className="absolute inset-0 bg-ink/20" />
                       {active ? (

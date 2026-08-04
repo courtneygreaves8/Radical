@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 
 import { GeoIcon, type GeoIconName } from '@/components/marketing/geo/GeoIcons'
+import { AppImage } from '@/components/shared/AppImage'
 import { cn } from '@/lib/utils'
 
 type SplitPanel = {
@@ -94,10 +95,10 @@ export function SplitProof({ left, right, className }: SplitProofProps) {
 
         <div className="relative overflow-hidden">
           <div className="photo-grain absolute inset-0">
-            <img
+            <AppImage
               src={right.image}
               alt=""
-              className="photo-bw absolute inset-0 size-full object-cover opacity-45"
+              className="absolute inset-0 size-full opacity-45"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/35" />
           </div>

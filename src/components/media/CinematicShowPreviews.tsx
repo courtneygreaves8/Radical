@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { FeaturedHero } from '@/components/media/FeaturedHero'
+import { AppImage } from '@/components/shared/AppImage'
 import type { PodcastShow } from '@/lib/podcasts'
 import { cn } from '@/lib/utils'
 
@@ -108,10 +109,10 @@ export function CinematicShowPreviews({
               )}
             >
               <div className="aspect-video bg-ink">
-                <img
+                <AppImage
                   src="/media/podcast-hero.png"
                   alt=""
-                  className="photo-bw size-full object-cover opacity-70"
+                  className="size-full opacity-70"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
               </div>

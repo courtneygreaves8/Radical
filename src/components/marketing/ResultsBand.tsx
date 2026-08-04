@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 
+import { AppImage } from '@/components/shared/AppImage'
 import { Button } from '@/components/ui/button'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
@@ -61,10 +62,10 @@ export function ResultsBand({
 
         <OffsetBlock offset="lime">
           <div className="photo-grain relative min-h-[420px] overflow-hidden border-2 border-ink sm:min-h-[520px]">
-            <img
+            <AppImage
               src={image}
               alt=""
-              className="photo-bw absolute inset-0 size-full object-cover"
+              className="absolute inset-0 size-full"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/45 to-ink/30" />
 

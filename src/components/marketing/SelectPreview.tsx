@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 
+import { AppImage } from '@/components/shared/AppImage'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
@@ -120,10 +121,10 @@ export function SelectPreview({
                 >
                   <OffsetBlock offset={dark ? 'lime' : 'ink'} className="mb-1">
                     <div className="photo-grain relative aspect-[16/10] overflow-hidden border-2 border-ink bg-ink">
-                      <img
+                      <AppImage
                         src={active.image}
                         alt=""
-                        className="photo-bw absolute inset-0 size-full object-cover"
+                        className="absolute inset-0 size-full"
                       />
                     </div>
                   </OffsetBlock>

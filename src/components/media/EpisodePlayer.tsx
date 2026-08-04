@@ -7,6 +7,7 @@ import {
   isComingSoonCover,
   type ComingSoonKind,
 } from '@/components/media/ComingSoonThumb'
+import { AppImage } from '@/components/shared/AppImage'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 
 type EpisodePlayerProps = {
@@ -43,10 +44,10 @@ export function EpisodePlayer({
               className="absolute inset-0"
             />
           ) : (
-            <img
+            <AppImage
               src={cover}
               alt=""
-              className="photo-bw size-full object-cover opacity-70"
+              className="size-full opacity-70"
             />
           )}
           <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black via-black/40 to-black/20" />

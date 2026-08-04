@@ -9,6 +9,7 @@ import {
 } from '@/components/media/ComingSoonThumb'
 import type { PodcastEpisode, PodcastShow } from '@/lib/podcasts'
 import { getShowById } from '@/lib/podcasts'
+import { AppImage } from '@/components/shared/AppImage'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
@@ -57,10 +58,10 @@ export function MediaCard({ episode, size = 'md', className }: MediaCardProps) {
                 />
               ) : (
                 <>
-                  <img
+                  <AppImage
                     src={episode.cover}
                     alt=""
-                    className="photo-bw size-full object-cover transition duration-500 group-hover:scale-105"
+                    className="size-full transition duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
                 </>
@@ -115,10 +116,10 @@ export function ShowPoster({ show }: ShowPosterProps) {
                 />
               ) : (
                 <>
-                  <img
+                  <AppImage
                     src={show.cover}
                     alt=""
-                    className="photo-bw size-full object-cover transition duration-500 group-hover:scale-105"
+                    className="size-full transition duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black via-transparent to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 z-[3] bg-gradient-to-t from-ink/80 to-transparent p-3">

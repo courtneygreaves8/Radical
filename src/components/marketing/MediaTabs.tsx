@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 
+import { AppImage } from '@/components/shared/AppImage'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
@@ -161,16 +162,20 @@ export function MediaTabs({
 
             <div className="photo-grain relative min-h-[280px] lg:min-h-[420px]">
               <AnimatePresence mode="wait">
-                <motion.img
+                <motion.div
                   key={active.id}
-                  src={active.image}
-                  alt=""
                   initial={{ opacity: 0, scale: 1.04 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="photo-bw absolute inset-0 size-full object-cover"
-                />
+                  className="absolute inset-0 size-full"
+                >
+                  <AppImage
+                    src={active.image}
+                    alt=""
+                    className="absolute inset-0 size-full"
+                  />
+                </motion.div>
               </AnimatePresence>
               <div className="absolute inset-0 bg-ink/15" />
 

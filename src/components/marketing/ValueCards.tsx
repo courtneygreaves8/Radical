@@ -5,6 +5,7 @@ import {
   GeoIcon,
   type GeoIconName,
 } from '@/components/marketing/geo/GeoIcons'
+import { AppImage } from '@/components/shared/AppImage'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
@@ -97,10 +98,10 @@ export function ValueCards({
                 <OffsetBlock offset="crimson" revealOnHover>
                   <div className="photo-grain relative flex min-h-[340px] flex-col justify-end overflow-hidden border-2 border-ink p-6 sm:min-h-[400px] sm:p-8">
                     {card.image ? (
-                      <img
+                      <AppImage
                         src={card.image}
                         alt=""
-                        className="photo-bw absolute inset-0 size-full object-cover"
+                        className="absolute inset-0 size-full"
                       />
                     ) : null}
                     <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/15" />

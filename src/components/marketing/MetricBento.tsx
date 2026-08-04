@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 
 import { MorphMark } from '@/components/marketing/MorphMark'
+import { AppImage } from '@/components/shared/AppImage'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
 
@@ -93,10 +94,10 @@ export function MetricBento({
                 <OffsetBlock offset="lime">
                   <div className={shell}>
                     <div className="photo-grain absolute inset-0">
-                      <img
+                      <AppImage
                         src={card.image}
                         alt=""
-                        className="photo-bw absolute inset-0 size-full object-cover opacity-55"
+                        className="absolute inset-0 size-full opacity-55"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30" />
                     </div>

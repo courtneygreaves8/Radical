@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion'
 
+import { AppImage } from '@/components/shared/AppImage'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import {
   ComingSoonThumb,
@@ -141,11 +142,10 @@ export function StaggerMediaGallery({
                   />
                 ) : (
                   <>
-                    <img
+                    <AppImage
                       src={item.image}
                       alt=""
-                      className="photo-bw size-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                      draggable={false}
+                      className="size-full transition duration-500 group-hover:scale-[1.03]"
                     />
                     <div className="absolute inset-0 bg-ink/10 transition group-hover:bg-ink/0" />
                   </>

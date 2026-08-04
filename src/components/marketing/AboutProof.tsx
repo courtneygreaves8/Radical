@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 
+import { AppImage } from '@/components/shared/AppImage'
 import { Button } from '@/components/ui/button'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { cn } from '@/lib/utils'
@@ -85,10 +86,10 @@ export function AboutProof({
 
         <OffsetBlock offset="lime" className="mt-12 sm:mt-14">
           <div className="photo-grain relative aspect-[16/9] overflow-hidden border-2 border-ink bg-ink sm:aspect-[21/9]">
-            <img
+            <AppImage
               src={image}
               alt=""
-              className="photo-bw absolute inset-0 size-full object-cover"
+              className="absolute inset-0 size-full"
             />
             <div className="absolute inset-0 bg-ink/15" />
           </div>

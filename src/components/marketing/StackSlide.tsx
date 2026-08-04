@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 
+import { AppImage } from '@/components/shared/AppImage'
 import { cn } from '@/lib/utils'
 
 export type StackSlideProps = {
@@ -49,7 +50,7 @@ export function StackSlide({
   body,
   detail,
   image,
-  imagePosition,
+  imagePosition: _imagePosition,
   cta,
   tone = 'paper',
   slab: slabProp,
@@ -141,24 +142,11 @@ export function StackSlide({
                 transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               />
 
-              <div className="photo-grain relative z-10 aspect-[16/9] w-full overflow-hidden border-2 border-ink bg-ink lg:aspect-[2/1]">
-                <img
-                  src={image}
-                  alt=""
-                  className="photo-bw absolute inset-0 size-full object-cover"
-                  style={
-                    imagePosition
-                      ? { objectPosition: imagePosition }
-                      : undefined
-                  }
-                />
-                <div
-                  className={cn(
-                    'absolute inset-0',
-                    dark ? 'bg-ink/25' : 'bg-ink/10'
-                  )}
-                />
-              </div>
+              <AppImage
+                src={image}
+                alt=""
+                className="relative z-10 aspect-[16/9] w-full overflow-hidden border-2 border-ink lg:aspect-[2/1]"
+              />
             </div>
           ) : null}
 

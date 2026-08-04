@@ -4,6 +4,7 @@ import { ArrowUpRight, HandCoins } from 'lucide-react'
 import { Em, SectionIntro } from '@/components/marketing/SectionIntro'
 import { ProcessGrid } from '@/components/marketing/ProcessGrid'
 import { GeoIcon } from '@/components/marketing/geo/GeoIcons'
+import { AppImage } from '@/components/shared/AppImage'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { PageHero } from '@/components/shared/PageHero'
 import { Button } from '@/components/ui/button'
@@ -51,10 +52,10 @@ export function SponsorshipPage() {
         <div className="grid lg:grid-cols-2">
           <OffsetBlock offset="lime" className="m-5 sm:m-8 lg:m-10">
             <div className="photo-grain relative aspect-[4/5] overflow-hidden border-2 border-ink sm:aspect-[5/6] lg:aspect-auto lg:min-h-[520px]">
-              <img
+              <AppImage
                 src={peekSlideImages.give}
                 alt=""
-                className="photo-bw absolute inset-0 size-full object-cover"
+                className="absolute inset-0 size-full"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/50 to-transparent" />
             </div>

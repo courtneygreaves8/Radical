@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 
+import { AppImage } from '@/components/shared/AppImage'
 import { OffsetBlock } from '@/components/shared/OffsetBlock'
 import { Button } from '@/components/ui/button'
 import type { CarouselSlide } from '@/lib/content'
@@ -30,16 +31,20 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
     <section className="relative border-b-2 border-ink bg-ink">
       <div className="photo-grain relative aspect-[16/10] min-h-[280px] w-full overflow-hidden sm:aspect-[21/9] sm:min-h-[360px]">
         <AnimatePresence mode="wait">
-          <motion.img
+          <motion.div
             key={slide.id}
-            src={slide.image}
-            alt=""
             initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.55 }}
-            className="photo-bw absolute inset-0 size-full object-cover"
-          />
+            className="absolute inset-0 size-full"
+          >
+            <AppImage
+              src={slide.image}
+              alt=""
+              className="absolute inset-0 size-full"
+            />
+          </motion.div>
         </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
 
