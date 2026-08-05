@@ -1,7 +1,12 @@
 import type { ReactNode } from 'react'
-import { useId, useRef, useState, useSyncExternalStore } from 'react'
+import { useEffect, useId, useRef, useState, useSyncExternalStore } from 'react'
 import { ArrowUpRight, Plus } from 'lucide-react'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useReducedMotion,
+} from 'framer-motion'
 
 import { AppImage } from '@/components/shared/AppImage'
 import { SiteLink } from '@/components/shared/SiteLink'
@@ -79,6 +84,109 @@ function Marquee() {
   )
 }
 
+/**
+ * YOU ARE CALLED → strike / rub out → CHOSEN (Matthew 22:14 beat).
+ * Loops; reduced motion settles on CHOSEN.
+ */
+function CalledChosenHeading({ className }: { className?: string }) {
+  const reduceMotion = useReducedMotion()
+  const [word, setWord] = useState<'called' | 'chosen'>('called')
+  const [striking, setStriking] = useState(false)
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setWord('chosen')
+      setStriking(false)
+      return
+    }
+
+    let cancelled = false
+    const timers: number[] = []
+    const wait = (ms: number) =>
+      new Promise<void>((resolve) => {
+        timers.push(window.setTimeout(resolve, ms))
+      })
+
+    const run = async () => {
+      while (!cancelled) {
+        setWord('called')
+        setStriking(false)
+        await wait(1400)
+        if (cancelled) break
+        setStriking(true)
+        await wait(520)
+        if (cancelled) break
+        setWord('chosen')
+        setStriking(false)
+        await wait(2800)
+      }
+    }
+
+    void run()
+    return () => {
+      cancelled = true
+      timers.forEach((id) => window.clearTimeout(id))
+    }
+  }, [reduceMotion])
+
+  return (
+    <p
+      className={cn(
+        'font-sans text-[clamp(1.65rem,8vw,2.25rem)] font-bold uppercase leading-none tracking-tight text-[var(--v3-ink)]',
+        className
+      )}
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      You are{' '}
+      <span className="relative inline-grid justify-items-start align-baseline">
+        <span className="invisible col-start-1 row-start-1" aria-hidden>
+          Chosen
+        </span>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={word}
+            className="relative col-start-1 row-start-1 inline-block"
+            initial={
+              reduceMotion
+                ? false
+                : word === 'chosen'
+                  ? { opacity: 0, y: '0.2em', filter: 'blur(5px)' }
+                  : { opacity: 0, y: '-0.12em', filter: 'blur(3px)' }
+            }
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={
+              reduceMotion
+                ? undefined
+                : {
+                    opacity: 0,
+                    y: '0.15em',
+                    filter: 'blur(6px)',
+                    transition: { duration: 0.35, ease: [0.4, 0, 1, 1] },
+                  }
+            }
+            transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {word === 'called' ? 'Called' : 'Chosen'}
+            {word === 'called' && !reduceMotion ? (
+              <motion.span
+                aria-hidden
+                className="pointer-events-none absolute top-[52%] left-[-4%] h-[0.12em] w-[108%] origin-left rounded-full bg-[var(--v3-terra)]"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: striking ? 1 : 0 }}
+                transition={{
+                  duration: striking ? 0.42 : 0,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              />
+            ) : null}
+          </motion.span>
+        </AnimatePresence>
+      </span>
+    </p>
+  )
+}
+
 function Hero() {
   /* Desktop locks to a band; mobile sizes to content */
   const band =
@@ -122,8 +230,9 @@ function Hero() {
                 Gritty. Real. Shaping the city.
               </p>
               <p className="mt-2.5 max-w-xl text-[13px] leading-relaxed text-white/55 transition-colors duration-500 group-hover/hero:text-white/85 sm:mt-4 sm:text-[15px]">
-                Fearlessly shaping Norwich for Jesus&apos; Return — a people who
-                stand up, speak up, and will not stay quiet about His name.
+                If you&apos;re here and curious — it&apos;s not just a calling.
+                You&apos;ve been chosen to be part of the Radical movement: a
+                people shaping Norwich for Jesus&apos; Return.
               </p>
             </div>
 
@@ -150,10 +259,8 @@ function Hero() {
             </div>
           </div>
 
-          {/* Mobile — call line above prayer image */}
-          <p className="order-1 col-span-2 font-sans text-[clamp(1.65rem,8vw,2.25rem)] font-bold uppercase leading-none tracking-tight text-[var(--v3-ink)] lg:hidden">
-            You are called
-          </p>
+          {/* Mobile — called → chosen above prayer image */}
+          <CalledChosenHeading className="order-1 col-span-2 lg:hidden" />
 
           {/* Service times — desktop only beside seal; mobile overlays praying image */}
           <aside className="hidden flex-col justify-end gap-1 px-1 pb-1 pt-2 lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:mb-[-4px] lg:flex lg:px-0 lg:pr-36 lg:pt-0 lg:pb-0">
