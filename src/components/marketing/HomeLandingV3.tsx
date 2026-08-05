@@ -519,7 +519,7 @@ function HeroThumb({
       ) : null}
       <CircleTextBadge
         inkHot={sealInkHot}
-        className="absolute -top-5 right-0 z-50 size-[132px] -translate-y-[28%] translate-x-[18%] sm:size-[196px] sm:-translate-y-1/2 sm:translate-x-1/3 lg:size-[276px] lg:translate-x-1/2"
+        className="absolute -top-[12px] right-[10px] z-50 size-[132px] -translate-y-[28%] translate-x-[18%] sm:-top-5 sm:right-0 sm:size-[196px] sm:-translate-y-1/2 sm:translate-x-1/3 lg:size-[276px] lg:translate-x-1/2"
       />
     </div>
   )
