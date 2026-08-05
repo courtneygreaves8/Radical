@@ -21,6 +21,13 @@ const v3PadX = 'px-4 sm:px-8 lg:px-10'
 const v3GridGap = 'gap-3 sm:gap-5'
 const v3SplitGap = 'gap-6 sm:gap-10 lg:gap-12'
 
+/** Large dashed ring under marquee (right) — mirrored left in the revival/podcasts gap */
+const v3RingLarge =
+  'size-[min(95vw,36rem)] rounded-full border border-dashed border-[var(--v3-ink)]/20 sm:size-[min(70vw,40rem)] lg:size-[44rem]'
+const v3RingLargePosRight =
+  'absolute top-0 right-[-28%] sm:right-[-18%] lg:right-[-8%]'
+const v3RingLargePosLeft = 'absolute top-0 left-[-28%] sm:left-[-18%]'
+
 function useIsDesktop() {
   return useSyncExternalStore(
     (onChange) => {
@@ -44,10 +51,30 @@ export function HomeLandingV3() {
         <Hero />
       </div>
       {/* Continuous page bg — no elevated panel/shadow (those drew full-width seams) */}
-      <div className={cn(v3PadX, 'relative flex flex-col pb-2 sm:pb-4')}>
+      <div className={cn(v3PadX, 'relative flex flex-col overflow-visible pb-2 sm:pb-4')}>
         <QuoteFeaturesBand />
         <Narrative />
+        <MobileGapRing />
       </div>
+    </div>
+  )
+}
+
+/**
+ * Mirror of the large QuoteFeaturesBand ring — same size + inset, left side,
+ * clipped like the band so the visible arc matches.
+ */
+function MobileGapRing() {
+  return (
+    <div
+      aria-hidden
+      className={cn(
+        'pointer-events-none relative z-0 overflow-hidden lg:hidden',
+        'h-[min(95vw,36rem)] sm:h-[min(70vw,40rem)]',
+        '-mt-[min(40vw,14rem)] -mb-[min(28vw,10rem)] sm:-mt-[min(28vw,14rem)] sm:-mb-[min(22vw,11rem)]'
+      )}
+    >
+      <div className={cn(v3RingLargePosLeft, v3RingLarge)} />
     </div>
   )
 }
@@ -85,7 +112,7 @@ function Marquee() {
 }
 
 /**
- * YOU ARE CALLED → strike → wipe → CHOSEN (ink) → terracotta.
+ * YOU ARE CALLED → strike → soft wipe → CHOSEN (ink) → terracotta fill.
  * Loops; reduced motion settles on orange CHOSEN.
  */
 function CalledChosenHeading({ className }: { className?: string }) {
@@ -109,19 +136,19 @@ function CalledChosenHeading({ className }: { className?: string }) {
     const run = async () => {
       while (!cancelled) {
         setPhase('called')
-        await wait(1400)
+        await wait(1600)
         if (cancelled) break
         setPhase('striking')
-        await wait(480)
-        if (cancelled) break
-        setPhase('wiping')
         await wait(520)
         if (cancelled) break
+        setPhase('wiping')
+        await wait(720)
+        if (cancelled) break
         setPhase('chosen')
-        await wait(420)
+        await wait(1000)
         if (cancelled) break
         setPhase('orange')
-        await wait(2600)
+        await wait(4540)
       }
     }
 
@@ -158,26 +185,16 @@ function CalledChosenHeading({ className }: { className?: string }) {
               initial={false}
               animate={
                 phase === 'wiping'
-                  ? {
-                      clipPath: 'inset(0 0 0 100%)',
-                      opacity: 0.2,
-                      filter: 'blur(3px)',
-                      x: 6,
-                    }
-                  : {
-                      clipPath: 'inset(0 0 0 0%)',
-                      opacity: 1,
-                      filter: 'blur(0px)',
-                      x: 0,
-                    }
+                  ? { clipPath: 'inset(0 100% 0 0)', opacity: 0.4 }
+                  : { clipPath: 'inset(0 0% 0 0)', opacity: 1 }
               }
               exit={{
                 opacity: 0,
-                transition: { duration: 0.12 },
+                transition: { duration: 0.08 },
               }}
               transition={
                 phase === 'wiping'
-                  ? { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+                  ? { duration: 0.58, ease: [0.4, 0, 0.2, 1] }
                   : { duration: 0.2 }
               }
             >
@@ -202,27 +219,49 @@ function CalledChosenHeading({ className }: { className?: string }) {
           ) : (
             <motion.span
               key={wordKey}
-              className="relative col-start-1 row-start-1 inline-block"
+              className="relative col-start-1 row-start-1 inline-block text-[var(--v3-ink)]"
               initial={
                 reduceMotion
                   ? false
-                  : { opacity: 0, y: '0.18em', filter: 'blur(4px)' }
+                  : { opacity: 0, y: '0.12em', filter: 'blur(3px)' }
               }
               animate={{
                 opacity: 1,
                 y: 0,
                 filter: 'blur(0px)',
-                color: phase === 'orange' ? '#d86637' : '#1e1512',
               }}
               exit={{ opacity: 0, transition: { duration: 0.15 } }}
               transition={{
-                opacity: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
-                y: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
-                filter: { duration: 0.38 },
-                color: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+                duration: 0.4,
+                ease: [0.22, 1, 0.36, 1],
               }}
             >
-              Chosen
+              <span
+                className={
+                  reduceMotion ? 'text-[var(--v3-terra)]' : undefined
+                }
+              >
+                Chosen
+              </span>
+              {!reduceMotion ? (
+                <motion.span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 text-[var(--v3-terra)]"
+                  initial={{ clipPath: 'inset(0 100% 0 0)' }}
+                  animate={{
+                    clipPath:
+                      phase === 'orange'
+                        ? 'inset(0 0% 0 0)'
+                        : 'inset(0 100% 0 0)',
+                  }}
+                  transition={{
+                    duration: phase === 'orange' ? 0.55 : 0,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  Chosen
+                </motion.span>
+              ) : null}
             </motion.span>
           )}
         </AnimatePresence>
@@ -634,12 +673,7 @@ function QuoteFeaturesBand() {
           )}
         />
         {/* Right — larger, behind quote end + Missions */}
-        <div
-          className={cn(
-            'absolute top-0 right-[-28%] size-[min(95vw,36rem)] rounded-full',
-            'border border-dashed border-[var(--v3-ink)]/20 sm:right-[-18%] sm:size-[min(70vw,40rem)] lg:right-[-8%] lg:size-[44rem]'
-          )}
-        />
+        <div className={cn(v3RingLargePosRight, v3RingLarge)} />
       </div>
 
       <div className="relative z-[1]">
@@ -877,15 +911,6 @@ function Narrative() {
           </h2>
         </div>
       </div>
-
-      {/* Mobile — dashed ring left, between revival copy and podcasts */}
-      <div
-        aria-hidden
-        className={cn(
-          'pointer-events-none absolute bottom-0 left-[-8%] z-0 size-[min(58vw,22rem)] translate-y-1/2 rounded-full lg:hidden',
-          'border border-dashed border-[var(--v3-ink)]/20'
-        )}
-      />
     </section>
   )
 }
