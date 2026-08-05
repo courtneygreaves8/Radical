@@ -85,18 +85,17 @@ function Marquee() {
 }
 
 /**
- * YOU ARE CALLED → strike / rub out → CHOSEN (Matthew 22:14 beat).
- * Loops; reduced motion settles on CHOSEN.
+ * YOU ARE CALLED → strike → wipe → CHOSEN (ink) → terracotta.
+ * Loops; reduced motion settles on orange CHOSEN.
  */
 function CalledChosenHeading({ className }: { className?: string }) {
   const reduceMotion = useReducedMotion()
-  const [word, setWord] = useState<'called' | 'chosen'>('called')
-  const [striking, setStriking] = useState(false)
+  type Phase = 'called' | 'striking' | 'wiping' | 'chosen' | 'orange'
+  const [phase, setPhase] = useState<Phase>('called')
 
   useEffect(() => {
     if (reduceMotion) {
-      setWord('chosen')
-      setStriking(false)
+      setPhase('orange')
       return
     }
 
@@ -109,16 +108,20 @@ function CalledChosenHeading({ className }: { className?: string }) {
 
     const run = async () => {
       while (!cancelled) {
-        setWord('called')
-        setStriking(false)
+        setPhase('called')
         await wait(1400)
         if (cancelled) break
-        setStriking(true)
+        setPhase('striking')
+        await wait(480)
+        if (cancelled) break
+        setPhase('wiping')
         await wait(520)
         if (cancelled) break
-        setWord('chosen')
-        setStriking(false)
-        await wait(2800)
+        setPhase('chosen')
+        await wait(420)
+        if (cancelled) break
+        setPhase('orange')
+        await wait(2600)
       }
     }
 
@@ -128,6 +131,10 @@ function CalledChosenHeading({ className }: { className?: string }) {
       timers.forEach((id) => window.clearTimeout(id))
     }
   }, [reduceMotion])
+
+  const showCalled =
+    phase === 'called' || phase === 'striking' || phase === 'wiping'
+  const wordKey = showCalled ? 'called' : 'chosen'
 
   return (
     <p
@@ -144,43 +151,80 @@ function CalledChosenHeading({ className }: { className?: string }) {
           Chosen
         </span>
         <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={word}
-            className="relative col-start-1 row-start-1 inline-block"
-            initial={
-              reduceMotion
-                ? false
-                : word === 'chosen'
-                  ? { opacity: 0, y: '0.2em', filter: 'blur(5px)' }
-                  : { opacity: 0, y: '-0.12em', filter: 'blur(3px)' }
-            }
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            exit={
-              reduceMotion
-                ? undefined
-                : {
-                    opacity: 0,
-                    y: '0.15em',
-                    filter: 'blur(6px)',
-                    transition: { duration: 0.35, ease: [0.4, 0, 1, 1] },
-                  }
-            }
-            transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {word === 'called' ? 'Called' : 'Chosen'}
-            {word === 'called' && !reduceMotion ? (
-              <motion.span
-                aria-hidden
-                className="pointer-events-none absolute top-[52%] left-[-4%] h-[0.12em] w-[108%] origin-left rounded-full bg-[var(--v3-terra)]"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: striking ? 1 : 0 }}
-                transition={{
-                  duration: striking ? 0.42 : 0,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              />
-            ) : null}
-          </motion.span>
+          {showCalled ? (
+            <motion.span
+              key="called"
+              className="relative col-start-1 row-start-1 inline-block text-[var(--v3-ink)]"
+              initial={false}
+              animate={
+                phase === 'wiping'
+                  ? {
+                      clipPath: 'inset(0 0 0 100%)',
+                      opacity: 0.2,
+                      filter: 'blur(3px)',
+                      x: 6,
+                    }
+                  : {
+                      clipPath: 'inset(0 0 0 0%)',
+                      opacity: 1,
+                      filter: 'blur(0px)',
+                      x: 0,
+                    }
+              }
+              exit={{
+                opacity: 0,
+                transition: { duration: 0.12 },
+              }}
+              transition={
+                phase === 'wiping'
+                  ? { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+                  : { duration: 0.2 }
+              }
+            >
+              Called
+              {!reduceMotion ? (
+                <motion.span
+                  aria-hidden
+                  className="pointer-events-none absolute top-[calc(52%-4px)] left-[-4%] h-[0.12em] w-[108%] origin-left rounded-full bg-[var(--v3-terra)]"
+                  initial={{ scaleX: 0 }}
+                  animate={{
+                    scaleX:
+                      phase === 'striking' || phase === 'wiping' ? 1 : 0,
+                  }}
+                  transition={{
+                    duration:
+                      phase === 'striking' ? 0.42 : phase === 'wiping' ? 0 : 0,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                />
+              ) : null}
+            </motion.span>
+          ) : (
+            <motion.span
+              key={wordKey}
+              className="relative col-start-1 row-start-1 inline-block"
+              initial={
+                reduceMotion
+                  ? false
+                  : { opacity: 0, y: '0.18em', filter: 'blur(4px)' }
+              }
+              animate={{
+                opacity: 1,
+                y: 0,
+                filter: 'blur(0px)',
+                color: phase === 'orange' ? '#d86637' : '#1e1512',
+              }}
+              exit={{ opacity: 0, transition: { duration: 0.15 } }}
+              transition={{
+                opacity: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
+                y: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
+                filter: { duration: 0.38 },
+                color: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+              }}
+            >
+              Chosen
+            </motion.span>
+          )}
         </AnimatePresence>
       </span>
     </p>
@@ -758,14 +802,14 @@ function Narrative() {
 
   return (
     <section ref={ref} className={cn('relative mt-10 mb-0 sm:mt-20 lg:mt-[120px]')}>
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-8 lg:px-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-[14px] sm:px-8 lg:px-10">
         <div
           className={cn(
             'relative z-10 grid items-center lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]',
             v3SplitGap
           )}
         >
-          <div className="relative mx-auto w-full max-w-[22rem] pb-10 sm:max-w-[40rem] sm:pb-16 lg:mx-0 lg:max-w-none lg:pb-8">
+          <div className="relative mx-auto w-full max-w-[18rem] pb-10 sm:max-w-[40rem] sm:pb-16 lg:mx-0 lg:max-w-none lg:pb-8">
             <div className="relative flex justify-center lg:justify-start lg:pl-2">
               {/* Landscape orange — desktop only behind the fan */}
               <div
@@ -782,15 +826,15 @@ function Narrative() {
 
               <div
                 className={cn(
-                  'relative z-10 aspect-[3/4] w-[15.5rem] origin-top sm:w-[20rem] lg:w-[22.5rem]',
+                  'relative z-10 aspect-[3/4] w-[min(12rem,calc(100%-3.5rem))] origin-top sm:w-[20rem] lg:w-[22.5rem]',
                   'max-lg:rotate-0 lg:-rotate-[15deg]'
                 )}
               >
                 {caps.map((c, i) => {
                   const fromCenter = i - (caps.length - 1) / 2
-                  const fan = fromCenter * (isDesktop ? 18 : 10)
-                  const x = fromCenter * (isDesktop ? 5.5 : 2.75)
-                  const y = Math.abs(fromCenter) * (isDesktop ? 0.55 : 0.35)
+                  const fan = fromCenter * (isDesktop ? 18 : 8)
+                  const x = fromCenter * (isDesktop ? 5.5 : 1.75)
+                  const y = Math.abs(fromCenter) * (isDesktop ? 0.55 : 0.3)
                   return (
                     <SiteLink
                       key={c.title}
@@ -833,6 +877,15 @@ function Narrative() {
           </h2>
         </div>
       </div>
+
+      {/* Mobile — dashed ring left, between revival copy and podcasts */}
+      <div
+        aria-hidden
+        className={cn(
+          'pointer-events-none absolute bottom-0 left-[-8%] z-0 size-[min(58vw,22rem)] translate-y-1/2 rounded-full lg:hidden',
+          'border border-dashed border-[var(--v3-ink)]/20'
+        )}
+      />
     </section>
   )
 }
