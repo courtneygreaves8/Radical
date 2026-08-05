@@ -171,7 +171,7 @@ function Hero() {
 
           {/* Praying man — service times sit top-left on mobile */}
           <div className="relative order-1 col-span-2 min-h-[14rem] sm:min-h-[16rem] lg:contents">
-            <div className="pointer-events-none absolute inset-x-0 top-0 z-30 rounded-t-[1.35rem] bg-gradient-to-b from-[var(--v3-ink)]/65 via-[var(--v3-ink)]/25 to-transparent p-4 pb-16 sm:rounded-t-[1.6rem] lg:hidden">
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-20 rounded-t-[1.35rem] bg-gradient-to-b from-[var(--v3-ink)]/65 via-[var(--v3-ink)]/25 to-transparent p-4 pb-16 sm:rounded-t-[1.6rem] lg:hidden">
               <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/65">
                 Service times
               </p>
@@ -317,11 +317,11 @@ function HeroThumb({
   if (!badge) return card
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn('relative z-40', className)}>
       {card}
       <CircleTextBadge
         inkHot={sealInkHot}
-        className="absolute top-0 right-0 z-20 size-36 -translate-y-[28%] translate-x-[18%] sm:size-52 sm:-translate-y-1/2 sm:translate-x-1/3 lg:size-72 lg:translate-x-1/2"
+        className="absolute top-0 right-0 z-50 size-36 -translate-y-[28%] translate-x-[18%] sm:size-52 sm:-translate-y-1/2 sm:translate-x-1/3 lg:size-72 lg:translate-x-1/2"
       />
     </div>
   )
@@ -493,7 +493,7 @@ function QuoteFeaturesBand() {
 
 function Quote() {
   return (
-    <section className={v3SectionY}>
+    <section className="py-16 sm:py-24 lg:py-28">
       <p className="mx-auto max-w-4xl font-sans text-[clamp(1.25rem,5.5vw,2.85rem)] font-bold leading-[1.22] tracking-tight text-[var(--v3-ink)] [text-indent:0.75rem] sm:[text-indent:3.5rem] lg:[text-indent:4.5rem]">
         A church that runs toward the{' '}
         <span className="text-[var(--v3-terra)]">broken</span> will{' '}
@@ -533,7 +533,7 @@ function FeatureRow() {
   }
 
   return (
-    <section className={cn('relative z-10 pt-[80px]', v3SectionY)}>
+    <section className="relative z-10 pb-10 sm:pb-20 lg:pb-[120px]">
       <div
         className={cn(
           'mx-auto grid max-w-7xl items-stretch sm:grid-cols-2 lg:grid-cols-4',
@@ -541,7 +541,6 @@ function FeatureRow() {
         )}
       >
         <motion.div
-          className="lg:-translate-y-1/2"
           animate={sideFloat}
           transition={sideTransition}
         >
@@ -593,7 +592,6 @@ function FeatureRow() {
         {sideTiles.map((t) => (
           <motion.div
             key={t.label}
-            className="lg:-translate-y-2/3"
             animate={sideFloat}
             transition={{ ...sideTransition, delay: 0.35 }}
           >
@@ -652,15 +650,15 @@ function Narrative() {
             v3SplitGap
           )}
         >
-          <div className="relative mx-auto w-full max-w-[18rem] pb-10 sm:max-w-[40rem] sm:pb-16 lg:mx-0 lg:max-w-none lg:pb-8">
+          <div className="relative mx-auto w-full max-w-[22rem] pb-10 sm:max-w-[40rem] sm:pb-16 lg:mx-0 lg:max-w-none lg:pb-8">
             <div className="relative flex justify-center lg:justify-start lg:pl-2">
-              {/* Landscape orange — sits behind the fan only */}
+              {/* Landscape orange — desktop only behind the fan */}
               <div
                 aria-hidden
                 className={cn(
-                  'pointer-events-none absolute top-1/2 left-1/2 z-0 -translate-x-[42%] -translate-y-1/2',
-                  'aspect-[16/10] w-[min(118%,28rem)] sm:w-[min(125%,34rem)] lg:w-[min(130%,38rem)]',
-                  'rounded-[1.25rem] sm:rounded-[2rem]',
+                  'pointer-events-none absolute top-1/2 left-1/2 z-0 hidden -translate-x-[42%] -translate-y-1/2 lg:block',
+                  'aspect-[16/10] w-[min(130%,38rem)]',
+                  'rounded-[2rem]',
                   'bg-gradient-to-br from-[#e8925a] via-[var(--v3-terra)] to-[#8f3a1c]',
                   inView ? 'opacity-100' : 'opacity-0',
                   !reduceMotion && 'transition-opacity duration-700 ease-out'
@@ -669,7 +667,7 @@ function Narrative() {
 
               <div
                 className={cn(
-                  'relative z-10 aspect-[3/4] w-[12.5rem] origin-top sm:w-[19rem] lg:w-[21.5rem]',
+                  'relative z-10 aspect-[3/4] w-[15.5rem] origin-top sm:w-[20rem] lg:w-[22.5rem]',
                   'max-lg:rotate-0 lg:-rotate-[15deg]'
                 )}
               >
