@@ -665,10 +665,10 @@ function QuoteFeaturesBand() {
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0"
       >
-        {/* Left — behind Give */}
+        {/* Left — behind Give (tablet/desktop only) */}
         <div
           className={cn(
-            'absolute top-[calc(42%+112px)] left-[-8%] size-[min(58vw,22rem)] -translate-y-1/2 rounded-full',
+            'absolute top-[calc(42%+112px)] left-[-8%] hidden size-[min(58vw,22rem)] -translate-y-1/2 rounded-full sm:block',
             'border border-dashed border-[var(--v3-ink)]/20 sm:left-[-2%] sm:size-[min(42vw,24rem)] lg:top-[calc(48%+112px)] lg:left-[2%] lg:size-[26rem]'
           )}
         />
