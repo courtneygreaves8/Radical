@@ -103,7 +103,7 @@ function Hero() {
         <div className="relative z-10 mx-auto grid h-full w-full max-w-7xl grid-cols-2 gap-3 px-4 py-4 sm:gap-5 sm:px-8 sm:py-6 lg:grid-cols-3 lg:grid-rows-[minmax(0,0.9fr)_minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-5 lg:px-10 lg:py-7">
           {/* Ink copy — burnt orange gradient on hover */}
           <div
-            className="group/hero relative col-span-2 flex flex-col justify-between gap-5 overflow-hidden rounded-[1.25rem] bg-[var(--v3-ink)] px-5 py-5 text-white transition-colors duration-500 sm:gap-6 sm:rounded-[1.75rem] sm:px-8 sm:py-8 lg:col-span-2 lg:row-span-2 lg:rounded-[2rem] lg:px-10 lg:py-9"
+            className="group/hero relative order-3 col-span-2 flex flex-col justify-between gap-5 overflow-hidden rounded-[1.25rem] bg-[var(--v3-ink)] px-5 py-5 text-white transition-colors duration-500 sm:gap-6 sm:rounded-[1.75rem] sm:px-8 sm:py-8 lg:order-none lg:col-span-2 lg:row-span-2 lg:rounded-[2rem] lg:px-10 lg:py-9"
             onMouseEnter={() => setInkHot(true)}
             onMouseLeave={() => setInkHot(false)}
           >
@@ -112,8 +112,12 @@ function Hero() {
               className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#e07a42] via-[var(--v3-terra)] to-[#8f3a1c] opacity-0 transition-opacity duration-500 ease-out group-hover/hero:opacity-100"
             />
             <div className="relative z-10 min-w-0">
-              <h1 className="max-w-2xl font-sans text-[clamp(1.35rem,6.2vw,2.65rem)] font-bold uppercase leading-[1.05] tracking-tight text-white">
-                Norwich&apos;s Fearless Church.
+              <h1 className="max-w-2xl font-sans text-[clamp(2.35rem,12vw,2.65rem)] font-bold uppercase leading-[0.95] tracking-tight text-white sm:text-[clamp(1.5rem,3.2vw,2.65rem)] sm:leading-[1.05]">
+                Norwich&apos;s
+                <br className="sm:hidden" />{' '}
+                Fearless
+                <br className="sm:hidden" />{' '}
+                Church.
               </h1>
               <p className="mt-1.5 font-sans text-[clamp(0.8rem,3.4vw,1.2rem)] font-bold uppercase tracking-[0.12em] text-white/70 transition-colors duration-500 group-hover/hero:text-white/90 sm:mt-2 sm:tracking-[0.14em]">
                 Gritty. Real. Shaping the city.
@@ -147,8 +151,8 @@ function Hero() {
             </div>
           </div>
 
-          {/* Service times — centered between ink block & seal; nudged down 22px */}
-          <aside className="col-span-2 flex flex-col justify-end gap-0.5 px-0.5 pt-1 sm:gap-1 sm:px-1 sm:pb-1 sm:pt-2 lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:mb-[-4px] lg:justify-end lg:px-0 lg:pr-36 lg:pt-0 lg:pb-0">
+          {/* Service times — under praying image on mobile; desktop beside seal */}
+          <aside className="order-2 col-span-2 flex flex-col justify-end gap-0.5 px-0.5 pt-0 sm:gap-1 sm:px-1 sm:pb-1 sm:pt-2 lg:order-none lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:mb-[-4px] lg:justify-end lg:px-0 lg:pr-36 lg:pt-0 lg:pb-0">
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--v3-ink)]/45 sm:text-[11px]">
               Service times
             </p>
@@ -165,14 +169,14 @@ function Hero() {
             </p>
           </aside>
 
-          {/* Card 3 — starts at half brown height, runs to bottom with cards 1–2 */}
+          {/* Praying man — leads on mobile, tall right column on desktop */}
           <HeroThumb
             to="/visit"
             heading="This Sunday"
             src={heroSlots.sunday}
             badge
             sealInkHot={inkHot}
-            className="col-span-2 min-h-[11.5rem] sm:min-h-[16rem] lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-2 lg:min-h-0"
+            className="order-1 col-span-2 min-h-[14rem] sm:min-h-[16rem] lg:order-none lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-2 lg:min-h-0"
           />
 
           {/* Cards 1 + 2 — side-by-side on mobile */}
@@ -182,7 +186,7 @@ function Hero() {
             src={heroSlots.about}
             finish="natural"
             variant="card"
-            className="min-h-[9.5rem] sm:min-h-[14rem] lg:col-start-1 lg:row-start-3 lg:min-h-0"
+            className="order-4 min-h-[9.5rem] sm:min-h-[14rem] lg:order-none lg:col-start-1 lg:row-start-3 lg:min-h-0"
           />
           <HeroThumb
             to="/missions"
@@ -190,7 +194,7 @@ function Hero() {
             src={heroSlots.city}
             finish="bw-grain"
             variant="card"
-            className="min-h-[9.5rem] sm:min-h-[14rem] lg:col-start-2 lg:row-start-3 lg:min-h-0"
+            className="order-5 min-h-[9.5rem] sm:min-h-[14rem] lg:order-none lg:col-start-2 lg:row-start-3 lg:min-h-0"
           />
         </div>
       </div>
