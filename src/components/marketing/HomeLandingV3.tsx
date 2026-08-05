@@ -87,7 +87,7 @@ function Hero() {
   const [inkHot, setInkHot] = useState(false)
 
   return (
-    <section className="relative overflow-x-clip bg-[var(--v3-below)]">
+    <section className="relative overflow-x-clip bg-[var(--v3-below)] pt-12 lg:pt-0">
       <div className={cn('relative', band)}>
         {/* Left-edge watermark — desktop/tablet; crowded on small screens */}
         <div
@@ -151,17 +151,17 @@ function Hero() {
             </div>
           </div>
 
-          {/* Service times — under praying image on mobile; desktop beside seal */}
-          <aside className="order-2 col-span-2 flex flex-col justify-end gap-0.5 px-0.5 pt-0 sm:gap-1 sm:px-1 sm:pb-1 sm:pt-2 lg:order-none lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:mb-[-4px] lg:justify-end lg:px-0 lg:pr-36 lg:pt-0 lg:pb-0">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--v3-ink)]/45 sm:text-[11px]">
+          {/* Service times — desktop only beside seal; mobile overlays praying image */}
+          <aside className="hidden flex-col justify-end gap-1 px-1 pb-1 pt-2 lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:mb-[-4px] lg:flex lg:px-0 lg:pr-36 lg:pt-0 lg:pb-0">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--v3-ink)]/45">
               Service times
             </p>
-            <p className="font-sans text-lg font-bold uppercase leading-tight tracking-tight text-[var(--v3-ink)] sm:text-2xl">
+            <p className="font-sans text-2xl font-bold uppercase leading-tight tracking-tight text-[var(--v3-ink)]">
               {siteMeta.visit.day}
               <span className="text-[var(--v3-terra)]"> · </span>
               {siteMeta.visit.time}
             </p>
-            <p className="mt-0.5 text-sm font-medium text-[var(--v3-ink)]/70 sm:mt-1">
+            <p className="mt-1 text-sm font-medium text-[var(--v3-ink)]/70">
               {siteMeta.visit.venue}
             </p>
             <p className="text-xs leading-relaxed text-[var(--v3-ink)]/45">
@@ -169,15 +169,33 @@ function Hero() {
             </p>
           </aside>
 
-          {/* Praying man — leads on mobile, tall right column on desktop */}
-          <HeroThumb
-            to="/visit"
-            heading="This Sunday"
-            src={heroSlots.sunday}
-            badge
-            sealInkHot={inkHot}
-            className="order-1 col-span-2 min-h-[14rem] sm:min-h-[16rem] lg:order-none lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-2 lg:min-h-0"
-          />
+          {/* Praying man — service times sit top-left on mobile */}
+          <div className="relative order-1 col-span-2 min-h-[14rem] sm:min-h-[16rem] lg:contents">
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-30 rounded-t-[1.35rem] bg-gradient-to-b from-[var(--v3-ink)]/65 via-[var(--v3-ink)]/25 to-transparent p-4 pb-16 sm:rounded-t-[1.6rem] lg:hidden">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/65">
+                Service times
+              </p>
+              <p className="mt-0.5 font-sans text-lg font-bold uppercase leading-tight tracking-tight text-white">
+                {siteMeta.visit.day}
+                <span className="text-[var(--v3-terra)]"> · </span>
+                {siteMeta.visit.time}
+              </p>
+              <p className="mt-0.5 text-sm font-medium text-white/80">
+                {siteMeta.visit.venue}
+              </p>
+              <p className="text-xs leading-relaxed text-white/55">
+                {siteMeta.visit.address}
+              </p>
+            </div>
+            <HeroThumb
+              to="/visit"
+              heading="This Sunday"
+              src={heroSlots.sunday}
+              badge
+              sealInkHot={inkHot}
+              className="min-h-[14rem] sm:min-h-[16rem] lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-2 lg:min-h-0"
+            />
+          </div>
 
           {/* Cards 1 + 2 — side-by-side on mobile */}
           <HeroThumb
