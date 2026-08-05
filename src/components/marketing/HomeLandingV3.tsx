@@ -168,33 +168,16 @@ function Hero() {
             </p>
           </aside>
 
-          {/* Praying man — service times sit top-left on mobile */}
-          <div className="relative order-1 col-span-2 min-h-[14rem] sm:min-h-[16rem] lg:contents">
-            <div className="pointer-events-none absolute inset-x-0 top-0 z-20 rounded-t-[1.35rem] bg-gradient-to-b from-[var(--v3-ink)]/65 via-[var(--v3-ink)]/25 to-transparent p-4 pb-16 sm:rounded-t-[1.6rem] lg:hidden">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/65">
-                Service times
-              </p>
-              <p className="mt-0.5 font-sans text-lg font-bold uppercase leading-tight tracking-tight text-white">
-                {siteMeta.visit.day}
-                <span className="text-[var(--v3-terra)]"> · </span>
-                {siteMeta.visit.time}
-              </p>
-              <p className="mt-0.5 text-sm font-medium text-white/80">
-                {siteMeta.visit.venue}
-              </p>
-              <p className="text-xs leading-relaxed text-white/55">
-                {siteMeta.visit.address}
-              </p>
-            </div>
-            <HeroThumb
-              to="/visit"
-              heading="This Sunday"
-              src={heroSlots.sunday}
-              badge
-              sealInkHot={inkHot}
-              className="min-h-[14rem] sm:min-h-[16rem] lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-2 lg:min-h-0"
-            />
-          </div>
+          {/* Praying man — service times top-left on mobile (inside thumb stacking) */}
+          <HeroThumb
+            to="/visit"
+            heading="This Sunday"
+            src={heroSlots.sunday}
+            badge
+            sealInkHot={inkHot}
+            mobileService
+            className="order-1 col-span-2 min-h-[14rem] sm:min-h-[16rem] lg:order-none lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-2 lg:min-h-0"
+          />
 
           {/* Cards 1 + 2 — side-by-side on mobile */}
           <HeroThumb
@@ -230,6 +213,7 @@ function HeroThumb({
   sealInkHot,
   finish = 'bw-grain',
   variant = 'bleed',
+  mobileService = false,
 }: {
   to: string
   heading: string
@@ -239,6 +223,8 @@ function HeroThumb({
   sealInkHot?: boolean
   finish?: 'bw-grain' | 'grain' | 'natural'
   variant?: 'bleed' | 'card'
+  /** Light service-times overlay, top-left on mobile only */
+  mobileService?: boolean
 }) {
   const hasPhoto = Boolean(src)
 
@@ -318,6 +304,24 @@ function HeroThumb({
   return (
     <div className={cn('relative z-40', className)}>
       {card}
+      {mobileService ? (
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-30 rounded-t-[1.35rem] bg-gradient-to-b from-[var(--v3-ink)]/70 via-[var(--v3-ink)]/30 to-transparent p-4 pb-20 sm:rounded-t-[1.6rem] lg:hidden">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70">
+            Service times
+          </p>
+          <p className="mt-0.5 font-sans text-lg font-bold uppercase leading-tight tracking-tight text-white">
+            {siteMeta.visit.day}
+            <span className="text-[var(--v3-terra)]"> · </span>
+            {siteMeta.visit.time}
+          </p>
+          <p className="mt-0.5 text-sm font-medium text-white/85">
+            {siteMeta.visit.venue}
+          </p>
+          <p className="text-xs leading-relaxed text-white/60">
+            {siteMeta.visit.address}
+          </p>
+        </div>
+      ) : null}
       <CircleTextBadge
         inkHot={sealInkHot}
         className="absolute top-0 right-0 z-50 size-36 -translate-y-[28%] translate-x-[18%] sm:size-52 sm:-translate-y-1/2 sm:translate-x-1/3 lg:size-72 lg:translate-x-1/2"
