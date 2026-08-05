@@ -86,7 +86,7 @@ function Hero() {
   const [inkHot, setInkHot] = useState(false)
 
   return (
-    <section className="relative overflow-x-clip bg-[var(--v3-below)] pt-12 lg:pt-0">
+    <section className="relative overflow-x-clip bg-[var(--v3-below)] pt-9 lg:pt-0">
       <div className={cn('relative', band)}>
         {/* Left-edge watermark — desktop/tablet; crowded on small screens */}
         <div
@@ -478,8 +478,8 @@ function QuoteFeaturesBand() {
         {/* Left — behind Give */}
         <div
           className={cn(
-            'absolute top-[calc(42%+160px)] left-[-8%] size-[min(58vw,22rem)] -translate-y-1/2 rounded-full',
-            'border border-dashed border-[var(--v3-ink)]/20 sm:left-[-2%] sm:size-[min(42vw,24rem)] lg:top-[calc(48%+160px)] lg:left-[2%] lg:size-[26rem]'
+            'absolute top-[calc(42%+120px)] left-[-8%] size-[min(58vw,22rem)] -translate-y-1/2 rounded-full',
+            'border border-dashed border-[var(--v3-ink)]/20 sm:left-[-2%] sm:size-[min(42vw,24rem)] lg:top-[calc(48%+120px)] lg:left-[2%] lg:size-[26rem]'
           )}
         />
         {/* Right — larger, behind quote end + Missions */}
