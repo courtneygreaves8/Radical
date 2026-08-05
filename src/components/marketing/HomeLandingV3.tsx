@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils'
 
 /** Shared horizontal + vertical rhythm for below-fold sections */
 const v3PadX = 'px-4 sm:px-8 lg:px-10'
-const v3SectionY = 'my-10 sm:my-20 lg:my-[120px]'
 const v3GridGap = 'gap-3 sm:gap-5'
 const v3SplitGap = 'gap-6 sm:gap-10 lg:gap-12'
 
