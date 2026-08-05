@@ -202,7 +202,7 @@ function CalledChosenHeading({ className }: { className?: string }) {
               {!reduceMotion ? (
                 <motion.span
                   aria-hidden
-                  className="pointer-events-none absolute top-[calc(52%-4px)] left-[-4%] h-[0.12em] w-[108%] origin-left rounded-full bg-[var(--v3-terra)]"
+                  className="pointer-events-none absolute top-[calc(52%-2px)] left-[-4%] h-[0.12em] w-[108%] origin-left rounded-full bg-[var(--v3-terra)]"
                   initial={{ scaleX: 0 }}
                   animate={{
                     scaleX:
