@@ -150,6 +150,11 @@ function Hero() {
             </div>
           </div>
 
+          {/* Mobile — call line above prayer image */}
+          <p className="order-1 col-span-2 font-sans text-[clamp(1.65rem,8vw,2.25rem)] font-bold uppercase leading-none tracking-tight text-[var(--v3-ink)] lg:hidden">
+            You are called
+          </p>
+
           {/* Service times — desktop only beside seal; mobile overlays praying image */}
           <aside className="hidden flex-col justify-end gap-1 px-1 pb-1 pt-2 lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:mb-[-4px] lg:flex lg:px-0 lg:pr-36 lg:pt-0 lg:pb-0">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--v3-ink)]/45">
@@ -176,7 +181,7 @@ function Hero() {
             badge
             sealInkHot={inkHot}
             mobileService
-            className="order-1 col-span-2 min-h-[14rem] sm:min-h-[16rem] lg:order-none lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-2 lg:min-h-0"
+            className="order-2 col-span-2 min-h-[14rem] sm:min-h-[16rem] lg:order-none lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-2 lg:min-h-0"
           />
 
           {/* Cards 1 + 2 — side-by-side on mobile */}
