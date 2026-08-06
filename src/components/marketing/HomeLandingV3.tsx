@@ -115,10 +115,19 @@ function Marquee() {
  * YOU ARE CALLED → strike → soft wipe → CHOSEN (ink) → terracotta fill.
  * Loops; reduced motion settles on orange CHOSEN.
  */
-function CalledChosenHeading({ className }: { className?: string }) {
+function CalledChosenHeading({
+  className,
+  tone = 'ink',
+}: {
+  className?: string
+  /** ink = cream page; inverse = dark hero panel */
+  tone?: 'ink' | 'inverse'
+}) {
   const reduceMotion = useReducedMotion()
   type Phase = 'called' | 'striking' | 'wiping' | 'chosen' | 'orange'
   const [phase, setPhase] = useState<Phase>('called')
+  const wordTone =
+    tone === 'inverse' ? 'text-white' : 'text-[var(--v3-ink)]'
 
   useEffect(() => {
     if (reduceMotion) {
@@ -166,7 +175,8 @@ function CalledChosenHeading({ className }: { className?: string }) {
   return (
     <p
       className={cn(
-        'font-sans text-[clamp(1.65rem,8vw,2.25rem)] font-bold uppercase leading-none tracking-tight text-[var(--v3-ink)]',
+        'font-sans text-[clamp(1.65rem,8vw,2.25rem)] font-bold uppercase leading-none tracking-tight',
+        tone === 'inverse' ? 'text-white' : 'text-[var(--v3-ink)]',
         className
       )}
       aria-live="polite"
@@ -181,7 +191,10 @@ function CalledChosenHeading({ className }: { className?: string }) {
           {showCalled ? (
             <motion.span
               key="called"
-              className="relative col-start-1 row-start-1 inline-block text-[var(--v3-ink)]"
+              className={cn(
+                'relative col-start-1 row-start-1 inline-block',
+                wordTone
+              )}
               initial={false}
               animate={
                 phase === 'wiping'
@@ -202,7 +215,10 @@ function CalledChosenHeading({ className }: { className?: string }) {
               {!reduceMotion ? (
                 <motion.span
                   aria-hidden
-                  className="pointer-events-none absolute top-[calc(52%-3px)] left-[-4%] h-[0.12em] w-[108%] origin-left rounded-full bg-[var(--v3-terra)]"
+                  className={cn(
+                    'pointer-events-none absolute top-[calc(52%-3px)] left-[-4%] h-[0.12em] w-[108%] origin-left rounded-full transition-colors duration-500',
+                    'bg-[var(--v3-terra)] group-hover/hero:bg-[var(--v3-cream)]'
+                  )}
                   initial={{ scaleX: 0 }}
                   animate={{
                     scaleX:
@@ -219,7 +235,10 @@ function CalledChosenHeading({ className }: { className?: string }) {
           ) : (
             <motion.span
               key={wordKey}
-              className="relative col-start-1 row-start-1 inline-block text-[var(--v3-ink)]"
+              className={cn(
+                'relative col-start-1 row-start-1 inline-block',
+                wordTone
+              )}
               initial={
                 reduceMotion
                   ? false
@@ -237,16 +256,17 @@ function CalledChosenHeading({ className }: { className?: string }) {
               }}
             >
               <span
-                className={
-                  reduceMotion ? 'text-[var(--v3-terra)]' : undefined
-                }
+                className={cn(
+                  reduceMotion &&
+                    'text-[var(--v3-terra)] transition-colors duration-500 group-hover/hero:text-[var(--v3-ink)]'
+                )}
               >
                 Chosen
               </span>
               {!reduceMotion ? (
                 <motion.span
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 text-[var(--v3-terra)]"
+                  className="pointer-events-none absolute inset-0 text-[var(--v3-terra)] transition-colors duration-500 group-hover/hero:text-[var(--v3-ink)]"
                   initial={{ clipPath: 'inset(0 100% 0 0)' }}
                   animate={{
                     clipPath:
@@ -302,6 +322,10 @@ function Hero() {
               className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#e07a42] via-[var(--v3-terra)] to-[#8f3a1c] opacity-0 transition-opacity duration-500 ease-out group-hover/hero:opacity-100"
             />
             <div className="relative z-10 min-w-0">
+              <CalledChosenHeading
+                tone="inverse"
+                className="mb-3 hidden text-[clamp(1.15rem,1.8vw,1.55rem)] lg:block"
+              />
               <h1 className="max-w-2xl font-sans text-[clamp(2.35rem,12vw,2.65rem)] font-bold uppercase leading-[0.95] tracking-tight text-white sm:text-[clamp(1.5rem,3.2vw,2.65rem)] sm:leading-[1.05]">
                 Norwich&apos;s
                 <br className="sm:hidden" />{' '}
@@ -851,7 +875,7 @@ function Narrative() {
               <div
                 aria-hidden
                 className={cn(
-                  'pointer-events-none absolute top-1/2 left-1/2 z-0 hidden -translate-x-[42%] -translate-y-1/2 lg:block',
+                  'pointer-events-none absolute top-1/2 left-1/2 z-0 hidden -translate-x-[42%] -translate-y-1/2 -rotate-[17deg] lg:block',
                   'aspect-[16/10] w-[min(130%,38rem)]',
                   'rounded-[2rem]',
                   'bg-gradient-to-br from-[#e8925a] via-[var(--v3-terra)] to-[#8f3a1c]',
