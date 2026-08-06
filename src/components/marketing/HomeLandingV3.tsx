@@ -217,7 +217,7 @@ function CalledChosenHeading({
                   aria-hidden
                   className={cn(
                     'pointer-events-none absolute top-[calc(52%-3px)] left-[-4%] h-[0.12em] w-[108%] origin-left rounded-full transition-colors duration-500',
-                    'bg-[var(--v3-terra)] group-hover/hero:bg-[var(--v3-cream)]'
+                    'bg-[var(--v3-terra)] group-hover/hero:bg-[var(--v3-ink)]'
                   )}
                   initial={{ scaleX: 0 }}
                   animate={{
@@ -692,8 +692,8 @@ function QuoteFeaturesBand() {
         {/* Left — behind Give (tablet/desktop only) */}
         <div
           className={cn(
-            'absolute top-[calc(42%+112px)] left-[-8%] hidden size-[min(58vw,22rem)] -translate-y-1/2 rounded-full sm:block',
-            'border border-dashed border-[var(--v3-ink)]/20 sm:left-[-2%] sm:size-[min(42vw,24rem)] lg:top-[calc(48%+112px)] lg:left-[2%] lg:size-[26rem]'
+            'absolute top-[calc(42%+160px)] left-[-8%] hidden size-[min(58vw,22rem)] -translate-y-1/2 rounded-full sm:block',
+            'border border-dashed border-[var(--v3-ink)]/20 sm:left-[-2%] sm:size-[min(42vw,24rem)] lg:top-[calc(48%+160px)] lg:left-[2%] lg:size-[26rem]'
           )}
         />
         {/* Right — larger, behind quote end + Missions */}
@@ -875,8 +875,8 @@ function Narrative() {
               <div
                 aria-hidden
                 className={cn(
-                  'pointer-events-none absolute top-1/2 left-1/2 z-0 hidden -translate-x-[42%] -translate-y-1/2 -rotate-[17deg] lg:block',
-                  'aspect-[16/10] w-[min(130%,38rem)]',
+                  'pointer-events-none absolute top-1/2 left-1/2 z-0 hidden translate-x-[calc(16%+16px)] translate-y-[calc(-50%+30px)] -rotate-[37deg] lg:block',
+                  'aspect-[16/10] w-[min(65%,19rem)]',
                   'rounded-[2rem]',
                   'bg-gradient-to-br from-[#e8925a] via-[var(--v3-terra)] to-[#8f3a1c]',
                   inView ? 'opacity-100' : 'opacity-0',

@@ -37,7 +37,8 @@ export function SiteHeader() {
               <SiteLink
                 key={item.href}
                 to={item.href}
-                className="px-3 py-2 text-[13px] font-medium tracking-wide text-[var(--v3-ink,#1e1512)]/70 transition hover:text-[var(--v3-ink,#1e1512)]"
+                soonVariant="morph"
+                className="min-h-9 min-w-[4.5rem] px-3 py-2 text-[13px] font-medium tracking-wide text-[var(--v3-ink,#1e1512)]/70"
               >
                 {item.label}
               </SiteLink>
@@ -80,8 +81,9 @@ export function SiteHeader() {
                   <SiteLink
                     key={item.href}
                     to={item.href}
+                    soonVariant="morph"
                     onClick={() => setOpen(false)}
-                    className="rounded-xl px-3 py-3 font-sans text-lg font-bold tracking-tight text-[var(--v3-ink,#1e1512)] hover:bg-black/5"
+                    className="justify-start rounded-xl px-3 py-3 font-sans text-lg font-bold tracking-tight text-[var(--v3-ink,#1e1512)]"
                   >
                     {item.label}
                   </SiteLink>

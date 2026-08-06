@@ -10,6 +10,8 @@ type SiteLinkProps = {
   className?: string
   style?: CSSProperties
   soonLabel?: string
+  /** tooltip = tip below; morph = label becomes a Coming soon pill on hover */
+  soonVariant?: 'tooltip' | 'morph'
   onClick?: (e: MouseEvent) => void
 }
 
@@ -22,6 +24,7 @@ export function SiteLink({
   className,
   style,
   soonLabel = 'Coming soon',
+  soonVariant = 'tooltip',
   onClick,
 }: SiteLinkProps) {
   if (isLiveHref(to)) {
@@ -32,6 +35,53 @@ export function SiteLink({
     )
   }
 
+  if (soonVariant === 'morph') {
+    return (
+      <span
+        role="link"
+        aria-disabled="true"
+        aria-label={`${typeof children === 'string' ? children : 'Link'} — ${soonLabel}`}
+        tabIndex={0}
+        style={style}
+        className={cn(
+          'group/soon relative inline-flex cursor-default items-center justify-center',
+          className
+        )}
+        onClick={(e) => {
+          e.preventDefault()
+          onClick?.(e)
+        }}
+        onKeyDown={(e: KeyboardEvent) => {
+          if (e.key === 'Enter' || e.key === ' ') e.preventDefault()
+        }}
+      >
+        <span
+          className={cn(
+            'inline-flex items-center transition duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
+            'group-hover/soon:scale-90 group-hover/soon:opacity-0 group-hover/soon:blur-[2px]',
+            'group-focus-visible/soon:scale-90 group-focus-visible/soon:opacity-0 group-focus-visible/soon:blur-[2px]'
+          )}
+        >
+          {children}
+        </span>
+        <span
+          aria-hidden
+          className={cn(
+            'pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2',
+            'inline-flex items-center justify-center whitespace-nowrap rounded-full',
+            'bg-[var(--v3-terra,#d86637)] px-3 py-1.5',
+            'text-[10px] font-bold uppercase tracking-[0.14em] text-white',
+            'scale-75 opacity-0 transition duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
+            'group-hover/soon:scale-100 group-hover/soon:opacity-100',
+            'group-focus-visible/soon:scale-100 group-focus-visible/soon:opacity-100'
+          )}
+        >
+          {soonLabel}
+        </span>
+      </span>
+    )
+  }
+
   return (
     <span
       role="link"
@@ -39,7 +89,7 @@ export function SiteLink({
       tabIndex={0}
       title={soonLabel}
       style={style}
-      className={cn('group/soon cursor-default', className)}
+      className={cn('group/soon relative cursor-default', className)}
       onClick={(e) => {
         e.preventDefault()
         onClick?.(e)

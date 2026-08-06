@@ -28,7 +28,7 @@ export const footerNav = {
   ],
 } as const
 
-/** Only the landing page is live for now — other routes show “Coming soon”. */
+/** Live routes navigate; everything else shows “Coming soon”. */
 export function isLiveHref(href: string) {
   if (
     href.startsWith('mailto:') ||
@@ -39,7 +39,7 @@ export function isLiveHref(href: string) {
     return true
   }
   const path = href.split(/[?#]/)[0] || '/'
-  return path === '/' || path === ''
+  return path === '/' || path === '' || path === '/podcasts'
 }
 
 export const siteMeta = {

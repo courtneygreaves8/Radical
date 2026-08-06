@@ -8,15 +8,21 @@ import { cn } from '@/lib/utils'
 
 const AUTO_MS = 8000
 
+type PodcastVideoFrameProps = {
+  /** home = landing band spacing + “All podcasts” CTA; page = podcasts hub */
+  variant?: 'home' | 'page'
+}
+
 /**
  * Radical Media band — full-bleed featured thumb + stacked previews.
  * Mobile: single column, no side décor; desktop: orange “podcasts” rail + stack.
  */
-export function PodcastVideoFrame() {
+export function PodcastVideoFrame({ variant = 'home' }: PodcastVideoFrameProps) {
   const videos = mediaVideos
   const [activeIndex, setActiveIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const active = videos[activeIndex] ?? videos[0]
+  const isPage = variant === 'page'
 
   useEffect(() => {
     if (paused || videos.length < 2) return
@@ -42,9 +48,21 @@ export function PodcastVideoFrame() {
     .slice(0, 3)
 
   return (
-    <section className="relative mt-6 overflow-x-clip bg-transparent pt-6 pb-10 sm:mt-10 sm:pt-10 sm:pb-14 lg:mt-[160px] lg:pt-12 lg:pb-[72px]">
+    <section
+      className={cn(
+        'relative overflow-x-clip bg-transparent pt-6 pb-10 sm:pt-10 sm:pb-14 lg:pb-[72px]',
+        isPage
+          ? 'mt-0 lg:pt-12'
+          : 'mt-6 sm:mt-10 lg:mt-[160px] lg:pt-12'
+      )}
+    >
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-8 lg:px-10">
-        <p className="mb-3 font-sans text-2xl font-bold uppercase italic tracking-tight text-[var(--v3-terra)] sm:mb-4 sm:text-4xl lg:hidden">
+        <p
+          className={cn(
+            'mb-3 font-sans text-2xl font-bold uppercase italic tracking-tight text-[var(--v3-terra)] sm:mb-4 sm:text-4xl lg:hidden',
+            isPage && 'sr-only'
+          )}
+        >
           podcasts
         </p>
 
@@ -93,27 +111,41 @@ export function PodcastVideoFrame() {
                 </a>
 
                 <div className="mt-4 flex shrink-0 flex-col gap-2 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
-                  <SiteLink
-                    to="/podcasts"
-                    className="inline-flex w-full items-center justify-between gap-3 rounded-full bg-[var(--v3-cream)] py-2 pr-1.5 pl-4 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--v3-ink)] transition hover:bg-white sm:w-auto sm:min-w-[12rem] sm:py-1.5 sm:pl-5 sm:tracking-[0.16em]"
-                  >
-                    <span className="min-w-0 truncate text-left">
-                      All podcasts
-                    </span>
-                    <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[var(--v3-ink)] text-[var(--v3-cream)] sm:size-8">
-                      <Play className="size-3 fill-current" />
-                    </span>
-                  </SiteLink>
+                  {!isPage ? (
+                    <SiteLink
+                      to="/podcasts"
+                      className="inline-flex w-full items-center justify-between gap-3 rounded-full bg-[var(--v3-cream)] py-2 pr-1.5 pl-4 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--v3-ink)] transition hover:bg-white sm:w-auto sm:min-w-[12rem] sm:py-1.5 sm:pl-5 sm:tracking-[0.16em]"
+                    >
+                      <span className="min-w-0 truncate text-left">
+                        All podcasts
+                      </span>
+                      <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[var(--v3-ink)] text-[var(--v3-cream)] sm:size-8">
+                        <Play className="size-3 fill-current" />
+                      </span>
+                    </SiteLink>
+                  ) : null}
                   <a
                     href={`https://www.youtube.com/watch?v=${active.youtubeId}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex w-full items-center justify-between gap-3 rounded-full border border-white/20 bg-white/10 py-2 pr-1.5 pl-4 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--v3-cream)] transition hover:bg-white/15 sm:w-auto sm:min-w-[12rem] sm:py-1.5 sm:pl-5 sm:tracking-[0.16em]"
+                    className={cn(
+                      'inline-flex w-full items-center justify-between gap-3 rounded-full py-2 pr-1.5 pl-4 text-[11px] font-bold uppercase tracking-[0.14em] transition sm:w-auto sm:min-w-[12rem] sm:py-1.5 sm:pl-5 sm:tracking-[0.16em]',
+                      isPage
+                        ? 'bg-[var(--v3-cream)] text-[var(--v3-ink)] hover:bg-white'
+                        : 'border border-white/20 bg-white/10 text-[var(--v3-cream)] hover:bg-white/15'
+                    )}
                   >
                     <span className="min-w-0 truncate text-left">
                       Open on YouTube
                     </span>
-                    <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/15 text-[var(--v3-cream)] sm:size-8">
+                    <span
+                      className={cn(
+                        'flex size-7 shrink-0 items-center justify-center rounded-full sm:size-8',
+                        isPage
+                          ? 'bg-[var(--v3-ink)] text-[var(--v3-cream)]'
+                          : 'bg-white/15 text-[var(--v3-cream)]'
+                      )}
+                    >
                       <ChevronRight className="size-3.5" strokeWidth={2.5} />
                     </span>
                   </a>
