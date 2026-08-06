@@ -834,6 +834,8 @@ function Narrative() {
     },
   ]
 
+  const fanCaps = isDesktop ? caps : caps.slice(0, 2)
+
   return (
     <section ref={ref} className={cn('relative mt-10 mb-0 sm:mt-20 lg:mt-[120px]')}>
       <div className="relative z-10 mx-auto max-w-7xl px-[14px] sm:px-8 lg:px-10">
@@ -843,7 +845,7 @@ function Narrative() {
             v3SplitGap
           )}
         >
-          <div className="relative mx-auto w-full max-w-[18rem] pb-10 sm:max-w-[40rem] sm:pb-16 lg:mx-0 lg:max-w-none lg:pb-8">
+          <div className="relative mx-auto w-full max-w-[20rem] pb-10 sm:max-w-[40rem] sm:pb-16 lg:mx-0 lg:max-w-none lg:pb-8">
             <div className="relative flex justify-center lg:justify-start lg:pl-2">
               {/* Landscape orange — desktop only behind the fan */}
               <div
@@ -860,15 +862,15 @@ function Narrative() {
 
               <div
                 className={cn(
-                  'relative z-10 aspect-[3/4] w-[min(12rem,calc(100%-3.5rem))] origin-top sm:w-[20rem] lg:w-[22.5rem]',
+                  'relative z-10 aspect-[3/4] w-[min(14rem,calc(100%-2.5rem))] origin-top sm:w-[20rem] lg:w-[22.5rem]',
                   'max-lg:rotate-0 lg:-rotate-[15deg]'
                 )}
               >
-                {caps.map((c, i) => {
-                  const fromCenter = i - (caps.length - 1) / 2
-                  const fan = fromCenter * (isDesktop ? 18 : 8)
-                  const x = fromCenter * (isDesktop ? 5.5 : 1.75)
-                  const y = Math.abs(fromCenter) * (isDesktop ? 0.55 : 0.3)
+                {fanCaps.map((c, i) => {
+                  const fromCenter = i - (fanCaps.length - 1) / 2
+                  const fan = fromCenter * (isDesktop ? 18 : 11)
+                  const x = fromCenter * (isDesktop ? 5.5 : 2.25)
+                  const y = Math.abs(fromCenter) * (isDesktop ? 0.55 : 0.35)
                   return (
                     <SiteLink
                       key={c.title}
